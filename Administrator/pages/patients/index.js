@@ -4,6 +4,34 @@ document.addEventListener('DOMContentLoaded', function() {
   const spinner = document.getElementById('loading-spinner');
   const paginationBar = document.getElementById('pagination-container');
 
+  const doctorNames = [
+    'Dr. Smith',
+    'Dr. Johnson',
+    'Dr. Lee',
+    'Dr. Martinez',
+    'Dr. Brown',
+    'Dr. Garcia',
+    'Dr. Miller',
+    'Dr. Davis',
+    'Dr. Wilson',
+    'Dr. Taylor'
+  ];
+  
+  function createDoctorDropdownOptions() {
+    const dropdownContainer = document.getElementById('doctor-dropdown');
+    dropdownContainer.innerHTML = ''; // Clear any existing options
+  
+    doctorNames.forEach(doctor => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'dropdown-option'; // Apply the class for styling
+        optionDiv.setAttribute('data-value', doctor); // Set the data-value attribute
+        optionDiv.textContent = doctor; // Set the displayed text
+        dropdownContainer.appendChild(optionDiv); // Append the option to the container
+    });
+  }
+
+  createDoctorDropdownOptions();
+
   dropdowns.forEach(dropdown => {
     const selected = dropdown.querySelector('.dropdown-selected');
     const options = dropdown.querySelector('.dropdown-options');
@@ -44,34 +72,10 @@ document.addEventListener('click', function(event) {
 
 const mockData = [];
 
-const doctorNames = [
-  'Dr. Smith',
-  'Dr. Johnson',
-  'Dr. Lee',
-  'Dr. Martinez',
-  'Dr. Brown',
-  'Dr. Garcia',
-  'Dr. Miller',
-  'Dr. Davis',
-  'Dr. Wilson',
-  'Dr. Taylor'
-];
 
-function createDoctorDropdownOptions() {
-  const dropdownContainer = document.getElementById('doctor-dropdown');
-  dropdownContainer.innerHTML = ''; // Clear any existing options
-
-  doctorNames.forEach(doctor => {
-      const optionDiv = document.createElement('div');
-      optionDiv.className = 'dropdown-option'; // Apply the class for styling
-      optionDiv.setAttribute('data-value', doctor); // Set the data-value attribute
-      optionDiv.textContent = doctor; // Set the displayed text
-      dropdownContainer.appendChild(optionDiv); // Append the option to the container
-  });
-}
 
 // Call the function to create the dropdown options
-createDoctorDropdownOptions();
+
 
 const patientImages = [
     '/assets/patient0.jpeg',
@@ -89,21 +93,49 @@ function showLoading() {
 
 // Function to generate random patients
 function generatePatients(numberOfPatients) {
+    const oneDay = 24 * 60 * 60 * 1000; // Milliseconds in a day
+    const today = new Date();
+
+    // Divide patients equally among the three ranges
+    const group1Count = Math.floor(numberOfPatients / 3); // Last 7 days
+    const group2Count = Math.floor(numberOfPatients / 3); // Last 30 days
+    const group3Count = numberOfPatients - group1Count - group2Count; // Last 365 days
+
     for (let i = 1; i <= numberOfPatients; i++) {
-      const randomDoctorIndex = Math.floor(Math.random() * doctorNames.length);
-      const randomImageIndex = Math.floor(Math.random() * patientImages.length);
-      const patient = {
-          id: i.toString().padStart(3, '0'), // Generate ID like '001', '002', etc.
-          name: `Patient ${i}`,
-          registrationDate: `2023-${Math.floor(Math.random() * 12 + 1).toString().padStart(2, '0')}-${Math.floor(Math.random() * 28 + 1).toString().padStart(2, '0')}`,
-          therapist: doctorNames[randomDoctorIndex],
-          status: ['Active', 'On hold', 'Discharged'][Math.floor(Math.random() * 3)],
-          notes: 'Random notes here...',
-          headImg: patientImages[randomImageIndex]
-      };
-      mockData.push(patient);
+        const randomDoctorIndex = Math.floor(Math.random() * doctorNames.length);
+        const randomImageIndex = Math.floor(Math.random() * patientImages.length);
+        
+        let registrationDate;
+
+        if (i <= group1Count) {
+            // Generate a date in the last 7 days
+            const daysAgo = Math.floor(Math.random() * 7);
+            registrationDate = new Date(today - (daysAgo * oneDay));
+        } else if (i <= group1Count + group2Count) {
+            // Generate a date in the last 30 days
+            const daysAgo = Math.floor(Math.random() * 30);
+            registrationDate = new Date(today - (daysAgo * oneDay));
+        } else {
+            // Generate a date in the last 365 days
+            const daysAgo = Math.floor(Math.random() * 365);
+            registrationDate = new Date(today - (daysAgo * oneDay));
+        }
+
+        const formattedDate = `${registrationDate.getFullYear()}-${(registrationDate.getMonth() + 1).toString().padStart(2, '0')}-${registrationDate.getDate().toString().padStart(2, '0')}`;
+        
+        const patient = {
+            id: i.toString().padStart(3, '0'), // Generate ID like '001', '002', etc.
+            name: `Patient ${i}`,
+            registrationDate: formattedDate,
+            therapist: doctorNames[randomDoctorIndex],
+            status: ['Active', 'On hold', 'Discharged'][Math.floor(Math.random() * 3)],
+            notes: 'Random notes here...',
+            headImg: patientImages[randomImageIndex]
+        };
+        mockData.push(patient);
     }
 }
+
 
 resetFilter.addEventListener('click', function() {
   if (resetFilter.classList.contains('active')) {

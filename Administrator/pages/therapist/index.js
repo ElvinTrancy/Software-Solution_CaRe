@@ -104,6 +104,17 @@ resetFilter.addEventListener('click', function() {
       });
   }
 
+  const pagination = new Pagination({
+    totalPages: 15,
+    containerId: "pagination-container",
+    currentPage: 1,
+    
+    maxVisibleButtons: 4,
+    onPageChange: (page) => {
+      reloadTable(page);
+    }
+  });
+
   
 
   // Function to show the loading spinner
@@ -113,7 +124,7 @@ resetFilter.addEventListener('click', function() {
       
 
   // Function to reload table content based on dropdown filters
-  function reloadTable() {
+  function reloadTable(page = 1, rowsPerPage = 8) {
       showLoading(); // Show loading spinner
 
       setTimeout(() => {
@@ -121,6 +132,9 @@ resetFilter.addEventListener('click', function() {
           const selectedField = document.querySelector('.dropdown-selected[data-default="Field"]').textContent;
           const selectedStatus = document.querySelector('.dropdown-selected[data-default="Status"]').textContent;
 
+
+          const startIndex = (page - 1) * rowsPerPage;
+          const endIndex = startIndex + rowsPerPage;
           // Filter mock data based on selected values (ignore if defaults are selected)
           const filteredData = mockData.filter(item => {
               return (selectedGroup === 'Group' || item.group === selectedGroup) &&
@@ -128,12 +142,17 @@ resetFilter.addEventListener('click', function() {
                      (selectedStatus === 'Status' || item.status === selectedStatus);
           });
 
+          const newTotalPages = Math.round(filteredData.length / 8);
+          pagination.updateTotalPages(newTotalPages);
+
+          const currentPageData = filteredData.slice(startIndex, endIndex);
+
           const tbody = document.querySelector('.styled-table tbody');
           tbody.innerHTML = ''; // Clear spinner
           spinner.style.display = 'none';
 
           // Update table rows with filtered data
-          filteredData.forEach(data => {
+          currentPageData.forEach(data => {
               const row = document.createElement('tr');
               row.innerHTML = `
                   <td>${data.id}</td>
@@ -485,8 +504,8 @@ function showPreview(imgId) {
 
     // Get the position of the hovered image and set the position of the preview popup
     const rect = imgElement.getBoundingClientRect();
-    previewPopup.style.top = (rect.top + window.scrollY) + 'px'; // Align top with the image
-    previewPopup.style.left = (rect.right + window.scrollX + 10) + 'px'; // Position to the right with a small offsetleft with the image
+    previewPopup.style.top = (0) + 'px'; // Align top with the image
+    previewPopup.style.left = (0) + 'px'; // Position to the right with a small offsetleft with the image
 
     // Show the preview popup
     previewPopup.style.display = 'block';
@@ -497,6 +516,8 @@ function hidePreview() {
     const previewPopup = document.getElementById('image-preview-popup');
     previewPopup.style.display = 'none';
 }
+
+
 
 
     

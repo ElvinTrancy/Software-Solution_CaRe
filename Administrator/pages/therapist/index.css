@@ -693,7 +693,7 @@
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  width: 380px; /* Width of the enlarged preview */
+  width: 480px; /* Width of the enlarged preview */
   height: auto; /* Height of the enlarged preview */
   overflow: hidden;
 }
