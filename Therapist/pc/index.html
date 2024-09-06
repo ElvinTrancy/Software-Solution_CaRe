@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Dashboard</title>
+    <link rel="stylesheet" href="/css/index.css"> 
+    <script src="/components/icon/index.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+          <div class="add-section">
+            <svg class="icon plus" aria-hidden="true">
+              <use xlink:href="#icon-plus"></use>
+            </svg>
+          </div>
+          <div class="menu-section">
+            <div class="menu-item active">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-ana"></use>
+              </svg>
+              <span class="info">8</span>              
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-calendar"></use>
+              </svg>
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-muser"></use>
+              </svg>          
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-house"></use>
+              </svg>          
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-gear"></use>
+              </svg>          
+            </div>
+            
+          </div>
+          <div class="head-section">
+            <img src="/assets/doc0.jpeg">
+            <span class="info">8</span>
+          </div>
+        </div>
+    </div>
+    <script>
+      // Get all menu-item elements
+      const menuItems = document.querySelectorAll('.menu-item');
+    
+      // Add click event listener to each menu-item
+      menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Remove 'active' class from all menu items
+          menuItems.forEach(el => el.classList.remove('active'));
+          
+          // Add 'active' class to the clicked menu-item
+          this.classList.add('active');
+        });
+      });
+    </script>
+    
+
+    </script>
+</body>
+</html>

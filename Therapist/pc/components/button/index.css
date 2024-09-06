@@ -1,0 +1,93 @@
+/* Base button style */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  padding: 0.6rem 1.2rem; /* Slightly larger for a modern feel */
+  border-radius: 0.5rem; /* Rounded corners for a modern look */
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  line-height: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Softer shadow for a gentle lift */
+  background: transparent;
+  position: relative;
+  min-width: 6rem;
+  min-height: 2.75rem; /* Adjusted height */
+}
+
+/* Primary button style */
+.btn-primary {
+  color: #fff;
+  background-color: #1a73e8; /* Updated to match design */
+  border-color: #1a73e8;
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.4); /* Subtle shadow for depth */
+}
+
+.btn-primary:hover {
+  background-color: #1764c4; /* Slightly darker on hover */
+  border-color: #1764c4;
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.3); /* Blue focus outline */
+}
+
+/* Secondary button style (for link buttons or less important actions) */
+.btn-secondary {
+  color: #1a73e8;
+  background-color: transparent;
+  border-color: #1a73e8;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #1a73e8;
+  border-color: #1a73e8;
+}
+
+.btn-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.3); /* Blue focus outline */
+}
+
+/* Button with Icon styles */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+}
+
+.btn-icon .icon {
+  font-size: 1.2rem; /* Adjusted for consistent sizing */
+  color: inherit; /* Inherit color from button */
+}
+
+/* Loading state styles */
+.btn[data-loading="true"] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn[data-loading="true"] .loading-spinner {
+  display: inline-block;
+}
+
+.loading-spinner {
+  width: 1.2rem; /* Adjusted size for visibility */
+  height: 1.2rem;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

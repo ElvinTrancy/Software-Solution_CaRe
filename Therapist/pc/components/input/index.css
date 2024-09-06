@@ -1,0 +1,57 @@
+/* Wrapper for the input and icon */
+.input-affix-wrapper {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 0.875rem; /* 14px to rem */
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  position: relative;
+  display: inline-block;
+  width: 17rem; /* 272px to rem */
+  text-align: start;
+  border: 0.0625rem solid #d9d9d9; /* 1px to rem */
+  border-radius: 0.25rem; /* 4px to rem */
+  padding: 0 0.75rem; /* 12px to rem */
+  background-color: #fff; /* Background color */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus effect */
+}
+
+.input-affix-wrapper:focus-within {
+  border-color: #40a9ff; /* Focus border color */
+  box-shadow: 0 0 0 0.125rem rgba(24, 144, 255, 0.2); /* Focus shadow */
+}
+
+/* Style the input field */
+.input {
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 0.5rem; /* Adjusted padding */
+  border: none; /* No border for the input */
+  outline: none; /* Remove default outline */
+  font-size: 0.875rem; /* 14px to rem */
+  color: rgba(0, 0, 0, 0.85); /* Text color */
+  box-sizing: border-box;
+}
+
+/* Suffix wrapper for the search icon */
+.input-suffix {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem; /* Align icon with right padding */
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 0;
+  transform: translateY(-50%);
+  pointer-events: none; /* Make the icon non-clickable */
+}
+
+/* Search icon style */
+.icon {
+  font-size: 1rem; /* 16px to rem */
+  color: rgba(0, 0, 0, 0.45); /* Icon color */
+}

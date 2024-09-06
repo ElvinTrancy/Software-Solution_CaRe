@@ -1,0 +1,214 @@
+.table-wrapper {
+  clear: both;
+  border-radius: 3%;
+  max-width: 100%;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+.table-wrapper::before {
+  display: table;
+  content: "";
+}
+
+.table-wrapper::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.table-wrapper .table {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  background: #ffffff;
+  border-radius: 8px 8px 0 0;
+  scrollbar-color: rgba(0, 0, 0, 0.25) rgba(5, 5, 5, 0.06);
+}
+
+.table-wrapper table {
+  width: 100%;
+  text-align: start;
+  border-radius: 8px 8px 0 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-wrapper .table-cell,
+.table-wrapper .table-thead > tr > th,
+.table-wrapper .table-tbody > tr > th,
+.table-wrapper .table-tbody > tr > td,
+.table-wrapper tfoot > tr > th,
+.table-wrapper tfoot > tr > td {
+  position: relative;
+  padding: 1rem 1rem; /* Converted 16px to 1rem */
+  overflow-wrap: break-word;
+}
+
+.table-wrapper .table-thead > tr > th,
+.table-wrapper .table-thead > tr > td {
+  position: relative;
+  color: rgba(0, 0, 0, 0.88);
+  text-align: start;
+  font-weight: normal;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease;
+}
+
+.table-wrapper .table-tbody > tr > th,
+.table-wrapper .table-tbody > tr > td {
+  transition: background 0.2s, border-color 0.2s;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.table-wrapper .table-footer {
+  padding: 1rem; /* Converted 16px to 1rem */
+  color: rgba(0, 0, 0, 0.88);
+  background: #fafafa;
+}
+
+.table-wrapper .table-pagination {
+  margin: 1rem 0; /* Converted 16px to 1rem */
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 0.5rem; /* Converted 8px to 0.5rem */
+}
+
+.table-wrapper .table-summary {
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+}
+
+/* CSS for changing the row color on hover */
+.table-wrapper .table-tbody > tr:hover {
+  background-color: #e6f7ff; /* Light blue background on hover */
+}
+
+/* CSS for changing the row color when checkbox is selected */
+.table-wrapper .table-tbody > tr.selected-row {
+  background-color: #e6f7ff; /* Light blue background when selected */
+}
+
+/* Additional styles to ensure proper visibility */
+.table-wrapper .table-tbody > tr:hover .table-cell,
+.table-wrapper .table-tbody > tr.selected-row .table-cell {
+  color: rgba(0, 0, 0, 0.88); /* Maintain text color on hover/selection */
+}
+
+.a-button {
+  color: #1890ff;
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  -webkit-transition: color .3s;
+  transition: color .3s;
+  -webkit-text-decoration-skip: objects;
+}
+
+.divider {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0,0,0,.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  -webkit-font-feature-settings: "tnum";
+  font-feature-settings: "tnum";
+  background: #1890ff;
+}
+
+.divider-vertical {
+  position: relative;
+  top: -.06em;
+  display: inline-block;
+  width: 1px;
+  height: .9em;
+  margin: 0 8px;
+  vertical-align: middle;
+}
+
+
+
+.badge {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0,0,0,.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  -webkit-font-feature-settings: "tnum";
+  font-feature-settings: "tnum";
+  position: relative;
+  display: inline-block;
+  color: unset;
+  line-height: 1;
+}
+
+.photo {
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 12.5px;
+  overflow: hidden;
+  border-color: #1890ff;
+  border-width: 1px;
+}
+
+.status-processing {
+  background-color: #1890ff;
+}
+
+.status-error {
+  background-color: #f5222d;
+}
+
+.status-success {
+  background-color: #52c41a;
+  display: inline-block;
+  width: 6px; /* 确保父元素与点的大小一致 */
+  height: 6px; /* 同上 */
+}
+
+.status-dot {
+  position: relative;
+  top: -1px;
+  left: 0px;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
+.status-text {
+  margin-left: 8px;
+  color: rgba(0,0,0,.65);
+  font-size: 14px;
+}
+
+@keyframes statusSuccess {
+  0% {
+    -webkit-transform: scale(.8);
+    transform: scale(.8);
+    opacity: .5;
+  }
+
+  100% {
+    -webkit-transform: scale(2.4);
+    transform: scale(2.4);
+    opacity: 0;
+}
+}

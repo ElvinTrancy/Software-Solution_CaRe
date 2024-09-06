@@ -1,0 +1,162 @@
+.filter-bar {
+  flex: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  height: 3rem;
+  border-radius: .5rem;
+  padding: 10px;
+  margin-left: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Individual filter item */
+.filter-item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 5px 10px;
+  border-right: 1px solid #ddd;
+  text-align: center;
+  align-items: center;
+  height: 1.9rem;
+}
+
+.filter-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-image: url('/assets/eglass-filter.png'); /* Normal state icon */
+  background-size: cover;
+  background-position: center;
+}
+
+.filter-item:last-child {
+  border-right: none; /* Remove border from the last item */
+}
+
+/* Default icon styling */
+.reset-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-image: url('/assets/reset_line_normal.png'); /* Normal state icon */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Default text styling */
+.reset-filter .reset-text {
+  font-weight: 600;
+  color: #333; /* Normal text color */
+}
+
+/* Active state styling for the reset filter */
+.reset-filter.active {
+  color: #EA0234; /* Change text color when active */
+}
+
+/* Active state for the icon */
+.reset-filter.active .reset-icon {
+  background-image: url('/assets/reset_line.png'); /* Active state icon */
+}
+
+.reset-filter.active .reset-text {
+  color: #EA0234; /* Change text color when active */
+}
+
+/* Hover effect for reset filter */
+.reset-filter:hover {
+  color: #d32f2f; /* Darker red on hover */
+}
+
+/* Styling for the select element */
+.filter-select {
+  font-size: 16px;
+  color: #333; /* Default text color */
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  appearance: none; /* Remove default arrow */
+  background: none;
+  background-image: url('/assets/down.png'); /* Custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 0px center; /* Position arrow icon */
+  background-size: 2rem; /* Size of the arrow icon */
+  cursor: pointer;
+  width: 100%; /* Adjust width as necessary */
+  box-sizing: border-box;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  flex: 1;
+  font-family: Arial, sans-serif;
+  border: none;
+  width: 135px;
+}
+
+.dropdown-selected {
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  color: #333;
+  text-align: center;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-selected::after {
+  content: '▼'; /* Arrow icon */
+  font-size: 12px;
+  color: #666;
+  margin-left: 10px;
+}
+
+.dropdown-options {
+  display: none; /* Hidden by default */
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  text-align: left;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10; /* Ensure it stays on top */
+}
+
+.dropdown-option {
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdown-option:hover {
+  background-color: #e6f7ff; /* Light blue on hover */
+}
+
+.dropdown-option:disabled {
+  color: #bfbfbf; /* Light grey text for disabled options */
+  background-color: #f5f5f5; /* Light grey background for disabled options */
+  cursor: not-allowed;
+}
+
+/* Styling for the focus state */
+.filter-select:focus {
+  border: none; /* Blue border on focus */
+  outline: none; /* Remove default outline */
+}

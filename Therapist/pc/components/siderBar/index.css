@@ -1,0 +1,204 @@
+@import url('/css/variables.css');
+
+.menu-container {
+  margin-top: .25rem;
+  margin-left: .25rem;
+  width: 12.5rem;
+  color: var(--text-color); /* Use the theme's text color */
+  overflow: hidden;
+  height: 100%;
+  flex-grow: 1;
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  border-radius: .25rem;
+  background-color: var(--background-color); /* Use the theme's background color */
+  box-sizing: border-box;
+  border-width: 0;
+  align-items: center;
+  border-style: solid;
+  border-color: var(--border-color); /* Use the theme's border color */
+}
+
+.menu-group {
+  width: 100%;
+  margin-top: .75rem;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  border-top-width: 1px;
+  position: relative;
+  border-color: var(--border-color); /* Use the theme's border color */
+}
+
+.menu-group::before {
+  content: '';
+  position: absolute;
+  top: 0; /* Position at the top of the .menu-group */
+  left: 10%; /* Start the border 10% from the left */
+  width: 80%; /* Make the border span 80% of the width */
+  height: 1px; /* Height of the border */
+  background-color: var(--border-color); /* Use the theme's border color */
+  box-sizing: border-box;
+}
+
+.menu-item {
+  padding-left: .75rem;
+  padding-right: .75rem;
+  margin-top: .5rem;
+  height: 3rem;
+  align-items: center;
+  position: relative;
+  display: flex;
+  border-radius: .25rem;
+  color: var(--text-color); /* Use the theme's text color */
+  text-decoration: inherit;
+  border-color: var(--border-color); /* Use the theme's border color */
+  width: calc(100% - 1.5rem); /* Optional: Adjust width if you want to account for padding */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.menu-item:hover {
+  background-color: var(--hover-background-color); /* Use the theme's hover background color */
+  border-radius: 0.25rem;
+  color: var(--hover-color);
+}
+
+.selected {
+  background-color: var(--hover-background-color); /* Use the theme's hover background color */
+  border-radius: 0.25rem;
+  color: var(--selected-color);
+}
+
+.home-icon {
+  width: 100%;
+  padding-left: .75rem;
+  padding-right: .75rem;
+  margin-top: .75rem;
+  height: 3rem;
+  align-items: center;
+  display: flex;
+  border-radius: .25rem;
+  color: var(--text-color); /* Use the theme's text color */
+  text-decoration: inherit;
+  border-color: var(--border-color); /* Use the theme's border color */
+}
+
+.home-icon:hover {
+  background-color: var(--hover-color); /* Use the theme's hover background color */
+  border-radius: 0.25rem;
+}
+
+.menu-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+  display: block;
+}
+
+.menu-text {
+  margin-left: .5rem;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.menu-msg-count {
+  width: .5rem;
+  left: 0;
+  top: 0;
+  position: absolute;
+  margin-left: .5rem;
+  margin-top: .5rem;
+  height: .5rem;
+  border-radius: 9999px;
+  background-color: #6366F1;
+}
+
+/* Button positioned at the bottom */
+.menu-bottom-button {
+  position: absolute;
+  margin-top: .25rem;
+  bottom: .75rem;
+  left: .75rem;
+  right: .75rem;
+  padding: .5rem;
+  background-color: var(--background-color); /* Adjust as needed */
+  text-align: center;
+  box-sizing: border-box; /* Ensure padding doesn't affect the width */
+}
+
+.menu-bottom-button::before {
+  content: '';
+  position: absolute;
+  top: -.25rem; /* Position at the top of the .menu-group */
+  left: 10%; /* Start the border 10% from the left */
+  width: 80%; /* Make the border span 80% of the width */
+  height: 1px; /* Height of the border */
+  background-color: var(--border-color); /* Use the theme's border color */
+  box-sizing: border-box;
+}
+
+.menu-bottom-button:hover {
+  background-color: var(--hover-background-color);
+  color: var(--hover-color);
+}
+
+.arrow-icon {
+  margin-left: auto; /* Push the arrow to the right */
+  width: 1rem;
+  height: 1rem;
+  display: block;
+  transform: rotate(0deg); /* Default arrow direction */
+  transition: transform 0.1s ease;
+}
+
+.menu-children {
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  padding-left: 1rem; /* Indentation for child menus */
+  width: calc(100% - 2.5rem);
+}
+
+.menu-children .menu-item {
+  padding-left: 0rem;
+  padding-right: 0rem;
+  margin-top: .25rem; /* Adjusted for better alignment */
+  height: 2rem; /* Shorter height for child menu items */
+  font-size: 0.75rem; /* Smaller font size for child menu items */
+  width: 100%; /* Ensure child menu items align with parent */
+  box-sizing: border-box;
+}
+
+.menu-item.expanded + .menu-children {
+  display: flex; /* Show children when the parent is expanded */
+}
+
+.menu-item.expanded .arrow-icon {
+  transform: rotate(-180deg); /* Rotate arrow when expanded */
+}
+
+
+@media (max-width: 1360px) {
+  .menu-container {
+    width: 4rem; /* Adjust width for smaller screens */
+  }
+  
+  .menu-item {
+    justify-content: center; /* Center icons when text is hidden */
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .menu-text {
+    display: none; /* Hide the text */
+  }
+
+  .arrow-icon {
+    display: none;
+  }
+
+  .menu-bottom-button {
+    justify-content: center;
+}
+}

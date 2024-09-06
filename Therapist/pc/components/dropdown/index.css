@@ -1,0 +1,63 @@
+.dropdown {
+  position: absolute;
+  right: 0;
+}
+
+.dropdown-trigger {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.circle-image {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%; /* Makes the image circular */
+  margin-right: .5rem;
+}
+
+.arrow-icon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  right: 0; /* Align dropdown to the right of the trigger */
+  top: 100%; /* Position directly below the trigger */
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: .25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: .5rem 1rem;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background-color: var(--hover-background-color);
+  color: var(--hover-color);
+}
+
+/* Show the dropdown menu on trigger click */
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+.dropdown.open .arrow-icon {
+  transform: rotate(180deg); /* Rotate arrow when dropdown is open */
+}
+@media(max-width: 600px){
+  .dropdown{
+    display: none;
+  }
+}
