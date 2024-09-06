@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="index.css">   
-    <link href="/components/pagination/index.css" rel="stylesheet">    
-    <link rel="stylesheet" href="/components//filter/index.css">    
+    <link rel="stylesheet" href="/components//filter/index.css">
+    <link href="/components/pagination/index.css" rel="stylesheet">
     <link href="/components/statusBar/index.css" rel="stylesheet">
     <link href="/components/loading/index.css" rel="stylesheet">
     <script src="/components/icon/index.js"></script>
@@ -53,7 +53,7 @@
                     <use xlink:href="#icon-arrow"></use>
                 </svg>
             </li>
-            <li class="menu-item active">
+            <li class="menu-item ">
                 <svg class="icon menu-icon" aria-hidden="true">
                     <use xlink:href="#icon-patient"></use>
                 </svg>
@@ -62,7 +62,7 @@
                     <use xlink:href="#icon-arrow"></use>
                 </svg>
             </li>
-            <li class="menu-item">
+            <li class="menu-item active">
                 <svg class="icon menu-icon" aria-hidden="true">
                     <use xlink:href="#icon-group"></use>
                 </svg>
@@ -124,7 +124,7 @@
   <div class="content">
     <div class="bread-bar">
         <div class="link">
-          Patients management >
+          Group management >
         </div>
         <div class="announcement">
             <svg class="icon arrow-icon" aria-hidden="true">
@@ -147,15 +147,15 @@
         </div>
         <div class="filter-item">
           <div class="dropdown">
-            <div class="dropdown-selected" data-default="Therapist">Therapist</div>
-            <div class="dropdown-options" id = 'doctor-dropdown'>
+            <div class="dropdown-selected" data-default="Leader">Leader</div>
+            <div class="dropdown-options" id = 'leader-dropdown'>
                 
             </div>
           </div>
         </div>
         <div class="filter-item">
           <div class="dropdown">
-              <div class="dropdown-selected" data-default="Registration">Registration</div>
+              <div class="dropdown-selected" data-default="Creation">Creation</div>
               <div class="dropdown-options">
                   <div class="dropdown-option" data-value="Last 7 days">Last 7 days</div>
                   <div class="dropdown-option" data-value="Last 30 days">Last 30 days</div>
@@ -183,23 +183,22 @@
     </div>
     </div>
 
-    <div class="patient-table-container">
+    <div class="group-table-container">
       <div class="loading-spinner" id="loading-spinner"></div>
       <table class="styled-table">
-          <thead>
-              <tr>
-                  <th>Patient</th>
-                  <th>Registration Date</th>
-                  <th>Assigned Therapist</th>
-                  <th>Status</th>
-                  <th>Notes/Summary</th>
-                  <th>Operation</th>
-              </tr>
-          </thead>
-          <tbody>
-              <!-- Data rows will be dynamically inserted here -->
-          </tbody>
-      </table>
+        <thead>
+            <tr>
+                <th>Group</th>
+                <th>Number of Members</th>
+                <th>Group Leader</th>
+                <th>Assigned Patients</th>
+                <th>Creation Date</th>
+                <th>Status</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody id="table-content"></tbody>
+    </table>
       <div id="pagination-container" class="pagination"></div>
   </div>
   

@@ -1,0 +1,34 @@
+.status {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  width: 100px;  
+  user-select: none;
+}
+
+.status-active {
+  background-color: #4fd3c4; /* Light cyan for Active */
+}
+
+.status-onhold {
+  background-color: #c4a2e7; /* Light purple for On hold */
+}
+
+.status-discharged {
+  background-color: #f79999; /* Light red for Discharged */
+}
+
+.status-inactive {
+  background-color: #c4a2e7; /* Light purple for On hold */
+}
+
+.status-disbanded {
+  background-color: #f79999; /* Light red for Discharged */
+}
+
+.status-recruiting {
+  background-color: #ffcc66; /* Light red for Discharged */
+}

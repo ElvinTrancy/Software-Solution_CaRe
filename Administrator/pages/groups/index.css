@@ -1,22 +1,34 @@
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('assets/login_bg.png'); /* Adjust the path as needed */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  opacity: 0.2; /* Transparency level */
-  z-index: -1; /* Background is behind the content */
+.group-table-container {
+  overflow-x: hidden;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-size: .875rem;
+  margin: .5rem .5rem 0 .5rem;
+  height: calc(100vh - 14.0rem);
+  position: relative;
 }
 
-.list-name {
-  font-size: 2rem;
-  margin: .5rem;
+.styled-table tbody {
+  height: calc(100% - 3rem); /* Adjust based on the height of the header */
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.operation-btn {
+  color: #0F67FE;
+  border: 1px solid #0F67FE;
+  background-color: transparent;
+  padding: 5px 10px;
+  border-radius: .5rem;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: .85rem;
+  min-width: 3.75rem;
+}
+
+.operation-btn:hover {
+  background-color: #e6f0ff;
 }
 
 .filter-section {
@@ -66,22 +78,34 @@ body::before {
   opacity: 1; /* Ensures consistent color across browsers */
 }
 
-.filter-bar {
-  flex: auto;
+.group-info {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  height: 3rem;
-  border-radius: .5rem;
-  padding: 10px;
-  margin-left: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
 }
 
-.patient-table-container {
+.group-img {
+  width: 34px;   /* Size of the image */
+  height: 34px;  /* Size of the image */
+  border-radius: 50%; /* Circular shape */
+  object-fit: cover;  /* Ensure the image covers the area */
+  margin-right: 10px; /* Space between the image and text */
+}
+
+.group-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.group-name {
+  font-weight: bold; /* Bold name text */
+}
+
+.group-id {
+  font-size: 0.8rem; /* Smaller font for ID */
+  color: #888; /* Light color for ID text */
+}
+
+.group-table-container {
   overflow-x: hidden;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -90,55 +114,6 @@ body::before {
   margin: .5rem .5rem 0 .5rem;
   height: calc(100vh - 14.0rem);
   position: relative;
-}
-
-.styled-table tbody {
-  height: calc(100% - 3rem); /* Adjust this based on the height of the thead */
-  overflow-y: auto; /* Enables vertical scrolling */
-  flex: 1 1 auto; /* Allows tbody to take available space */
-}
-
-.operation-btn {
-  color: #0F67FE;  /* Font color */
-  border: 1px solid #0F67FE;  /* Border color */
-  background-color: transparent;  /* Transparent background */
-  padding: 5px 10px;
-  border-radius: .5rem;
-  cursor: pointer;
-  margin-right: 5px;  /* Space between buttons */
-  font-size: .85rem;  /* Font size for readability */
-  min-width: 3.75rem;
-}
-
-.operation-btn:hover {
-  background-color: #e6f0ff;  /* Light blue background on hover */
-}
-
-.patient-info {
-  display: flex;
-  align-items: center;
-}
-
-.patient-img {
-  width: 34px;   /* Size of the image */
-  height: 34px;  /* Size of the image */
-  border-radius: 50%; /* Circular shape */
-  object-fit: cover;  /* Ensure the image covers the area */
-  margin-right: 10px; /* Space between the image and text */
-}
-
-.patient-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.patient-name {
-  font-weight: bold; /* Bold name text */
-}
-
-.patient-id {
-  font-size: 0.8rem; /* Smaller font for ID */
-  color: #888; /* Light color for ID text */
 }
 
 
