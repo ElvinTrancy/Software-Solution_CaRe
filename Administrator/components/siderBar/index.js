@@ -11,7 +11,11 @@ let currentDir = pathSegments.length > 2 ? pathSegments[pathSegments.length - 2]
 
 // 检查当前路径是否是主页
 function isHome() {
-  return currentPath === '/' || currentFile === 'index.html';
+    console.log(currentPath);
+    console.log(currentFile);
+    
+
+  return currentPath === '/' || (currentFile === 'index.html' && pathSegments.length === 1);
 }
 
 // 设置活动菜单项的函数
@@ -22,7 +26,7 @@ function setActiveMenu() {
     // 仅当是主页时激活 'Home' 菜单项
     if (isHome() && menuText === 'home') {
       item.classList.add('active');
-    } else if (!isHome() && (menuText === currentDir || menuText === currentFile.replace('.html', ''))) {
+    } else if (!isHome() && (currentDir.includes(menuText) || currentFile.includes(menuText))) {
       // 根据当前目录或文件名匹配其他菜单项
       item.classList.add('active');
     } else {
