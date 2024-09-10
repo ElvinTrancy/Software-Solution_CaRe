@@ -3,48 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CaRe - Therapist</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="css/styles2.css">
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <img src="images/Frame.png" alt="CaRe Logo">
-        </div>
-        <form class="login-form">
-            <label for="id">ID</label>
-            <input type="text" id="id" name="id" required>
-
-            <label for="password">Password</label>
-            <div class="password-container">
-                <input type="password" id="password" name="password" required>
-                <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+        <!-- 顶部部分 -->
+        <div class="header">
+            <img src="images/image 1.png" alt="Doctor DeHui" class="doctor-photo">
+            <div class="welcome">
+                <p>Hi, <span>WelcomeBack</span></p>
+                <h2>Dr. DeHui</h2>
             </div>
-
-            <a href="#" class="forgot-password">Forget Password</a>
-            <button type="button" class="sign-in-btn" onclick="navigateToPage()">Sign In ➜</button>
-        </form>
-
-        <div class="divider">
-            <hr>
-            <span>OR</span>
-            <hr>
         </div>
 
-        <div class="contact-admin">
-            Don’t have an account? <a href="#">Contact Admin.</a>
+        <!-- 日程提醒 -->
+        <div class="schedule-reminder">
+            <h3>Schedule Reminder</h3>
+            <div class="dates">
+                <div class="date">9 <span>MON</span></div>
+                <div class="date">10 <span>TUE</span></div>
+                <div class="date active">11 <span>WED</span></div>
+                <div class="date">12 <span>THU</span></div>
+                <div class="date">13 <span>FRI</span></div>
+                <div class="date">14 <span>SAT</span></div>
+            </div>
+            <div class="reminder-details">
+                <p>11 Wednesday - Today</p>
+                <div class="time-block">
+                    <div class="time">9 AM</div>
+                    <div class="time-line"></div>
+                </div>
+                <div class="time-block">
+                    <div class="time">10 AM</div>
+                    <div class="reminder">
+                        <p>Dr. Olivia Turner, M.D.<br>Treatment and prevention of skin and photodermatitis.</p>
+                        <div class="actions">
+                            <button class="complete">✔</button>
+                            <button class="cancel">✖</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="time-block">
+                    <div class="time">11 AM</div>
+                    <div class="time-line"></div>
+                </div>
+                <div class="time-block">
+                    <div class="time">12 AM</div>
+                    <div class="time-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 风险病人警告 -->
+        <div class="risk-patients">
+            <h3>Risk Patient Warning</h3>
+            <div class="patient-cards">
+                <div class="patient-card">
+                    <img src="images/YinaNa.jpg" alt="Patient 1" class="patient-photo">
+                    <p>Olivia Turner, M.D.</p>
+                    <p>“I haven’t been eating well lately, please help me,”</p>
+                    <button class="contact-btn">contact</button>
+                </div>
+                <div class="patient-card">
+                    <img src="images/TaoZhe.jpeg" alt="Patient 2" class="patient-photo">
+                    <p>Olivia Turner, M.D.</p>
+                    <p>“I haven’t been eating well lately, please help me,”</p>
+                    <button class="contact-btn">contact</button>
+                </div>
+                <div class="patient-card">
+                    <img src="images/SanMeng.jpg" alt="Patient 3" class="patient-photo">
+                    <p>Olivia Turner, M.D.</p>
+                    <p>“I haven’t been eating well lately, please help me,”</p>
+                    <button class="contact-btn">contact</button>
+                </div>
+                <div class="patient-card">
+                    <img src="images/YaoShui.jpg" alt="Patient 4" class="patient-photo">
+                    <p>Olivia Turner, M.D.</p>
+                    <p>“I haven’t been eating well lately, please help me,”</p>
+                    <button class="contact-btn">contact</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 当前工作负荷总结 -->
+        <div class="current-load">
+            <h3>Summary of Current Load</h3>
+            <div class="load-summary">
+                <img src="images/Frame (1).png" alt="Current Load Summary">
+            </div>
+        </div>
+
+        <!-- 底部导航栏 -->
+        <div class="navbar">
+            <img src="images/Home bar2.png" alt="Home Bar" onclick="navigateToIndex3()">
         </div>
     </div>
 
     <script>
-        function navigateToPage() {
-            window.location.href = "index2.html";
-        }
-
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById("password");
-            var type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-            passwordInput.setAttribute("type", type);
+        function navigateToIndex3() {
+            window.location.href = "index3.html";
         }
     </script>
 </body>

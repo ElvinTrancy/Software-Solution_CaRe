@@ -13,15 +13,13 @@ body {
 /* Ensure the body scales properly on mobile */
 body {
     font-size: 16px; /* Default font size */
+    background-color: #F7F8FB;
 }
 
 .container {
-    background-color: #F7F8FB;
     padding: 30px 20px;
-    border-radius: 15px;
     width: 90%;
     max-width: 360px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     text-align: center; /* 确保所有内容居中对齐 */
 }
 
@@ -48,15 +46,23 @@ body {
 .login-form input {
     width: 100%;
     padding: 12px;
-    margin-bottom: 20px;
     border-radius: 8px;
     border: 2px solid #dcdcdc;
     font-size: 16px;
     box-sizing: border-box; /* 确保 padding 不影响宽度 */
 }
 
+.id {
+    margin-bottom: 20px;
+}
+
 .password-container {
     position: relative;
+    margin-bottom: 20px;
+}
+
+.password {
+    margin-bottom: 0px;
 }
 
 .toggle-password {
@@ -123,6 +129,7 @@ body {
     color: #707070;
     text-decoration: none;
     float: right;
+    margin-bottom: 20px;
 }
 
 .forgot-password:hover {
