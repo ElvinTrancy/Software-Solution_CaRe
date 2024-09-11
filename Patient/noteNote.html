@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker</title>
+    <link rel="stylesheet" href="Styles/Basical.css">
+    <link rel="stylesheet" href="Styles/moodNote.css">
+    <link rel="stylesheet" href="Styles/noteNote.css">
+
+    <script src="JS/moodnote.js"></script>
+</head>
+<body>
+
+    <div class="mood-select">
+        <div class="header">
+            <button class="back-btn">
+                <a href="diet-level.html">
+                <img src="images/back-icon.png" alt="Back">
+                </a>
+            </button>
+            <img src="images/Progress Bar.png" alt="Progress Bar" style="height: 8px;" >
+            <a href="diet-level.html">
+            <button>Close</button>
+            </a>
+        </div>
+        <div class="card">
+            <!-- Icon and Date Section -->
+            <div class="note-header">
+                <img src="images/Solid emotion neutral.png" alt="Mood Icon" class="icon">
+                <div class="date-time">
+                    <p class="date">20.08.2024</p>
+                    <p class="time">12:20</p>
+                </div>
+            </div>
+        
+            <!-- Location Section -->
+            <div class="location-section">
+                <label for="location">Location</label>
+                <div class="location-input">
+                    <input type="text" id="location" name="location" value="Flinders University" readonly>
+                    <button class="location-btn">
+                        <img src="images/location-icon.png" alt="Location">
+                    </button>
+                </div>
+            </div>
+        
+            <!-- Text Input Section -->
+            <div class="input-section">
+                <textarea id="text-input" maxlength="250" rows="4">I haven’t been eating well lately, and I dont know why. My right foot also hurts so much, please help me, doc A!</textarea>
+                <p class="char-counter">100/250</p>
+            </div>
+        
+            <!-- Footer Section -->
+            <div class="footer">
+                <button class="voice-btn">
+                    <img src="images/microphone-icon.png" alt="Voice">
+                    Add Voice
+                </button>
+                <button class="camera-btn">
+                    <img src="images/camera-icon.png" alt="Camera">
+                </button>
+            </div>
+        </div>
+        
+        <a href="profile.html">
+        <button class="continue-btn">Continue +</button>
+        </a>
+    </div>
+
+</body>
+</html>
