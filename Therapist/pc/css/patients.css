@@ -173,7 +173,6 @@
 
 .confirm-btn {
   display: block;
-  width: 100%;
   background-color: #4a8ef4;
   color: white;
   font-size: 16px;
@@ -237,4 +236,189 @@
     background-size: cover; /* Makes sure the image covers the entire div */
     background-position: top; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.patient-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.profile-details {
+  flex-grow: 1;
+}
+
+.profile-id, .profile-name, .profile-group, .diagnostic {
+  margin: 0;
+  color: #0033cc;
+  font-size: 16px;
+}
+
+.diagnostic select {
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.treatment-record-btn {
+  display: block;
+  width: 100%;
+  background-color: #0F67FE;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-icon {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.section-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.block-wrapper {
+  display: flex; /* Flexbox layout for the two blocks */
+  justify-content: space-between; /* Space the blocks out equally */
+  gap: 20px; /* Gap between the two blocks */
+}
+
+.block {
+  flex: 1; /* Make the blocks equal in width */
+  background-color: #fff; /* Example background */
+}
+
+.mood-distribution {
+  display: flex;
+  justify-content: space-between;
+  background-color: #0F67FE;
+  color: white;
+  padding: 10px;
+  height: 107px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.mood-block {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.diet-status {
+  display: flex;
+  justify-content: start;
+  background-color: transparent;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  gap: 1rem;
+  height: 86px;
+  color: white;
+}
+
+.diet-icon {
+  width: 62px;
+  height: 62px;
+}
+
+.diet-icon.abalone {
+  font-size: 24px;
+  background-image: url('../assets/Abalone.png');
+}
+
+.diet-icon.apple {
+  font-size: 24px;
+  background-image: url('../assets/Apple.png');
+}
+
+
+.sleep-mode {
+  background-color: #36c3ba;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  color: white;
+  text-align: center;
+  height: 165px;
+  position: relative;
+}
+
+.sleep-info {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sleep-chart {
+  height: 100%;
+  background-image: url('../assets/sleep-chart.png');
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.exercise-chart {
+  height: 100%;
+  background-image: url('../assets/exercise-chart.png');
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.exercise-record {
+  background-color: #ff6f61;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  height: 165px;
+  text-align: center;
+  position: relative;
+}
+
+.exercise-info {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.mood-block svg {
+  width: 60px;
+  height: 60px;
+}
+
+.mood-desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
 }

@@ -9,6 +9,29 @@
     <link rel="stylesheet" href="css/patients.css"> 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="components/icon/index.js"></script>
+    <style>
+      .patient-group {
+        flex: 1;
+      }
+
+      .group-card {
+        margin: .5rem;
+      }
+
+      .selectable-icon.selected {
+        fill: #007bff; /* Color when selected */
+      }
+
+      /* Optional: Add a hover effect */
+      .selectable-icon:hover {
+        fill: #555; /* Hover state color */
+      }
+
+      .confirm-btn.add {
+        background-color: #0F67FE;
+        margin: .5rem;
+      }
+    </style>
 </head>
 <body>
     <div class="dashboard">
@@ -29,12 +52,12 @@
                 <use xlink:href="#icon-calendar"></use>
               </svg>
             </div>
-            <div class="menu-item active">
+            <div class="menu-item ">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-muser"></use>
               </svg>          
             </div>
-            <div class="menu-item">
+            <div class="menu-item active">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-group"></use>
               </svg>          
@@ -76,79 +99,119 @@
               </button>
             </div>
             <div class="main-section patient">
-              <div class="patient-list">
-                <h2>Patient list</h2>
-                <div class="list-container">
-                  <div class="alphabet-pagination" id="alphabet-pagination"></div>
-                  <div class="list-content">
-                    <div class="profile-list">
-                      <div class="profile-card">
-                          <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                          <div class="profile-details">
-                              <p class="profile-id">Patient ID: 001</p>
-                              <p class="profile-name">Olivia Turner, M.D.</p>
-                              <p class="profile-group">Patient Group: Group1</p>
-                          </div>
-                          <button class="menu-button">
-                              <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                          </button>
-                      </div>
-                      <div class="profile-card">
-                        <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                        <div class="profile-details">
-                            <p class="profile-id">Patient ID: 001</p>
-                            <p class="profile-name">Olivia Turner, M.D.</p>
-                            <p class="profile-group">Patient Group: Group1</p>
-                        </div>
-                        <button class="menu-button">
-                            <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                        </button>
-                    </div>
-                    <div class="profile-card">
-                      <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                      <div class="profile-details">
-                          <p class="profile-id">Patient ID: 001</p>
-                          <p class="profile-name">Olivia Turner, M.D.</p>
-                          <p class="profile-group">Patient Group: Group1</p>
-                      </div>
-                      <button class="menu-button">
-                          <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                      </button>
-                  </div>
-                  <div class="profile-card">
-                    <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                    <div class="profile-details">
-                        <p class="profile-id">Patient ID: 001</p>
-                        <p class="profile-name">Olivia Turner, M.D.</p>
-                        <p class="profile-group">Patient Group: Group1</p>
-                    </div>
-                    <button class="menu-button">
-                        <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
+              <div class="patient-group">
+                <h2>Patient Group List</h2>
+                <div class="group-container">
+                  <div class="group-search">
+                    <div class="alphabet-pagination" id="alphabet-pagination"></div>
+                    <button class="confirm-btn add" onclick="window.location.href = 'add-group.html'">
+                      Add Group →
                     </button>
+                    <div class="group-card">
+                      <div class="group-info">
+                          <h3>Group ID: 001<br><span>Anxiety Management Group</span></h3>
+                          <p>Group Study: Anxiety Management<br>Group Member: 20</p>
+                          <div class="group-details">
+                              <div class="group-date">
+                                  <svg class="icon" aria-hidden="true">
+                                      <use xlink:href="#icon-calendar"></use>
+                                  </svg>
+                                  <span>31st March '22</span>
+                              </div>
+                              <div class="group-time">
+                                  <svg class="icon" aria-hidden="true">
+                                      <use xlink:href="#icon-clock"></use>
+                                  </svg>
+                                  <span>7:30 PM - 8:30 PM</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="group-options">
+                          <svg class="icon selectable-icon" aria-hidden="true">
+                              <use xlink:href="#icon-menu"></use>
+                          </svg>
+                      </div>
+                    </div>
+                    <div class="group-card">
+                      <div class="group-info">
+                          <h3>Group ID: 001<br><span>Anxiety Management Group</span></h3>
+                          <p>Group Study: Anxiety Management<br>Group Member: 20</p>
+                          <div class="group-details">
+                              <div class="group-date">
+                                  <svg class="icon" aria-hidden="true">
+                                      <use xlink:href="#icon-calendar"></use>
+                                  </svg>
+                                  <span>31st March '22</span>
+                              </div>
+                              <div class="group-time">
+                                  <svg class="icon" aria-hidden="true">
+                                      <use xlink:href="#icon-clock"></use>
+                                  </svg>
+                                  <span>7:30 PM - 8:30 PM</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="group-options">
+                          <svg class="icon selectable-icon" aria-hidden="true">
+                              <use xlink:href="#icon-menu"></use>
+                          </svg>
+                      </div>
+                    </div>
+                    <div class="group-card">
+                      <div class="group-info">
+                          <h3>Group ID: 001<br><span>Anxiety Management Group</span></h3>
+                          <p>Group Study: Anxiety Management<br>Group Member: 20</p>
+                          <div class="group-details">
+                              <div class="group-date">
+                                  <svg class="icon" aria-hidden="true">
+                                      <use xlink:href="#icon-calendar"></use>
+                                  </svg>
+                                  <span>31st March '22</span>
+                              </div>
+                              <div class="group-time">
+                                  <svg class="icon" aria-hidden="true">
+                                      <use xlink:href="#icon-clock"></use>
+                                  </svg>
+                                  <span>7:30 PM - 8:30 PM</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="group-options">
+                          <svg class="icon selectable-icon" aria-hidden="true">
+                              <use xlink:href="#icon-menu"></use>
+                          </svg>
+                      </div>
+                    </div>
+                    <div class="group-card">
+                      <div class="group-info">
+                          <h3>Group ID: 001<br><span>Anxiety Management Group</span></h3>
+                          <p>Group Study: Anxiety Management<br>Group Member: 20</p>
+                          <div class="group-details">
+                              <div class="group-date">
+                                  <svg class="icon" aria-hidden="true">
+                                      <use xlink:href="#icon-calendar"></use>
+                                  </svg>
+                                  <span>31st March '22</span>
+                              </div>
+                              <div class="group-time">
+                                  <svg class="icon" aria-hidden="true">
+                                      <use xlink:href="#icon-clock"></use>
+                                  </svg>
+                                  <span>7:30 PM - 8:30 PM</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="group-options">
+                          <svg class="icon selectable-icon" aria-hidden="true">
+                              <use xlink:href="#icon-menu"></use>
+                          </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="profile-card">
-                  <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                  <div class="profile-details">
-                      <p class="profile-id">Patient ID: 001</p>
-                      <p class="profile-name">Olivia Turner, M.D.</p>
-                      <p class="profile-group">Patient Group: Group1</p>
-                  </div>
-                  <button class="menu-button">
-                      <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                  </button>
-              </div>
-              
-              
-              
-                  </div>
-                  
-                  </div>
-                </div>
-              </div>
-              <div class="patient-detail" id="loading">
-              </div>
-              <div class="patient-detail" id="note" style="display: none;">
-                <h2 class="note-header">Patient Note</h2>
+            </div>
+              <div class="patient-detail">
+                <h2 class="note-header">Group Note</h2>
 
                 <!-- Text Area with character count -->
                 <div class="note-input">
@@ -285,13 +348,15 @@
     <script>
       document.addEventListener('DOMContentLoaded', function() {
 
-
-
-        const treatmentRecordBtn = document.getElementById('navigate-record');
-
-        treatmentRecordBtn.addEventListener('click', function() {
-            // Navigate to the 'record.html' page
-            window.location.href = 'record.html';
+        document.querySelectorAll('.selectable-icon').forEach(icon => {
+          icon.addEventListener('click', function() {
+            // Remove the 'selected' class from all selectable icons
+            document.querySelectorAll('.selectable-icon').forEach(item => {
+              item.classList.remove('selected');
+            });
+            // Add the 'selected' class to the clicked icon
+            this.classList.add('selected');
+          });
         });
 
 

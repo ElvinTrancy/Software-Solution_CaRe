@@ -6,9 +6,91 @@
     <title>Therapist Dashboard</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap">
     <link rel="stylesheet" href="css/index.css"> 
+    <link rel="stylesheet" href="css/patients.css"> 
     <link rel="stylesheet" href="css/calendar.css"> 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="components/icon/index.js"></script>
+    <style>
+      .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .profile-img {
+        border-radius: 1rem;
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        margin-bottom: 0.5rem;
+      }
+
+      .event-list h2 {
+        font-size: 1rem;
+        color: #2260FF;
+        text-align: center;
+        margin-bottom: .5rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        color: #2260FF;
+      }
+
+      p {
+        margin: 0.2rem 0;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .diagnostic-section,
+      .goals-section,
+      .interventions-section,
+      .frequency-section {
+        margin: 0.5rem 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-size: .825rem;
+        color: #0F67FE;
+        margin-bottom: 0.3rem;
+        text-align: center;
+
+      }
+
+      .pill-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        line-height: 24px;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin-top: 0.3rem;
+      }
+
+      .pill-button:hover {
+        background-color: #0056b3;
+      }
+
+      .note {
+        font-size: 0.8rem;
+        color: #999;
+        margin-top: 1rem;
+      }
+
+      .page-scrum {
+        justify-content: start;
+        gap: 1rem;
+      }
+      .go-back {
+        cursor: pointer;
+      }
+    </style>
 </head>
 <body>
     <div class="dashboard">
@@ -24,12 +106,12 @@
               </svg>
               <span class="info">8</span>              
             </div>
-            <div class="menu-item active">
+            <div class="menu-item ">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-calendar"></use>
               </svg>
             </div>
-            <div class="menu-item">
+            <div class="menu-item active">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-muser"></use>
               </svg>          
@@ -77,79 +159,35 @@
             </div>
             <div class="main-section">
               <div class="page-scrum">
-                <h2>Calendar</h2>
+                <h2 class="go-back" id="go-back">Patient Detail </h2><h2>></h2><h2>Treatment Record</h2>
               </div>
               <div class="calendar-container">
-                <div class="event-list">
-                  <button class="add-event-btn">+ Add New Event</button>
-    
-    <h2>You are going to</h2>
-
-    <div class="event-card">
-        <div class="event-icon"></div>
-        <div class="event-info">
-            <h3>Therapy Sessions</h3>
-            <p>Today 07:19 AM</p>
-            <p>56 Davion Mission Suite 157</p>
-            <p>Meaghanberg</p>
-            <div class="attendees">
-                <img src="assets/head1.png" alt="Attendee 1">
-                <img src="assets/head2.png" alt="Attendee 2">
-                <img src="assets/head0.png" alt="Attendee 3">
-                <span class="attendee-count">+15</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="event-card">
-        <div class="event-icon"></div>
-        <div class="event-info">
-            <h3>Client Meetings</h3>
-            <p>16 October 2019 at 5:00 PM</p>
-            <p>853 Moore Flats Suite 158</p>
-            <p>Sweden</p>
-            <div class="attendees">
-                <img src="assets/head1.png" alt="Attendee 1">
-                <img src="assets/head2.png" alt="Attendee 2">
-                <img src="assets/head0.png" alt="Attendee 3">
-                <span class="attendee-count">+20</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="event-card">
-        <div class="event-icon"></div>
-        <div class="event-info">
-            <h3>Continuing Education</h3>
-            <p>20-22 October 2019 at 8:00 PM</p>
-            <p>646 Walter Road Apt. 571</p>
-            <p>Turks and Caicos Islands</p>
-            <div class="attendees">
-                <img src="assets/head1.png" alt="Attendee 1">
-                <img src="assets/head2.png" alt="Attendee 2">
-                <img src="assets/head0.png" alt="Attendee 3">
-                <span class="attendee-count">+14</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="event-card">
-        <div class="event-icon"></div>
-        <div class="event-info">
-            <h3>Personal Therapy</h3>
-            <p>25 October 2019 at 10:00 PM</p>
-            <p>506 Satterfield Tunnel Apt. 963</p>
-            <p>San Marino</p>
-            <div class="attendees">
-                <img src="assets/head1.png" alt="Attendee 1">
-                <img src="assets/head2.png" alt="Attendee 2">
-                <img src="assets/head0.png" alt="Attendee 3">
-                <span class="attendee-count">+42</span>
-            </div>
-        </div>
-    </div>
-
-    <button class="see-more-btn">See More</button>
+                <div class="event-list" style="justify-content: start;">
+                  <div class="profile">
+                    <img src="https://via.placeholder.com/150" alt="Patient Photo" class="profile-img">
+                    <h2>Patient ID: 001<br>Olivia Turner, M.D.</h2>
+                    <p>Patient Group: Group1</p>
+                </div>
+                <div class="diagnostic-section">
+                    <label>Diagnostic:</label>
+                    <button class="pill-button">Somnipathy</button>
+                </div>
+                <div class="goals-section">
+                    <label>Goals:</label>
+                    <button class="pill-button">Sleep Quality</button>
+                </div>
+                <div class="interventions-section">
+                    <label>Interventions:</label>
+                    <button class="pill-button">CBT</button>
+                </div>
+                <div class="frequency-section">
+                    <label>Frequency:</label>
+                    <button class="pill-button">Weekly</button>
+                </div>
+                <div class="frequency-section">
+                  <label>Note:</label>
+                  <p>This is just an example, and the specific goals, interventions, and frequency of sessions will vary depending on the individual client's needs and circumstances.</p>
+                </div>
                 </div>
                 <div class="calendar-host">                  
                   <div class="calendar-header">
@@ -182,23 +220,22 @@
                   </table>
                 </div>
               </div>
+
+              
             </div>
-          </div>
       </div>
     </div>
     <script src="js/calendar.js"></script>
     <script>
-      // Get all menu-item elements
-      const menuItems = document.querySelectorAll('.menu-item');
-    
-      // Add click event listener to each menu-item
-      menuItems.forEach(item => {
-        item.addEventListener('click', function() {
-          // Remove 'active' class from all menu items
-          menuItems.forEach(el => el.classList.remove('active'));
-          
-          // Add 'active' class to the clicked menu-item
-          this.classList.add('active');
+      document.addEventListener('DOMContentLoaded', function() {
+
+
+
+        const treatmentRecordBtn = document.getElementById('go-back');
+
+        treatmentRecordBtn.addEventListener('click', function() {
+            // Navigate to the 'record.html' page
+            window.location.href = 'patients.html';
         });
       });
     </script>
