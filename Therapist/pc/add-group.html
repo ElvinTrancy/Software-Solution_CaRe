@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap">
+    <link rel="stylesheet" href="css/index.css"> 
+    <link rel="stylesheet" href="css/patients.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="components/icon/index.js"></script>
+    <style>
+      .patient-group {
+        flex: 1;
+      }
+
+      .group-card {
+        margin: .5rem;
+      }
+
+      .selectable-icon.selected {
+        fill: #007bff; /* Color when selected */
+      }
+
+      /* Optional: Add a hover effect */
+      .selectable-icon:hover {
+        fill: #555; /* Hover state color */
+      }
+
+      .confirm-btn.add {
+        background-color: #0F67FE;
+        margin: .5rem;
+      }
+
+      .page-scrum {
+        justify-content: start;
+        gap: 1rem;
+      }
+      .go-back {
+        cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="add-section">
+            <img class="plus" src="assets/logo.png" alt="icon">
+          </div>
+          <div class="menu-section">
+            <div class="menu-item ">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-ana"></use>
+              </svg>
+              <span class="info">8</span>              
+            </div>
+            <div class="menu-item ">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-calendar"></use>
+              </svg>
+            </div>
+            <div class="menu-item ">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-muser"></use>
+              </svg>          
+            </div>
+            <div class="menu-item active">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-group"></use>
+              </svg>          
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-gear"></use>
+              </svg>          
+            </div>
+            
+          </div>
+          <div class="head-section">
+            <img src="assets/doc0.jpeg">
+            <span class="info">8</span>
+          </div>
+        </div>
+        <div class="main-content" style="padding-left: 1rem;">         
+          <div class="doc-main">
+            <!-- Top bar -->
+            <div class="top-bar">
+              <div class="search-bar">
+                <input type="text" placeholder="Search anything..." />
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-search"></use>
+                </svg>
+                <svg class="wifi-icon" aria-hidden="true">
+                  <use xlink:href="#icon-wifi"></use>
+                </svg>
+              </div>
+              <button class="icon-btn">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-alarm"></use>
+                </svg>
+              </button>
+              <button class="icon-btn">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-mail"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="main-section">
+              <div class="page-scrum">
+                <h2 onclick="window.location.href = 'group.html'" class="go-back" id="go-back">Patient Group list   </h2><h2>></h2><h2>Add Group</h2>
+              </div>
+          </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+
+        document.querySelectorAll('.selectable-icon').forEach(icon => {
+          icon.addEventListener('click', function() {
+            // Remove the 'selected' class from all selectable icons
+            document.querySelectorAll('.selectable-icon').forEach(item => {
+              item.classList.remove('selected');
+            });
+            // Add the 'selected' class to the clicked icon
+            this.classList.add('selected');
+          });
+        });
+
+
+        const profileCards = document.querySelectorAll('.profile-card');
+
+        const note = document.getElementById('note');
+        const loading = document.getElementById('loading');
+        const detail = document.getElementById('detail');
+        // Add click event listener to each profile card
+        profileCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove 'selected' class from all profile cards
+                profileCards.forEach(c => c.classList.remove('selected'));
+                menuIcons.forEach(i => i.classList.remove('selected'));
+                // Add 'selected' class to the clicked card
+                this.classList.add('selected');
+                detail.style.display = 'flex';
+                note.style.display = 'none';
+                loading.style.display = 'none';
+            });
+        });
+      const menuIcons = document.querySelectorAll('.menu-icon');
+
+      
+
+      menuIcons.forEach(icon => {
+          icon.addEventListener('click', function(event) {
+              event.stopPropagation();
+              // Remove 'selected' class from all other icons
+              menuIcons.forEach(i => i.classList.remove('selected'));
+
+              // Toggle 'selected' class for the clicked icon
+              this.classList.toggle('selected');
+              detail.style.display = 'none';
+              note.style.display = 'flex';
+              loading.style.display = 'none';
+          });
+        });
+      });
+
+        const textarea = document.querySelector('.note-textarea');
+        const characterCount = document.querySelector('.character-count span');
+
+        textarea.addEventListener('input', () => {
+            const currentLength = textarea.value.length;
+            characterCount.textContent = `${currentLength}/250`;
+        });
+
+      // Get all menu-item elements
+      const menuItems = document.querySelectorAll('.menu-item');
+    
+      // Add click event listener to each menu-item
+      menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Remove 'active' class from all menu items
+          menuItems.forEach(el => el.classList.remove('active'));
+          
+          // Add 'active' class to the clicked menu-item
+          this.classList.add('active');
+        });
+      });
+    </script>
+    <script>
+      const alphabetContainer = document.getElementById('alphabet-pagination');
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      const maxDisplay = 5; // Max visible buttons on either side
+      let activeLetter = 'A';
+
+      function createAlphabetPagination(selectedLetter) {
+          alphabetContainer.innerHTML = ''; // Clear the previous content
+
+          alphabet.forEach((letter, index) => {
+              if (shouldShowLetter(index, selectedLetter)) {
+                  const button = document.createElement('button');
+                  button.textContent = letter;
+                  button.classList.toggle('active', letter === selectedLetter);
+                  button.onclick = () => {
+                      activeLetter = letter;
+                      createAlphabetPagination(activeLetter);
+                  };
+                  alphabetContainer.appendChild(button);
+              } else if (index === 4 || index === alphabet.length - 5) {
+                  const ellipsis = document.createElement('span');
+                  ellipsis.textContent = '...';
+                  ellipsis.classList.add('ellipsis');
+                  alphabetContainer.appendChild(ellipsis);
+              }
+          });
+
+          const searchIconContainer = document.createElement('div');
+          searchIconContainer.innerHTML = `
+              <svg class="icon" style='cursor: pointer;width: 18px;height: 18px' aria-hidden="true">
+                  <use xlink:href="#icon-search"></use>
+              </svg>`;
+          alphabetContainer.appendChild(searchIconContainer);
+          // const svg =  document.createElement('svg');
+          
+          // const use = document.createElement('use');
+          // use.setAttribute('xlink:href', '#icon-search');
+          // svg.appendChild(use);
+          // svg.classList.add('icon');
+          // svg.setAttribute('aria-hidden', 'true');
+          // alphabetContainer.appendChild(svg);
+
+      }
+
+      function shouldShowLetter(index, selectedLetter) {
+          const activeIndex = alphabet.indexOf(selectedLetter);
+          return (
+              index === 0 || // Always show A
+              index === alphabet.length - 1 || // Always show Z
+              index === activeIndex || // Always show the active letter
+              index === activeIndex - 1 || // Show one before the active
+              index === activeIndex + 1 || // Show one after the active
+              (index > 0 && index < 4) || // Always show B and C
+              (index > alphabet.length - 5 && index < alphabet.length - 1) // Always show Y and X
+          );
+      }
+
+      // Initialize with 'A' as the active letter
+      createAlphabetPagination(activeLetter);
+    </script>
+</body>
+</html>
