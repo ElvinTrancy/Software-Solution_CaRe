@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap">
+    <link rel="stylesheet" href="css/index.css"> 
+    <link rel="stylesheet" href="css/calendar.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="components/icon/index.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="add-section">
+            <img class="plus" src="assets/logo.png" alt="icon">
+          </div>
+          <div class="menu-section">
+            <div class="menu-item ">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-ana"></use>
+              </svg>
+              <span class="info">8</span>              
+            </div>
+            <div class="menu-item active">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-calendar"></use>
+              </svg>
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-muser"></use>
+              </svg>          
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-house"></use>
+              </svg>          
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-gear"></use>
+              </svg>          
+            </div>
+            
+          </div>
+          <div class="head-section">
+            <img src="assets/doc0.jpeg">
+            <span class="info">8</span>
+          </div>
+        </div>
+        <div class="main-content" style="padding-left: 1rem;">         
+          <div class="doc-main">
+            <!-- Top bar -->
+            <div class="top-bar">
+              <div class="search-bar">
+                <input type="text" placeholder="Search anything..." />
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-search"></use>
+                </svg>
+                <svg class="wifi-icon" aria-hidden="true">
+                  <use xlink:href="#icon-wifi"></use>
+                </svg>
+              </div>
+              <button class="icon-btn">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-alarm"></use>
+                </svg>
+              </button>
+              <button class="icon-btn">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-mail"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="main-section">
+              <div class="page-scrum">
+                <h2>Calendar</h2>
+              </div>
+              <div class="calendar-container">
+                <div class="event-list">
+                  <button class="add-event-btn">+ Add New Event</button>
+    
+    <h2>You are going to</h2>
+
+    <div class="event-card">
+        <div class="event-icon"></div>
+        <div class="event-info">
+            <h3>Therapy Sessions</h3>
+            <p>Today 07:19 AM</p>
+            <p>56 Davion Mission Suite 157</p>
+            <p>Meaghanberg</p>
+            <div class="attendees">
+                <img src="assets/head1.png" alt="Attendee 1">
+                <img src="assets/head2.png" alt="Attendee 2">
+                <img src="assets/head0.png" alt="Attendee 3">
+                <span class="attendee-count">+15</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="event-card">
+        <div class="event-icon"></div>
+        <div class="event-info">
+            <h3>Client Meetings</h3>
+            <p>16 October 2019 at 5:00 PM</p>
+            <p>853 Moore Flats Suite 158</p>
+            <p>Sweden</p>
+            <div class="attendees">
+                <img src="assets/head1.png" alt="Attendee 1">
+                <img src="assets/head2.png" alt="Attendee 2">
+                <img src="assets/head0.png" alt="Attendee 3">
+                <span class="attendee-count">+20</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="event-card">
+        <div class="event-icon"></div>
+        <div class="event-info">
+            <h3>Continuing Education</h3>
+            <p>20-22 October 2019 at 8:00 PM</p>
+            <p>646 Walter Road Apt. 571</p>
+            <p>Turks and Caicos Islands</p>
+            <div class="attendees">
+                <img src="assets/head1.png" alt="Attendee 1">
+                <img src="assets/head2.png" alt="Attendee 2">
+                <img src="assets/head0.png" alt="Attendee 3">
+                <span class="attendee-count">+14</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="event-card">
+        <div class="event-icon"></div>
+        <div class="event-info">
+            <h3>Personal Therapy</h3>
+            <p>25 October 2019 at 10:00 PM</p>
+            <p>506 Satterfield Tunnel Apt. 963</p>
+            <p>San Marino</p>
+            <div class="attendees">
+                <img src="assets/head1.png" alt="Attendee 1">
+                <img src="assets/head2.png" alt="Attendee 2">
+                <img src="assets/head0.png" alt="Attendee 3">
+                <span class="attendee-count">+42</span>
+            </div>
+        </div>
+    </div>
+
+    <button class="see-more-btn">See More</button>
+                </div>
+                <div class="calendar-host">                  
+                  <div class="calendar-header">
+                    <button id="prev-month">&lt;</button>
+                    <h2 id="calendar-month-year"></h2>
+                    <button id="next-month">&gt;</button> 
+                  </div>
+              
+                  <div class="view-options">
+                      <button class="toggle-button">Day</button>
+                      <button class="toggle-button">Week</button>
+                      <button class="toggle-button active">Month</button>
+                  </div>
+              
+                  <table class="calendar-table">
+                      <thead>
+                          <tr>
+                              <th>MON</th>
+                              <th>TUE</th>
+                              <th>WED</th>
+                              <th>THU</th>
+                              <th>FRI</th>
+                              <th>SAT</th>
+                              <th>SUN</th>
+                          </tr>
+                      </thead>
+                      <tbody id="calendar-body">
+                          <!-- Calendar dates will be inserted here via JavaScript -->
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <script src="js/calendar.js"></script>
+    <script>
+      // Get all menu-item elements
+      const menuItems = document.querySelectorAll('.menu-item');
+    
+      // Add click event listener to each menu-item
+      menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Remove 'active' class from all menu items
+          menuItems.forEach(el => el.classList.remove('active'));
+          
+          // Add 'active' class to the clicked menu-item
+          this.classList.add('active');
+        });
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Therapist Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap">
+    <link rel="stylesheet" href="css/index.css"> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="components/icon/index.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="add-section">
+            <img class="plus" src="assets/logo.png" alt="icon">
+          </div>
+          <div class="menu-section">
+            <div class="menu-item active">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-ana"></use>
+              </svg>
+              <span class="info">8</span>              
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-calendar"></use>
+              </svg>
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-muser"></use>
+              </svg>          
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-house"></use>
+              </svg>          
+            </div>
+            <div class="menu-item">
+              <svg class="icon menu-item" aria-hidden="true">
+                <use xlink:href="#icon-gear"></use>
+              </svg>          
+            </div>
+            
+          </div>
+          <div class="head-section">
+            <img src="assets/doc0.jpeg">
+            <span class="info">8</span>
+          </div>
+        </div>
+        <div class="main-content" style="padding-left: 1rem;">         
+          <div class="doc-main">
+            <!-- Top bar -->
+            <div class="top-bar">
+              <div class="search-bar">
+                <input type="text" placeholder="Search anything..." />
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-search"></use>
+                </svg>
+                <svg class="wifi-icon" aria-hidden="true">
+                  <use xlink:href="#icon-wifi"></use>
+                </svg>
+              </div>
+              <button class="icon-btn">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-alarm"></use>
+                </svg>
+              </button>
+              <button class="icon-btn">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-mail"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="main-section">
+              <div class="page-scrum">
+                <h2>DashBoard  >  Summary of Patient Data</h2>
+                <button>
+                  Export Data
+                  </button>
+              </div>
+
+              <!-- Summary and Patient Group -->
+              <div class="summary-group data" style="margin-top: 1rem;">
+                  <div class="patient-summary data">
+                      <div class="patient-data data">
+                        <div class="chart-bar data">
+                          <div class="active">1 Day</div>
+                          <div>1 Week</div>
+                          <div>1 Month</div>
+                          <div>1 Year</div>
+                          <div>All</div>
+                        </div>
+                        <div class="new-patients">
+                          <p class="patient-count">9</p>
+                          <p class="card-name"> New Patients</p>
+                          <span class="patient-flag">NORMAL</span>
+                        </div>
+                        
+                        <div class="chart">
+                          <div class="chart-content">
+                            
+                          </div>
+                        </div>
+                      </div>
+                      <div class="risk-patient-warning data" style="width: 95%;">
+                        <h2>Risk Patient Warning</h2>
+                        <div class="patient-cards">
+                          <div class="patient-card data">
+                            <img src="assets/YinaNa.jpg" alt="Olivia Turner, M.D." class="patient-photo">
+                            <p class="patient-name">Olivia Turner, M.D.</p>
+                            <p class="patient-msg">"I haven’t been eating well lately, please help me."</p>
+                            <button class="contact-btn">Contact</button>
+                          </div>
+                          <div class="patient-card data">
+                            <img src="assets/TaoZhe.jpeg" alt="Tao Zhe" class="patient-photo">
+                            <p class="patient-name">Tao Zhe</p>
+                            <p class="patient-msg">"I’ve been feeling dizzy recently."</p>
+                              <button class="contact-btn">Contact</button>
+                            </div>
+                            <div class="patient-card data">
+                              <img src="assets/SanMeng.jpg" alt="San Meng" class="patient-photo">
+                              <p class="patient-name">San Meng</p>
+                              <p class="patient-msg">"I have trouble sleeping."</p>
+                              <button class="contact-btn">Contact</button>
+                            </div>
+                          </div>
+                
+                    </div>
+                  </div>
+                  <div class="patient-group" style="padding-bottom: 1rem; padding-right: 1rem;padding-top: 1rem;">
+                    <div class="stats-container">
+                      <div class="stats-card">
+                        <div class="stats-title">
+                          <div class="icon-holder lower">
+                            <svg class="icon" aria-hidden="true">
+                              <use xlink:href="#icon-calory1"></use>
+                            </svg>
+                          </div>
+                          <!-- Example icon -->
+                          <h3>Avg Caloric Intake</h3>
+                        </div>
+                        <div class="stats-data">
+                          <div class="stats-num">1235cal</div>
+                          <div class="stats-unit">/ Day</div>
+                        </div>
+                        <div class="stats-evaluation lower">
+                          Lower
+                        </div>
+                        <div class="chart-placeholder chart-orange"></div>
+                      </div>
+
+                      <div class="stats-card">
+                        <div class="stats-title">
+                          <div class="icon-holder medium">
+                            <svg class="icon" aria-hidden="true">
+                              <use xlink:href="#icon-calory1"></use>
+                            </svg>
+                          </div>
+                          <!-- Example icon -->
+                          <h3>Avg Sleep Mode</h3>
+                        </div>
+                        <div class="stats-data">
+                          <div class="stats-num">6 hour</div>
+                          <div class="stats-unit">/ Day</div>
+                        </div>
+                        <div class="stats-evaluation medium">
+                          Normal
+                        </div>
+                        <div class="chart-placeholder chart-normal"></div>
+                      </div>
+
+                      <div class="stats-card">
+                        <div class="stats-title">
+                          <div class="icon-holder high">
+                            <svg class="icon" aria-hidden="true">
+                              <use xlink:href="#icon-calory1"></use>
+                            </svg>
+                          </div>
+                          <!-- Example icon -->
+                          <h3>Avg Exercise record</h3>
+                        </div>
+                        <div class="stats-data">
+                          <div class="stats-num">12 hour</div>
+                          <div class="stats-unit">/ Day</div>
+                        </div>
+                        <div class="stats-evaluation high">
+                          High
+                        </div>
+                        <div class="chart-placeholder chart-high"></div>
+                      </div>
+                  </div>
+              
+                  <!-- Activity Growth Chart -->
+                  <div class="chart-container">
+                      <div class="chart-header">
+                          <h3>Activity Growth</h3>
+                          <select id="date-range">
+                              <option value="Jan 2021">Jan 2021</option>
+                              <option value="Feb 2021">Feb 2021</option>
+                          </select>
+                      </div>
+                      <div class="act-chart">
+                      </div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <script>
+      // Get all menu-item elements
+      const menuItems = document.querySelectorAll('.menu-item');
+    
+      // Add click event listener to each menu-item
+      menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+          // Remove 'active' class from all menu items
+          menuItems.forEach(el => el.classList.remove('active'));
+          
+          // Add 'active' class to the clicked menu-item
+          this.classList.add('active');
+        });
+      });
+    </script>
+</body>
+</html>

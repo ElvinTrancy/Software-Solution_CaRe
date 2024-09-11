@@ -2,13 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
 }
 
 body {
   display: flex;
   min-height: 100vh;
-  background-color: #f7f8fc;
+  background-color: #fff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .dashboard {
@@ -109,22 +109,13 @@ body {
 
 
 /* Main content styling */
-.main-content {
-  flex-grow: 1;
-  padding: 20px;
-}
 
-.top-bar {
+.main-section {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
-.search-bar {
-  padding: 10px;
-  width: 300px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
+  flex-direction: column;
+  height: calc(100% - 4.5rem);
+  padding-right: .75rem;
+  padding-bottom: .75rem;
 }
 
 section {
@@ -143,6 +134,7 @@ h2 {
 .schedule-reminder, .risk-patient-warning {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .risk-patient {
@@ -165,6 +157,40 @@ h2 {
 
 .new-patients {
   font-size: 1.5em;
+  align-items: baseline;
+  display: flex;
+  justify-content: start;
+  background-color: #F2F5F9;
+  border-radius: 1rem;
+  margin: 1rem 1rem 0 1rem;
+  position: relative;
+}
+
+.patient-flag {
+  width: 4.125rem;
+  font-size: .625rem;
+  font-weight: bolder;
+  color: #0f67fe;
+  background-color: #D0E4FF;
+  border-radius: .375rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  line-height: 2rem;
+  justify-content: center;
+  display: flex;
+  user-select: none;
+}
+
+.patient-count {
+  font-weight: bolder;
+  font-size: 4.5rem;
+  margin-left: 2rem;
+}
+
+.new-patients .card-name {
+  font-size: 2.25rem;
+  font-weight: 900;
 }
 
 /* Chat section */
@@ -189,4 +215,826 @@ h2 {
   color: white;
   border: none;
   border-radius: 5px;
+}
+
+.top-icons span {
+  margin-left: 20px;
+}
+
+.schedule-warning {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.schedule-reminder, .risk-patient-warning {
+  width: 50%;
+  background-color: transparent;
+}
+
+.schedule-reminder h2, .risk-patient-warning h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.risk-patient-warning.data {
+  margin: 0 1rem 1rem 1rem;
+}
+
+.patient-card {
+  background-color: #e0f7ff;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.summary-group {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+.summary-group.data {
+  border-radius: .5rem;
+  background-color: #fff;
+}
+
+.patient-summary, .patient-group {
+  width: 44%;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-summary.data {
+  width: 33%;
+}
+
+.patient-group {
+  width: 65%;
+}
+
+.patient-summary h2, .patient-group h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+
+.patient-data {
+  flex: 1;
+  background-color: #fff;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-data.data {
+  position: relative;
+}
+
+.chart {
+  flex: 1;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 1rem;
+}
+
+.chart-content {
+  height: 100%;
+  width: 100%;
+  background-image: url('../assets/patients-chart.png');
+  background-repeat: no-repeat;
+  background-position: start;
+  background-size: cover;
+}
+
+.chart-bar {
+  height: 3.375rem;
+  background-color: #F2F5F9;
+  border-radius: .75rem;
+  display: flex;
+  gap: .125rem;
+  position: absolute;
+  bottom: 0;
+  width: calc(100% - 2rem);
+  margin: 0 1rem 1rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.chart-bar.data {
+  position: relative;
+  top: 0;
+  width: calc(100% - 2rem);
+  margin: 1rem 1rem 1rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+
+
+.chart-bar div{
+  width: 4rem;
+  line-height: 2rem;
+  font-size: .825rem;
+  text-align: center;
+  border-radius: .25rem;
+  color: #818BA0;
+}
+
+.chart-bar div.active{
+  background-color: #0F67FE;
+  color: #fff;
+}
+
+
+
+.group-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.group-search {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #fff;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.group-see-all {
+  height: 3.375rem;
+  border-radius: .75rem;
+  margin: 1rem 0;
+  font-size: large;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.main-content {
+  width: 80%;
+  flex-grow: 1;
+  margin: 1rem 1rem 1rem 0;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  background-color: #F2F5F9;
+  border-radius: 1.5rem;
+}
+
+
+.welcome-doc {
+  flex: 1;
+  background-color: #D0E4FF;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.doc-main {
+  flex: 4;
+}
+
+/* .assembled-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e7f0ff;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  width: 250px;
+  height: 500px;
+} */
+
+.assembled-images {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.top-light {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+}
+
+.light-ray {
+  position: absolute;
+  top: 105px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.doctor {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  border-radius:  0 0 1.5rem 1.5rem;
+}
+
+.greeting {
+  text-align: center;
+  position: absolute;
+  top: 25%;
+}
+
+.greeting h1, .greeting span {
+  font-size: 2.5rem;
+  font-weight: bold;
+  user-select: none;
+}
+
+.top-bar {
+  padding: .75rem .75rem .75rem 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  gap: .5rem
+}
+
+.search-bar {
+  flex: 1;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  height: 3rem;
+  border-radius: .625rem;
+  background-color: #DCE1E8;
+  font-size: 1rem;
+  line-height: 3rem;
+  padding-left: 35px;
+  border: none;
+  outline: none;
+  color: #333;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.search-bar .icon {
+  position: absolute;
+  left: 10px;
+  width: 1rem;
+  height: 1rem;
+  color: #818BA0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+}
+
+.search-bar .wifi-icon {
+  position: absolute;
+  right: 10px;
+  width: 1rem;
+  height: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #818BA0;
+  font-size: 18px;
+}
+
+.search-bar input::placeholder {
+  color: #6C7178;
+}
+
+.top-bar .icon-btn {
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  background-color: #f4f8fc;
+  border: 1px solid #818BA0;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.icon-btn .icon {
+  color: #3D4966;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.reminder-details {
+  margin-top: .375rem;
+  background-color: #fff;
+  border-radius: .9375rem;
+  padding: .625rem;
+  position: relative;
+}
+
+.reminder-details p {
+  margin: .125rem 0;
+}
+
+.time-block {
+  display: flex;
+  align-items: center;
+  height: 1.3rem;
+}
+
+.time {
+  width: 2.5rem;
+  text-align: left;
+  font-size: .825rem;
+  color: #007BFF;
+}
+
+.time-line {
+  width: 100%;
+  height: .09375rem;
+  background-color: #ddd;
+  margin-right: .5rem;
+  position: relative;
+}
+
+.time-line::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: .0625rem;
+  background: repeating-linear-gradient(90deg, #007BFF, #007BFF .125rem, transparent .125rem, transparent .25rem);
+}
+
+.reminder {
+  position: absolute;
+  background-color: #007BFF;
+  color: white;
+  padding: .5rem;
+  border-radius: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  top: 2.5rem;
+  width: 75%;
+  left: 4rem;
+  box-shadow: 0 .25rem .375rem rgba(0, 0, 0, 0.1);
+}
+
+.reminder span {
+  margin: 0;
+  font-size: .825rem;
+  color: white;
+}
+
+.btn-container {
+  display: flex;
+}
+
+.circle-btn {
+  border-radius: 50%;
+  background-color: white;
+  border: .125rem solid #2260FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.circle-btn svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: #2260FF;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: .75rem;
+  cursor: pointer;
+}
+
+.patient-cards {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: .1875rem;
+  scrollbar-width: thin; /* Thin scrollbar for Firefox */
+  scrollbar-color: #5c6d82 #f0f4ff; /* Thumb and track colors */
+}
+
+.patient-cards::-webkit-scrollbar {
+  display: block; /* Hide the scrollbar for webkit browsers (Chrome, Safari, etc.) */
+}
+
+/* Show scrollbar only while scrolling */
+.patient-cards:hover {
+  scrollbar-width: thin;
+  scrollbar-color: #5c6d82 #f0f4ff;
+}
+
+.patient-cards:hover::-webkit-scrollbar {
+  height: 8px; /* Height of the scrollbar */
+}
+
+.patient-cards:hover::-webkit-scrollbar-thumb {
+  background-color: #5c6d82; /* Darker color for the scroll thumb */
+  border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+.patient-cards:hover::-webkit-scrollbar-track {
+  background-color: #f0f4ff; /* Track color matching the theme */
+    border-radius: 4px;
+}
+
+.patient-card {
+  background-color: #007BFF;
+  color: white;
+  padding: .625rem;
+  border-radius: .9375rem;
+  text-align: center;
+  min-width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 14.7rem;
+}
+
+.patient-card.data {
+  width: 33%;
+  min-width: 0;
+}
+
+.patient-photo {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+}
+
+.patient-name {
+  font-size: .85rem;
+}
+
+.patient-msg {
+  min-height: 4rem;
+  flex: 1;
+}
+
+.petient-msg {
+  font-size: .75rem;
+}
+
+.contact-btn {
+  background-color: #ffffff;
+  color: #007BFF;
+  border: none;
+  font-weight: bold;
+  width: 100%;
+  border-radius: .75rem;
+  padding: .3125rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.alphabet-pagination {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 1rem 1rem 0 1rem;
+}
+
+.alphabet-pagination button {
+  background-color: #fff;
+  border: 2px solid transparent;
+  color: #5c6d82;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.alphabet-pagination button.active {
+  background-color: #1e2a42;
+  color: #fff;
+  border: 2px solid #c0c7d3;
+}
+
+.alphabet-pagination .ellipsis {
+  cursor: default;
+  color: #5c6d82;
+  font-size: 16px;
+  border: none;
+  background: none;
+}
+
+.group-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #0F67FE;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  margin: 1rem;
+  position: relative;
+}
+
+.group-card:hover {
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.group-info h3 {
+  color: #007bff;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.group-info h3 span {
+  font-size: 16px;
+  color: #007bff;
+}
+
+.group-info p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.group-details {
+  display: flex;
+  gap: 20px;
+}
+
+.group-details div {
+  display: flex;
+  font-size: 14px;
+  color: #888;
+}
+
+.group-details div svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: #5c6d82;
+  margin-right: .4rem;
+}
+
+.group-options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.group-options svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: #5c6d82;
+  cursor: pointer;
+}
+
+.icon {
+  fill: #5c6d82;
+}
+
+.page-scrum {
+  display: flex;
+  justify-content: space-between; /* Aligns text and button on opposite sides */
+  align-items: center; /* Vertically centers items */
+  border-radius: 8px; /* Rounded corners */
+  font-family: 'Arial', sans-serif; /* Default font */
+}
+
+.page-scrum h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #090E1D; /* Darker color for text */
+  margin: 0; /* Removes extra margin */
+}
+
+.page-scrum h2 span {
+  font-weight: bold;
+}
+
+.page-scrum button {
+  background-color: #007bff; /* Button background color (blue) */
+  color: white; /* Button text color */
+  border: none;
+  border-radius: 10px; /* Rounded corners for the button */
+  padding: 10px 20px; /* Adds padding inside the button */
+  font-size: 14px; /* Font size for the button */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.page-scrum button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.stats-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.stats-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  text-align: center;
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.stats-card h3 {
+  color: #444;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.stats-card h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.stats-card .status {
+  font-size: 12px;
+  color: #888;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.stats-card .chart-placeholder {
+  height: 60px;
+  margin-top: 10px;
+}
+
+.stats-title {
+  display: flex;
+  align-items: center;
+}
+
+.icon-holder {
+  width: 4rem;
+  height: 4rem;
+  border-radius: .5rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-right: .4rem;
+}
+
+.stats-data {
+  display: flex;
+  align-items: baseline;
+  margin: .5rem 0 .5rem 0;
+}
+
+.stats-num {
+  font-size: 2rem;
+  color: #272927;
+}
+
+.stats-unit {
+  color: #818181;
+  font-size: 1rem;
+}
+
+.stats-evaluation {
+  height: 1.5rem;
+  width: 4rem;
+  border-radius: .3rem;
+  color: #000;
+  font-size: .75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+}
+
+/* .icon-holder svg {
+  width: 2.5rem;
+  height: 2.5rem;
+} */
+
+.lower {
+  background-color: #F8DEBD;
+}
+
+.medium {
+  background-color: #D0FBFF;
+}
+
+.high {
+  background-color: #FBF0F3;
+}
+
+.chart-orange {
+  background-image: url('../assets/y-chart.png');
+  background-size: cover;    /* Makes sure the image covers the entire container */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: start;  /* Ensures the image is centered */
+}
+
+.chart-normal {
+  background-image: url('../assets/normal.png');
+  background-size: cover;    /* Makes sure the image covers the entire container */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: start;  /* Ensures the image is centered */
+}
+
+.chart-high {
+  background-image: url('../assets/high.png');
+  background-size: cover;    /* Makes sure the image covers the entire container */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: start;  /* Ensures the image is centered */
+}
+
+.chart-blue {
+  background-color: #d5f4ff;
+}
+
+.chart-red {
+  background-color: #ffd5d5;
+}
+
+.stats-card.active {
+  border: 2px solid #007bff;
+}
+
+
+.chart-container {
+  background-color: #fff;
+  padding: 20px;
+  flex: 1;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.act-chart {
+  background-image: url('../assets/ac.png');
+  background-size: cover;    /* Makes sure the image covers the entire container */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: bottom;  /* Ensures the image is centered */
+  flex: 1;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.chart-header select {
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  width: 164px;
+  height: 58px;
+  text-align: center;
+}
+
+canvas {
+  width: 100%;
+  height: 300px;
 }
