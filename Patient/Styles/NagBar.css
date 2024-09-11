@@ -1,0 +1,48 @@
+.nav-bar {
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #3366FF;
+    padding: 10px 0;
+    border-radius: 50px 50px 50px 50px;
+}
+
+.nav-bar button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.nav-bar button img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Center button */
+.center-btn {
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid #3366FF;
+}
+
+.center-btn img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Ensure the container doesn't overlap the navigation bar */
+.container {
+    padding-bottom: 80px;
+}

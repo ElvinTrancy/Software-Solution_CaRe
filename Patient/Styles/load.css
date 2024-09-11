@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.logo, h1 {
+    text-align: left;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 32px;
+    margin: 10px 0;
+}
+
+
+
+.slogan {
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 300px;
+    font-style: italic;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    height: 60px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #0F67FE;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.divider hr {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #ccc;
+    border: none;
+}
+
+.divider span {
+    padding: 0 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.extra-link {
+    display: flex;
+    justify-content: center; /* 居中对齐 */
+    margin-top: 2vh; /* 相对视口高度 */
+}
+
+.extra-link a {
+    color: #6e7d8a;
+    text-decoration: underline; /* 添加下划线 */
+    font-weight: bold;
+}

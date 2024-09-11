@@ -1,0 +1,54 @@
+/* Diet */
+.scroll-container {
+    display: flex;
+    overflow-x: scroll; 
+    overflow-y: hidden; 
+    gap: 30px; 
+    padding: 10px;
+    scroll-behavior: smooth; 
+}
+
+.scroll-container img {
+    width: 80px;
+    height: px;
+    border-radius: 15px; 
+    flex-shrink: 0; 
+}
+
+/* My Therapist */
+.therapist-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.therapist-image img {
+    width: 150px;
+    height: auto;
+    border-radius: 12px;
+}
+
+.session-info {
+    position: relative; 
+    flex-grow: 1;
+    margin-left: 20px;
+    text-align: left;
+    padding: 10px; 
+}
+
+.button-container {
+    position: absolute; 
+}
+
+.book-now {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.session-info.h2{
+    color: #0F67FE;
+}

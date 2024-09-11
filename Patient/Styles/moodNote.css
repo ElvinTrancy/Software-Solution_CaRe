@@ -1,0 +1,180 @@
+
+body {
+    max-width: 500px; 
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.mood-select {
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.header button {
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+button img {
+    width: 50px; 
+    height: 50px; 
+}
+
+button:hover img {
+    opacity: 0.8; 
+}
+
+.mood-buttons {
+    display: flex;
+    justify-content: space-between; 
+    background-color: #F7F8FA; 
+    padding: 15px;
+    border-radius: 25px; 
+    margin-bottom: 20px;
+}
+
+.mood-buttons button {
+    flex-grow: 1; 
+    border: none; 
+    background-color: transparent; 
+    font-size: 18px; 
+    color: #6c757d;
+    padding: 10px 20px;
+    border-radius: 20px; 
+    cursor: pointer;
+    position: relative;
+}
+
+
+.mood-buttons button.active {
+    background-color: #212F49;
+    color: white; 
+    font-weight: bold;
+    border: 2px solid #C0C5CE;
+}
+
+.mood-buttons button:hover {
+    background-color: #F0F1F3;
+}
+
+.mood-buttons button:not(:last-child) {
+    margin-right: 10px;
+}
+
+
+.continue-btn {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 80px;
+}
+
+.scroll-container {
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    gap: 30px;
+    padding: 20px;
+    scroll-behavior: smooth;
+    margin: 20px 0;
+}
+
+.scroll-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 15px;
+    flex-shrink: 0;
+}
+
+#percentage-display {
+    text-align: center; 
+    font-size: 36px; 
+    font-weight: bold;
+    margin: 20px 0; 
+}
+
+.centered-image img {
+    width: 180px;
+    height: 180px;
+    margin: 20px;
+}
+
+/* Slider */
+.slider-container {
+    margin: 30px 30px;
+    position: relative;
+    width: 80%;
+    align-items: center;
+}
+
+.slider-track {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    background-color: #b8bbc1;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.slider-progress {
+    position: absolute;
+    height: 100%;
+    background-color: #3D475F;
+    border-radius: 15px;
+    width: 70%; /* Set the initial progress to 70% */
+}
+
+.slider-thumb {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-color: #2C3E50;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    right: 0; 
+    transform: translateX(50%);
+    cursor: pointer;
+}
+
+
+.slider-thumb img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Fitness level text */
+#fitness-level-text {
+    margin-top: 60px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2C3E50;
+}
+
+
