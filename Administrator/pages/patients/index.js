@@ -255,10 +255,4 @@ const pagination = new Pagination({
     reloadTable(page);
   }
 });
-
-
-
 });
-
-
-
