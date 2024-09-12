@@ -1,8 +1,7 @@
-/* 基本样式重置 */
+/* Basic style reset */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
@@ -15,46 +14,46 @@ body {
     width: 100vw;
     text-align: center;
     margin: 0;
-    overflow: hidden; /* 防止溢出滚动 */
+    overflow: hidden; /* Prevent overflow scrolling */
 }
 
-/* 容器样式 */
+/* Container styles */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* 改为 space-between 以使内容上下间距更大 */
+    justify-content: space-between; /* Changed to space-between for larger vertical spacing */
     width: 100%;
     height: 100%;
-    padding: 5vh 0; /* 增加上下内边距 */
+    padding: 5vh 0; /* Increased padding at the top and bottom */
     background-color: #ffffff;
 }
 
-/* 标志样式 */
+/* Logo styles */
 .logo img {
-    width: 40vw; /* 将图标宽度调整为视口宽度的40% */
-    max-width: 200px; /* 增加最大宽度为200像素 */
-    margin-bottom: 10vh; /* 增加底部间距 */
+    width: 40vw; /* Adjusted the icon width to 40% of the viewport width */
+    max-width: 200px; /* Added a maximum width of 200 pixels */
+    margin-bottom: 10vh; /* Added bottom margin */
 }
 
-/* 欢迎信息样式 */
+/* Welcome message styles */
 .welcome-message h1 {
-    font-size: 8vw; /* 增大字体尺寸为视口宽度的8% */
+    font-size: 8vw; /* Increased font size to 8% of the viewport width */
     color: #333;
-    margin-bottom: 5vh; /* 使用视口高度进行相对调整 */
-    line-height: 1.2; /* 减小行高确保间距 */
+    margin-bottom: 5vh; /* Adjusted using viewport height for relative spacing */
+    line-height: 1.2; /* Reduced line height to ensure spacing */
 }
 
 .highlight {
-    color: #007bff; /* 蓝色文字 */
+    color: #007bff; /* Blue text */
     font-weight: bold;
-    display: block; /* 让 "CaRe" 在新行上显示 */
+    display: block; /* Display "CaRe" on a new line */
 }
 
-/* 插图样式 */
+/* Illustration styles */
 .illustration img {
-    width: 90vw; /* 使用视口宽度进行相对调整 */
+    width: 90vw; /* Adjusted using viewport width for relative size */
     height: auto;
-    max-height: 50vh; /* 确保图像不会超出视口高度的一半 */
-    object-fit: contain; /* 确保图像比例适应 */
+    max-height: 50vh; /* Ensured the image doesn't exceed half the viewport height */
+    object-fit: contain; /* Ensured the image's aspect ratio fits */
 }
