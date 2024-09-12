@@ -1,6 +1,6 @@
 .nav-bar {
     position: fixed;
-    height: 50px;
+    height: 30px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -35,7 +35,19 @@
     justify-content: center;
     align-items: center;
     border: 5px solid #3366FF;
+    position: relative; /* Positioning the button for the pseudo-element */
 }
+
+.center-btn::after {
+    content: '';
+    position: absolute;
+    top: 62px; /* Adjust this value to move the line below the circle */
+    left: -30px; /* Adjust to center the line horizontally */
+    right: -30px; /* Adjust the width of the line */
+    height: 3px; /* Line thickness */
+    background-color: #3366FF; /* Line color to match the blue background */
+}
+
 
 .center-btn img {
     width: 40px;

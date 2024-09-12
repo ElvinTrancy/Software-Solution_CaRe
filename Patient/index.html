@@ -5,17 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="Styles/Basical.css">
-    <link rel="stylesheet" href="Styles/DataVis.css">
     <link rel="stylesheet" href="Styles/NagBar.css">
-
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
     <!-- Mood Distribution -->
     <div class="container">
+        <h2>Mood Distribution</h2>
         <div class="card mood">
-            <h2>Mood Distribution</h2>
             <div class="icons">
                 <div class="icon-item">
                     <div class="icon-content">
@@ -38,8 +39,8 @@
             </div>
         </div>
         <!-- Diet -->
-        <div class="card">
-            <h2>Diet Status</h2>
+        <h2>Diet Status</h2>
+        <div class="card diet">            
             <div class="scroll-container">
                 <img src="images/diet1.png" alt="diet 1">
                 <img src="images/diet2.png" alt="diet 2">
@@ -51,33 +52,39 @@
         </div>
 
         <!-- Sleep Mode -->
-        <div class="card">
-            <h2>Sleep Mode</h2>
-            <div class="card-content">
-                <img src="images/sleep-mode.png" alt="Sleep Mode">
+        <h2>Sleep Mode</h2>
+        <div class="card sleep">
+            <div class="sleep-chart">
+            </div>
+            <div class="sleep-info">
+                <div class="num">8 Hour/</div>
+                <div class="unit">Day</div>
             </div>
         </div>
 
         <!-- Exercise Record -->
-        <div class="card">
-            <h2>Exercise Record</h2>
-            <div class="card-content">
-                <img src="images/exercise-record.png" alt="Sleep Mode">
+        <h2>Exercise Record</h2>
+        <div class="card exercise">
+            <div class="exercise-chart">
+            </div>
+            <div class="sleep-info">
+                <div class="num">8 Hour/</div>
+                <div class="unit">Day</div>
             </div>
         </div>
 
         <!-- My Therapist -->
-        <div class="card">
+        <h2>My Therapist</h2>
+        <div class="card therapist">
             <div class="section therapist">
-                <h2>My Therapist</h2>
-                <div class="therapist-content">
-                    <div class="therapist-image">
-                        <img src="images/image 1.png" alt="Therapist">
-                    </div>
-                    <div class="session-info">
-                        <h2>1 on 1 Sessions</h2>
-                        <h3>Let’s open up to the things that matter the most</h3>
-                        <a href="#" class="book-now">Book Now</a>
+                <div class="therapist-image">
+                    <img src="images/image 1.png" alt="Therapist">
+                </div>
+                <div class="session-info">
+                    <h2>1 on 1 Sessions</h2>
+                    <h3>Let’s open up to the things that matter the most</h3>
+                    <div class="book-now-button">
+                        <span>Book Now</span>
                     </div>
                 </div>
             </div>
@@ -97,7 +104,7 @@
                 </button>
                 <div class="center-btn">
                     <button>
-                        <a href="add.html">
+                        <a href="./pages/add.html">
                             <img src="images/add-icon.png" alt="Add">
                         </a>
                     </button>

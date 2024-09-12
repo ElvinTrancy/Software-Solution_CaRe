@@ -1,0 +1,83 @@
+.slider-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #eaffd9;
+}
+
+.mood-slider {
+  display: flex;
+  flex-direction: row;
+  width: 1000px; /* Width larger than the container for scrolling */
+  transition: transform 0.3s ease;
+}
+
+.mood {
+  flex: 0 0 300px; /* Each mood takes 300px of space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5; /* Semi-transparent for inactive moods */
+  transition: opacity 0.3s ease;
+}
+
+.mood.active {
+  opacity: 1; /* Fully visible when active */
+}
+
+.mood img {
+  width: 150px;
+  height: 150px;
+}
+
+.arrows {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.arrow {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background-color: #3366FF;
+  clip-path: polygon(100% 0, 100% 100%, 0 50%);
+}
+
+.arrow.left {
+  transform: rotate(180deg);
+}
+
+.mood-label {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.arrow-container {
+  width: 100%; /* Width of the container */
+  height: 25px; /* Height of the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow {
+  width: 25px; /* Adjust the width as needed */
+  height: 15px; /* Adjust the height as needed */
+  background-color: #2F3C51; /* Background color, adjust based on arrow color */
+  clip-path: polygon(50% 0%, 10% 90%, 90% 90%); /* Adjusted polygon for rounded effect */
+  margin: 25px auto; /* Center alignment */
+  position: relative;
+}
+
+.arrow.reversed {
+ transform: rotate(180deg);
+}

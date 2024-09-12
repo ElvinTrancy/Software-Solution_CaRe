@@ -1,0 +1,150 @@
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.container {
+  padding: .5rem;
+}
+
+h2 {
+  font-size: .825rem;
+  font-weight: bolder;
+}
+
+.card {
+  box-shadow: none;
+}
+
+.mood {
+  height: 107px;
+  padding: .5rem;
+}
+
+.diet {
+  padding: 0rem;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: scroll; 
+  overflow-y: hidden; 
+  gap: 8px; 
+  scroll-behavior: smooth; 
+}
+
+.scroll-container img {
+  width: 62px;
+  height: 62px;
+  border-radius: 15px; 
+  flex-shrink: 0; 
+}
+
+.sleep {
+  height: 120px;
+  position: relative;
+}
+
+.exercise {
+  height: 120px;
+  background-color: #FA4D5E;
+  position: relative;
+}
+
+.sleep-info {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  vertical-align: baseline;
+  align-items: baseline;
+  color: #fff;
+}
+
+.sleep-chart {
+  height: 100%;
+  background-image: url('../images/sleep-chart.png');
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.exercise-chart {
+  height: 100%;
+  background-image: url('../images/sleep-chart.png');
+  background-position: top;
+  background-repeat:repeat-x;
+  background-size: contain;
+}
+
+.exercise-record {
+  background-color: #ff6f61;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  height: 165px;
+  text-align: center;
+  position: relative;
+}
+
+.exercise-info {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.num {
+  font-size: 2rem;
+  color: #fff;
+}
+
+.unit {
+  color: #818181;
+  font-size: 1rem;
+}
+
+.therapist {
+  padding: 0rem;
+  display: flex;
+}
+
+.session-info {
+  padding: 0 1rem;
+}
+
+.session-info h2 {
+  margin-top: 0;
+}
+
+.session-info h3 {
+  margin-top: 0;
+  margin-bottom: .5rem;
+}
+
+.book-now-button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif; /* Using Plus Jakarta Sans */
+  font-size: 18px;
+  color: #f18831; /* Orange text color */
+  font-weight: 700; /* Making the text bold */
+}
+
+/* Book Now text */
+.book-now-button span {
+  margin-right: 10px;
+}
+
+/* Icon next to the text */
+.book-now-button img {
+  width: 20px;
+  height: 20px;
+}
+

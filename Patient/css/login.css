@@ -1,0 +1,185 @@
+/* 基本样式重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #f4f6fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header样式 */
+.header {
+  text-align: center;
+  margin-bottom: 5vh;
+}
+
+.header img {
+  width: 75vw;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 表单样式 */
+.form {
+  width: 80vw;
+  margin: 2vh auto;
+}
+
+label {
+  display: block;
+  color: #1a1a1a;
+  font-weight: bold;
+}
+
+.password-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2vh;
+}
+
+.forget-password {
+  color: #6e7d8a;
+  text-decoration: underline;
+  width: 100%;
+  text-align: right;
+}
+
+/* 输入框样式 */
+.input-box {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 1vh;
+  padding: .5rem;
+  margin-top: 1vh;
+}
+
+.input-box.error {
+  border-color: #ff4d4f; /* 红色边框用于错误状态 */
+}
+
+.input-box input {
+  border: none;
+  outline: none;
+  line-height: 2rem;
+  flex: 1;
+}
+
+.icon {
+  width: 5vw;
+  height: auto;
+  margin-right: 1vw;
+}
+
+.icon-right {
+  width: 4vw;
+  height: auto;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+/* 错误信息样式 */
+.error-message {
+  display: flex;
+  align-items: center;
+  background-color: #fff1f0;
+  border: 1px solid #ff4d4f;
+  border-radius: 1vh;
+  padding: 1.5vh 2vw;
+  margin-top: 1vh;
+  color: #ff4d4f;
+}
+
+.error-icon {
+  width: 4vw; /* 根据新图标的尺寸调整宽度 */
+  height: auto;
+  margin-right: 1vw;
+}
+
+/* 按钮样式 */
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 3vh;
+}
+
+button {
+  font-size: 1rem;
+  padding: 2vh 0;
+  width: 80vw;
+  border: none;
+  border-radius: .5rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  margin-left: 1vw;
+}
+
+/* 分隔符样式 */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90vw;
+  margin: 3vh 0;
+  color: #6e7d8a;
+  font-size: .8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 0.1vh solid #cfd8e3;
+  margin: 0 1vw;
+}
+
+/* 社交媒体图标 */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 2vw;
+  margin-top: 2vh;
+}
+
+.social-icons a img {
+  width: 10vw;
+  height: 10vw;
+}
+
+/* 注册链接 */
+.extra-link {
+  text-align: center;
+  margin-top: 2vh;
+  font-size: .8rem;
+  color: #6e7d8a;
+}
+
+.extra-link a {
+  font-size: .8rem;
+  color: #ff0000;
+  text-decoration: underline;
+}
