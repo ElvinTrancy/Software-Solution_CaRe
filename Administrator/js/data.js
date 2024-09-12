@@ -186,11 +186,11 @@ function updateChart(data, timeRange) {
       color: ['#3A57E8', '#85F4FA']
   };
 
-  patientChart.setOption(option);
+  //patientChart.setOption(option);
 
   // Handle window resizing
   window.addEventListener('resize', function() {
-      patientChart.resize();
+      //patientChart.resize();
   });
 }
 

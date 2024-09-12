@@ -8,7 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="index.css">   
-    <link rel="stylesheet" href="/components//filter/index.css">
+    <link rel="stylesheet" href="/components/filter/index.css">
+    <link rel="stylesheet" href="/css/calendar.css">
     <link href="/components/pagination/index.css" rel="stylesheet">
     <link href="/components/statusBar/index.css" rel="stylesheet">
     <link href="/components/loading/index.css" rel="stylesheet">
@@ -136,7 +137,37 @@
         </div>
     </div>
     <div class="calender-container">
-      <div id='calendar'></div>
+      <!-- <div id='calendar'></div> -->
+      <div class="calendar-host">                  
+        <div class="calendar-header">
+          <button id="prev-month">&lt;</button>
+          <h2 id="calendar-month-year"></h2>
+          <button id="next-month">&gt;</button> 
+        </div>
+    
+        <div class="view-options">
+            <button class="toggle-button">Day</button>
+            <button class="toggle-button">Week</button>
+            <button class="toggle-button active">Month</button>
+        </div>
+    
+        <table class="calendar-table">
+            <thead>
+                <tr>
+                    <th>MON</th>
+                    <th>TUE</th>
+                    <th>WED</th>
+                    <th>THU</th>
+                    <th>FRI</th>
+                    <th>SAT</th>
+                    <th>SUN</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body">
+                <!-- Calendar dates will be inserted here via JavaScript -->
+            </tbody>
+        </table>
+      </div>
     </div>
     <!-- <div class="loading-spinner" id="loading-spinner"></div> -->
   </div>
@@ -148,9 +179,9 @@
     <span style="margin-left: 3rem;">Terms of Use</span>
   </div>
  
-  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script> -->
   <script src="/components/modal/confirm.js"></script>
-  <script>
+  <!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
       var calendarEl = document.getElementById('calendar');
 
@@ -243,7 +274,8 @@
 
       calendar.render();
     });
-  </script>
+  </script> -->
 <script src="/components/siderBar/index.js"></script>
+<script src="/js/calendar.js"></script>
 </body>
 </html>

@@ -1,0 +1,313 @@
+.calendar-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  gap: .5rem;
+  margin-top: .5rem;
+}
+
+.event-list {
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 270px;
+  width: 18%;
+}
+
+.calendar-host {
+  flex: 1;
+  border-radius: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  position: relative;
+}
+
+.add-event-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.event-list h2 {
+  text-align: left;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #333;
+  border-bottom: #888;
+}
+
+.event-card {
+  display: flex;
+  background-color: #fff;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.event-card::after {
+  content: '';
+  display: block;
+  margin-top: 2px;
+  width: 80%; /* Border will occupy 80% of the card's width */
+  height: 1px; /* Height of the border */
+  background-color: #ddd; /* Color of the border */
+  position: absolute;
+  bottom: 0; /* Align the border at the bottom */
+  left: 50%; /* Align to the center horizontally */
+  transform: translateX(-50%); /* Ensure the border is centered */
+}
+
+.event-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-image: url('../assets/event.png');
+}
+
+.event-info {
+  text-align: left;
+}
+
+.event-info h3 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.event-info p {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.attendees {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.attendees img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.attendee-count {
+  font-size: 12px;
+  color: #888;
+  margin-left: 10px;
+}
+
+.see-more-btn {
+  background-color: #f0f4ff;
+  color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}
+
+.calendar-header h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.calendar-header button {
+  background: none; /* Remove the background */
+  border: none; /* Remove the border */
+  font-size: 1.5rem; /* Make the arrows slightly bigger */
+  color: #666; /* Grey color for the arrow */
+  cursor: pointer;
+  padding: 0 10px; /* Add some horizontal padding */
+  transition: color 0.2s ease; /* Smooth transition effect on hover */
+}
+
+.calendar-header button:hover {
+  color: #000; /* Darken the arrow color when hovered */
+}
+
+.calendar-header span {
+  margin: 0 20px; /* Add margin around the month text */
+  font-size: 24px; /* Make sure the month text is properly sized */
+  color: #333; /* Dark text for the month */
+}
+
+.view-options {
+  position: absolute;
+  right: 1rem;
+  height: 30px;
+  top: .5rem;
+  justify-content: flex-end;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  border: 1px solid #ddd; /* Border around the entire group */
+  border-radius: .5rem; /* Rounded corners for the whole group */
+  overflow: hidden; /* Prevents child buttons from overflowing */
+  width: fit-content; /* Fit to content size */
+}
+
+.toggle-button {
+  flex: 1; /* Make all buttons equally spaced */
+  padding: 0 10px;
+  font-size: 1rem;
+  border: none; /* Remove the default button border */
+  background-color: transparent; /* Initially, no background */
+  cursor: pointer;
+  color: #333; /* Text color */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.toggle-button:not(:last-child) {
+  border-right: 1px solid #ddd; /* Add a divider between buttons */
+}
+
+.toggle-button.active {
+  background-color: #4a8ef4; /* Blue background for the active button */
+  color: white; /* White text for the active button */
+}
+
+.toggle-button:hover {
+  background-color: #e6e6e6; /* Slight hover effect */
+  color: #333;
+}
+
+.view-btn {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 10px;
+  table-layout: fixed;
+}
+
+.calendar-table th {
+  background-color: #F1F4F9;
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.calendar-table th:first-child {
+  border-top-left-radius: 1rem; /* Top left corner */
+}
+
+.calendar-table th:last-child {
+  border-top-right-radius: 1rem; /* Top right corner */
+}
+
+.calendar-table tr:last-child td:first-child {
+  border-bottom-left-radius: 1rem;
+}
+
+.calendar-table tr:last-child td:last-child {
+  border-bottom-right-radius: 1rem;
+}
+
+.calendar-table td {
+  width: calc(100% / 7);
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #F1F4F9;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  position: relative;
+}
+
+.event {
+  display: block; /* Make sure the event spans are block-level elements */
+  white-space: nowrap; /* Prevent line breaks in event names */
+  overflow: hidden; /* Hide content that overflows the width of the cell */
+  text-overflow: ellipsis; /* Show ellipsis (...) when text is too long */
+  max-width: 100%; /* Ensure the event span stays within the cell width */
+}
+
+/* Purple event tag */
+.event.purple {
+  background-color: rgba(138, 43, 226, 0.8); /* A shade of purple */
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+}
+
+/* Pink event tag */
+.event.pink {
+  background-color: rgba(255, 105, 180, 0.8); /* Hot pink color */
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+}
+
+/* Orange event tag */
+.event.orange {
+  background-color: rgba(255, 165, 0, 0.8); /* Orange color */
+  color: white;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+  background-size: 40px 40px;
+}
+
+.striped {
+  background-image: url('../assets/striped-image.png'); /* Update the path to your striped image */
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #ccc; /* Lighten the text to indicate it's from another month */
+}
+
