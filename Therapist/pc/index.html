@@ -17,33 +17,32 @@
             <img class="plus" src="assets/logo.png" alt="icon">
           </div>
           <div class="menu-section">
-            <div class="menu-item active">
+            <div class="menu-item " data-href="index.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-ana"></use>
               </svg>
               <span class="info">8</span>              
             </div>
-            <div class="menu-item">
+            <div class="menu-item " data-href="calendar.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-calendar"></use>
               </svg>
             </div>
-            <div class="menu-item">
+            <div class="menu-item " data-href="patients.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-muser"></use>
               </svg>          
             </div>
-            <div class="menu-item">
+            <div class="menu-item active" data-href="group.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-group"></use>
               </svg>          
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-href="setting.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-gear"></use>
               </svg>          
             </div>
-            
           </div>
           <div class="head-section">
             <img src="assets/doc0.jpeg">
@@ -131,7 +130,7 @@
                           <div class="time">5 PM</div>
                           <div class="time-line"></div>
                         </div>
-                        <div class="reminder">
+                        <div class="reminder" style="cursor: pointer;" onclick="window.location.href = 'calendar.html'">
                           <p>Dr. Dekomori</p>
                           <span>Treatment and prevention of skin and photodermatitis.</span>
                           <div class="actions">
@@ -182,7 +181,7 @@
               <div class="summary-group">
                   <div class="patient-summary">
                       <h2>Summary of Patient Data</h2>
-                      <div class="patient-data">
+                      <div class="patient-data" onclick="window.location.href = 'patients-data.html'">
                         <div class="new-patients">
                           <p class="patient-count">9</p>
                           <p class="card-name"> New Patients</p>
@@ -261,7 +260,7 @@
                         
                       
 
-                        <div class="group-see-all">See All →</div>
+                        <div onclick="window.location.href = 'group.html'" class="group-see-all">See All →</div>
                       </div>
                   </div>
               </div>
@@ -346,6 +345,7 @@
     </script>
 
     </script>
+    <script src="js/nav.js"></script>
     <!-- <script>
       const ctx = document.getElementById('myChart').getContext('2d');
       const myChart = new Chart(ctx, {

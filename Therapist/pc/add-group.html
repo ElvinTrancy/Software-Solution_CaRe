@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap">
     <link rel="stylesheet" href="css/index.css"> 
     <link rel="stylesheet" href="css/patients.css"> 
+    <link rel="stylesheet" href="css/add-group.css"> 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="components/icon/index.js"></script>
     <style>
@@ -49,33 +50,32 @@
             <img class="plus" src="assets/logo.png" alt="icon">
           </div>
           <div class="menu-section">
-            <div class="menu-item ">
+            <div class="menu-item " data-href="index.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-ana"></use>
               </svg>
               <span class="info">8</span>              
             </div>
-            <div class="menu-item ">
+            <div class="menu-item " data-href="calendar.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-calendar"></use>
               </svg>
             </div>
-            <div class="menu-item ">
+            <div class="menu-item " data-href="patients.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-muser"></use>
               </svg>          
             </div>
-            <div class="menu-item active">
+            <div class="menu-item active" data-href="group.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-group"></use>
               </svg>          
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-href="setting.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-gear"></use>
               </svg>          
             </div>
-            
           </div>
           <div class="head-section">
             <img src="assets/doc0.jpeg">
@@ -110,11 +110,300 @@
               <div class="page-scrum">
                 <h2 onclick="window.location.href = 'group.html'" class="go-back" id="go-back">Patient Group list   </h2><h2>></h2><h2>Add Group</h2>
               </div>
+              <div class="add-group-container">
+                <div class="add-group-header">
+                    <div class="add-group-id">Group ID: 001</div>
+                    <div class="add-group-actions">
+                      <button class="add-group-cancel-btn">Cancel</button>
+                      <button class="add-group-confirm-btn">Confirm</button>
+                  </div>
+                </div>
+                <div class="add-group-form-section">
+                    <div class="add-group-input-group">
+                        <label for="group-name">Group Name:</label>
+                        <input type="text" id="group-name" name="group-name">
+                    </div>
+                    <div class="add-group-input-group">
+                        <label for="group-study">Group Study:</label>
+                        <input type="text" id="group-study" name="group-study">
+                    </div>
+                </div>
+                <div class="group-editor">
+                  <div class="add-group-members-section">
+                      <label for="group-member">Group Member:</label>
+                      <div class="alphabet-pagination" id="alphabet-pagination"></div>
+                      <div class="therapist-info-patient-list care-scroll">
+                        <div class="therapist-info-patient-item patient-item-selected">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 101</h4>
+                                <h4>John Doe</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox" checked="">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item patient-item-selected">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 102</h4>
+                                <h4>Jane Smith</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox" checked="">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 103</h4>
+                                <h4>Alice Johnson</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 104</h4>
+                                <h4>Robert Brown</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 105</h4>
+                                <h4>Emily Davis</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 106</h4>
+                                <h4>Michael White</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 107</h4>
+                                <h4>Sarah Wilson</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 108</h4>
+                                <h4>David Lee</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 109</h4>
+                                <h4>Sophia Taylor</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 110</h4>
+                                <h4>Chris Harris</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 111</h4>
+                                <h4>Megan Clark</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 112</h4>
+                                <h4>James Hall</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 113</h4>
+                                <h4>Natalie Allen</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 114</h4>
+                                <h4>Ryan King</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 115</h4>
+                                <h4>Laura Scott</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 116</h4>
+                                <h4>Joshua Young</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 117</h4>
+                                <h4>Zoe Walker</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 118</h4>
+                                <h4>Anthony Green</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 119</h4>
+                                <h4>Jessica Adams</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 120</h4>
+                                <h4>Jacob Baker</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 121</h4>
+                                <h4>Abigail Turner</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    
+                        <div class="therapist-info-patient-item ">
+                            <img src="assets/head.jpeg" alt="Patient Picture">
+                            <div class="therapist-info-patient-info">
+                                <h4>Patient ID: 122</h4>
+                                <h4>Daniel Martinez</h4>
+                            </div>
+                            <input type="checkbox" class="therapist-info-patient-checkbox">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="meeting-form-container">
+                    <label for="group-member"> Initiating Group Therapy:</label>
+                    <!-- Online / In-Clinic Switch -->
+                    <div class="meeting-mode-switch">
+                        <button class="active">Online</button>
+                        <button>In-Clinic</button>
+                    </div>
+            
+                    <!-- Meeting Theme Input -->
+                    <div class="meeting-theme">
+                        <label for="theme">Meeting Theme:</label>
+                        <input type="text" id="theme" placeholder="psychological counseling">
+                    </div>
+            
+                    <!-- Meeting Time -->
+                    <div class="meeting-time">
+                        <label for="meeting-time">Meeting Time:</label>
+                        <div class="time-inputs">
+                            <input type="date" id="date" value="2024-08-28">
+                            <select id="time">
+                                <option value="12:20">12:20</option>
+                                <!-- Add more time options here -->
+                            </select>
+                        </div>
+                    </div>
+            
+                    <!-- Meeting Reminder Switch -->
+                    <div class="meeting-reminder">
+                        <label for="reminder">Meeting reminder:</label>
+                        <div class="reminder-switch">
+                            <button class="active">On</button>
+                            <button>Off</button>
+                        </div>
+                    </div>
+            
+                    <!-- Meeting Notification Textarea -->
+                    <div class="meeting-notification">
+                        <label for="notification">Meeting Notification:</label>
+                        <textarea id="notification" rows="5" placeholder="I haven’t been eating well lately, and I don’t know why. My right foot also hurts so much, please help me, doc A!"></textarea>
+                        <div class="char-count" id="char-count">0/250</div>
+                    </div>
+                </div>
+                </div>
+            </div>
           </div>
       </div>
     </div>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+
+        // Select all the patient items
+        const patientItems = document.querySelectorAll('.therapist-info-patient-item');
+
+        // Add click event listener to each item
+        patientItems.forEach(item => {
+          item.addEventListener('click', function(event) {
+            // Prevent the event from firing when clicking directly on the checkbox
+            if (event.target.type !== 'checkbox') {
+                const checkbox = this.querySelector('.therapist-info-patient-checkbox');
+                checkbox.checked = !checkbox.checked; // Toggle the checkbox state
+                
+                // Toggle the 'selected' class based on the checkbox state
+                if (checkbox.checked) {
+                    this.classList.add('patient-item-selected');
+                } else {
+                    this.classList.remove('patient-item-selected');
+                }
+            }
+        });
+        });
+
+
 
         document.querySelectorAll('.selectable-icon').forEach(icon => {
           icon.addEventListener('click', function() {
@@ -165,8 +454,8 @@
         });
       });
 
-        const textarea = document.querySelector('.note-textarea');
-        const characterCount = document.querySelector('.character-count span');
+        const textarea = document.getElementById('notification');
+        const characterCount = document.getElementById('char-count');
 
         textarea.addEventListener('input', () => {
             const currentLength = textarea.value.length;
@@ -247,5 +536,6 @@
       // Initialize with 'A' as the active letter
       createAlphabetPagination(activeLetter);
     </script>
+    <script src="js/nav.js"></script>
 </body>
 </html>

@@ -18,33 +18,32 @@
             <img class="plus" src="assets/logo.png" alt="icon">
           </div>
           <div class="menu-section">
-            <div class="menu-item ">
+            <div class="menu-item " data-href="index.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-ana"></use>
               </svg>
               <span class="info">8</span>              
             </div>
-            <div class="menu-item ">
+            <div class="menu-item " data-href="calendar.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-calendar"></use>
               </svg>
             </div>
-            <div class="menu-item active">
+            <div class="menu-item " data-href="patients.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-muser"></use>
               </svg>          
             </div>
-            <div class="menu-item">
+            <div class="menu-item active" data-href="group.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-group"></use>
               </svg>          
             </div>
-            <div class="menu-item">
+            <div class="menu-item" data-href="setting.html">
               <svg class="icon menu-item" aria-hidden="true">
                 <use xlink:href="#icon-gear"></use>
               </svg>          
             </div>
-            
           </div>
           <div class="head-section">
             <img src="assets/doc0.jpeg">
@@ -204,7 +203,7 @@
               </div>
 
               <div class="patient-detail" id="detail" style="display: none;">
-                <h2 class="note-header">Patient Note</h2>
+                <h2 class="note-header">Patient Details</h2>
                 <div class="profile-header">
                   <img src="assets/doc0.jpeg" alt="Patient" class="patient-photo">
                   <div class="profile-details">
@@ -291,7 +290,7 @@
 
         treatmentRecordBtn.addEventListener('click', function() {
             // Navigate to the 'record.html' page
-            window.location.href = 'record.html';
+            window.location.href = 'patients-record.html';
         });
 
 
@@ -414,5 +413,6 @@
       // Initialize with 'A' as the active letter
       createAlphabetPagination(activeLetter);
     </script>
+    <script src="js/nav.js"></script>
 </body>
 </html>
