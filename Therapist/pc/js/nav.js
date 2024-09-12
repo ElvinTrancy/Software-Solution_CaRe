@@ -10,7 +10,7 @@ document.querySelectorAll('.menu-item').forEach(item => {
       // Navigate to the URL specified in 'data-href'
       const href = this.getAttribute('data-href');
       if (href) {
-          window.location.href = href;
+          window.location.href =  href;
       }
   });
 });
