@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt->close();
     } else {
-        $error = "Please fill in both fields.";
+        $error = "Please fill in both fields.11";
     }
 
     $conn->close();
