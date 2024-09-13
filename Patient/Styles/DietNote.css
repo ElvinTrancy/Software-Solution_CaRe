@@ -69,10 +69,6 @@ button:hover img {
     border: 2px solid #C0C5CE;
 }
 
-.mood-buttons button:hover {
-    background-color: #F0F1F3;
-}
-
 .mood-buttons button:not(:last-child) {
     margin-right: 10px;
 }

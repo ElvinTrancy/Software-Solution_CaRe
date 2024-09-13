@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Set initial thumb and progress position based on the initial level
     function initializeThumbPosition() {
         const sliderContainerWidth = sliderProgress.parentElement.offsetWidth;
-        const progressWidth = (initialProgressPercent / 100) * sliderContainerWidth;
 
         sliderProgress.style.width = `${initialProgressPercent}%`;
         sliderThumb.style.right = `${100 - initialProgressPercent}%`;
@@ -29,31 +28,68 @@ document.addEventListener("DOMContentLoaded", function() {
 
     initializeThumbPosition();  // Call this function to set initial positions
 
+    // Variables to track dragging state
+    let isDragging = false;
+
     // Handle slider thumb drag
-    sliderThumb.addEventListener("mousedown", function(e) {
+    sliderThumb.addEventListener("mousedown", startDrag);
+    sliderThumb.addEventListener("touchstart", startDrag, { passive: false });
+
+    function startDrag(e) {
+        e.preventDefault(); // Prevent default touch behaviors (e.g., scrolling)
+        isDragging = true;
+
         document.addEventListener("mousemove", onDrag);
-        document.addEventListener("mouseup", function() {
-            document.removeEventListener("mousemove", onDrag);
-        });
-    });
+        document.addEventListener("mouseup", endDrag);
+
+        document.addEventListener("touchmove", onDrag, { passive: false });
+        document.addEventListener("touchend", endDrag);
+    }
 
     function onDrag(e) {
-        const sliderContainerWidth = sliderProgress.parentElement.offsetWidth;
-        let newPosition = (e.clientX - sliderProgress.parentElement.getBoundingClientRect().left);
+        if (!isDragging) return;
+
+        e.preventDefault(); // Prevent default touch behaviors during dragging
+
+        let clientX;
+
+        if (e.type.startsWith('touch')) {
+            clientX = e.touches[0].clientX;
+        } else if (e.type.startsWith('mouse')) {
+            clientX = e.clientX;
+        } else {
+            return;
+        }
+
+        const sliderContainer = sliderProgress.parentElement;
+        const sliderContainerWidth = sliderContainer.offsetWidth;
+        const containerLeft = sliderContainer.getBoundingClientRect().left;
+
+        let newPosition = clientX - containerLeft;
 
         // Ensure the thumb stays within bounds
         if (newPosition < 0) newPosition = 0;
-        if (newPosition > sliderContainerWidth) newPosition = sliderContainerWidth - 1;
+        if (newPosition > sliderContainerWidth) newPosition = sliderContainerWidth;
 
         const progressPercent = (newPosition / sliderContainerWidth) * 100;
         sliderProgress.style.width = `${progressPercent}%`;
         sliderThumb.style.right = `${100 - progressPercent}%`;
 
         // Adjust level text based on the slider position
-        const newLevel = Math.floor(progressPercent / 20);
-        if (newLevel !== currentLevel) {
+        const newLevel = Math.floor(progressPercent / 20); // Assuming 5 levels
+        if (newLevel !== currentLevel && newLevel >= 0 && newLevel < levels.length) {
             currentLevel = newLevel;
             fitnessLevelText.textContent = levels[currentLevel];
         }
+    }
+
+    function endDrag() {
+        isDragging = false;
+
+        document.removeEventListener("mousemove", onDrag);
+        document.removeEventListener("mouseup", endDrag);
+
+        document.removeEventListener("touchmove", onDrag);
+        document.removeEventListener("touchend", endDrag);
     }
 });
