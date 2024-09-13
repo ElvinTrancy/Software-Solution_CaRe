@@ -209,7 +209,10 @@
                   </div>
                 </div>
             </div>
-              <div class="patient-detail">
+            
+            <div class="patient-detail" id="loading" style="display: flex;">
+            </div>
+              <div class="patient-detail" id="detail" style="display: none;">
                 <h2 class="note-header">Group Note</h2>
 
                 <!-- Text Area with character count -->
@@ -222,7 +225,7 @@
             
                 <!-- Confirm Button -->
                 <button class="confirm-btn">
-                    Confirm <span class="btn-icon">➕</span>
+                    Confirm <span class="btn-icon"> + </span>
                 </button>
             
                 <!-- Notes list -->
@@ -264,119 +267,59 @@
                   </div>
                 </div>
               </div>
-
-              <div class="patient-detail" id="detail" style="display: none;">
-                <h2 class="note-header">Patient Note</h2>
-                <div class="profile-header">
-                  <img src="assets/doc0.jpeg" alt="Patient" class="patient-photo">
-                  <div class="profile-details">
-                      <p class="profile-id">Patient ID: 001</p>
-                      <p class="profile-name">Olivia Turner, M.D.</p>
-                      <p class="profile-group">Patient Group: Group1</p>
-                      <p class="diagnostic">
-                          Diagnostic:
-                          <select>
-                              <option value="somnipathy">Somnipathy</option>
-                              <!-- Add more options if needed -->
-                          </select>
-                      </p>
-                  </div>
-              </div>
-          
-              <button class="treatment-record-btn" id="navigate-record">
-                  Treatment Record <span class="btn-icon">➕</span>
-              </button>
-          
-              <div class="block-wrapper">
-                <div class="block">
-                    <h3 class="section-header">Mood Distribution</h3>
-                    <div class="mood-distribution">
-                        <div class="mood-block optimism">
-                            <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-positive"></use>
-                            </svg>
-                            <div class="mood-desc">
-                                <span>Optimism</span>
-                                <span>90%</span>
-                            </div>
-                        </div>
-                        <div class="mood-block pessimism">
-                            <svg class="icon" aria-hidden="true">
-                                <use xlink:href="#icon-negative"></use>
-                            </svg>
-                            <div class="mood-desc">
-                                <span>Pessimism</span>
-                                <span>10%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="block">
-                    <h3 class="section-header">Diet Status</h3>
-                    <div class="diet-status">
-                        <div class="diet-icon abalone"></div>
-                        <div class="diet-icon apple"></div>
-                        <div class="diet-icon apple"></div>
-                    </div>
-                </div>
-            </div>
-            
-          
-              <h3 class="section-header">Sleep Mode</h3>
-              <div class="sleep-mode">
-                <div class="sleep-chart">
-                </div>
-                  <div class="sleep-info">
-                      <span>8 hour/Day</span>
-                  </div>
-              </div>
-          
-              <h3 class="section-header">Exercise Record</h3>
-              <div class="exercise-record">
-                <div class="exercise-chart"></div>
-                  <div class="exercise-info">
-                      <span>8 hour/Day</span>
-                  </div>
-              </div>
-              
-            </div>
           </div>
       </div>
     </div>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
 
+
+        const groups = document.querySelectorAll('.group-card');
+        groups.forEach(card => {
+          card.addEventListener('click', function() {
+            window.location.href = 'initial-group.html';
+          });
+        });
+
+
+        var loading1 = document.getElementById('loading');
+        var detail = document.getElementById('detail');
         document.querySelectorAll('.selectable-icon').forEach(icon => {
-          icon.addEventListener('click', function() {
+          icon.addEventListener('click', function(e) {
+            e.stopPropagation();
             // Remove the 'selected' class from all selectable icons
             document.querySelectorAll('.selectable-icon').forEach(item => {
               item.classList.remove('selected');
             });
             // Add the 'selected' class to the clicked icon
             this.classList.add('selected');
+            loading1.style.display = 'none';
+            detail.style.display = 'flex';
+
+
+
           });
         });
 
 
-        const profileCards = document.querySelectorAll('.profile-card');
+        // const profileCards = document.querySelectorAll('.profile-card');
 
-        const note = document.getElementById('note');
-        const loading = document.getElementById('loading');
-        const detail = document.getElementById('detail');
-        // Add click event listener to each profile card
-        profileCards.forEach(card => {
-            card.addEventListener('click', function() {
-                // Remove 'selected' class from all profile cards
-                profileCards.forEach(c => c.classList.remove('selected'));
-                menuIcons.forEach(i => i.classList.remove('selected'));
-                // Add 'selected' class to the clicked card
-                this.classList.add('selected');
-                detail.style.display = 'flex';
-                note.style.display = 'none';
-                loading.style.display = 'none';
-            });
-        });
+        // const note = document.getElementById('note');
+        // const loading = document.getElementById('loading');
+        // const detail = document.getElementById('detail');
+        // // Add click event listener to each profile card
+        // profileCards.forEach(card => {
+        //     card.addEventListener('click', function() {
+        //         // Remove 'selected' class from all profile cards
+        //         profileCards.forEach(c => c.classList.remove('selected'));
+        //         menuIcons.forEach(i => i.classList.remove('selected'));
+        //         // Add 'selected' class to the clicked card
+        //         this.classList.add('selected');
+        //         detail.style.display = 'flex';
+        //         note.style.display = 'none';
+        //         loading.style.display = 'none';
+        //     });
+        // });
       const menuIcons = document.querySelectorAll('.menu-icon');
 
       

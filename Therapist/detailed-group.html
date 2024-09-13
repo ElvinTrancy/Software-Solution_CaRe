@@ -108,24 +108,24 @@
             </div>
             <div class="main-section">
               <div class="page-scrum">
-                <h2 onclick="window.location.href = 'group.html'" class="go-back" id="go-back">Patient Group list   </h2><h2>></h2><h2>Add Group</h2>
+                <h2 onclick="window.location.href = 'group.html'" class="go-back" id="go-back">Patient Group list   </h2><h2>></h2><h2>Group Detail</h2>
               </div>
               <div class="add-group-container">
                 <div class="add-group-header">
                     <div class="add-group-id">Group ID: 001</div>
                     <div class="add-group-actions">
-                      <button class="add-group-cancel-btn">Cancel</button>
-                      <button class="add-group-confirm-btn" onclick="window.location.href = 'detailed-group.html'">Confirm</button>
+                      <!-- <button class="add-group-cancel-btn">Cancel</button> -->
+                      <button class="add-group-confirm-btn" onclick="window.location.href = 'initial-group.html'">lnitiating Group Therapy →</button>
                   </div>
                 </div>
                 <div class="add-group-form-section">
                     <div class="add-group-input-group">
                         <label for="group-name">Group Name:</label>
-                        <input type="text" id="group-name" name="group-name">
+                        <input type="text" id="group-name" name="group-name" value="Group 1" disabled>
                     </div>
                     <div class="add-group-input-group">
                         <label for="group-study">Group Study:</label>
-                        <input type="text" id="group-study" name="group-study">
+                        <input type="text" id="group-study" name="group-study" value="Field 1" disabled>
                     </div>
                 </div>
                 <div class="group-editor">
@@ -347,17 +347,17 @@
         patientItems.forEach(item => {
           item.addEventListener('click', function(event) {
             // Prevent the event from firing when clicking directly on the checkbox
-            if (event.target.type !== 'checkbox') {
-                const checkbox = this.querySelector('.therapist-info-patient-checkbox');
-                checkbox.checked = !checkbox.checked; // Toggle the checkbox state
+            // if (event.target.type !== 'checkbox') {
+            //     const checkbox = this.querySelector('.therapist-info-patient-checkbox');
+            //     checkbox.checked = !checkbox.checked; // Toggle the checkbox state
                 
-                // Toggle the 'selected' class based on the checkbox state
-                if (checkbox.checked) {
-                    this.classList.add('patient-item-selected');
-                } else {
-                    this.classList.remove('patient-item-selected');
-                }
-            }
+            //     // Toggle the 'selected' class based on the checkbox state
+            //     if (checkbox.checked) {
+            //         this.classList.add('patient-item-selected');
+            //     } else {
+            //         this.classList.remove('patient-item-selected');
+            //     }
+            // }
         });
         });
 
