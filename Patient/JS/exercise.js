@@ -67,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let newPosition = clientX - containerLeft;
 
-        // Ensure the thumb stays within bounds
         if (newPosition < 0) newPosition = 0;
         if (newPosition > sliderContainerWidth) newPosition = sliderContainerWidth;
 
