@@ -15,14 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_message = "Please enter both email and password.";
     } else {
         // Prepare SQL query to check if the user exists
-        $sql = "SELECT id, password FROM users WHERE email = ?";
+        $sql = "SELECT id, password FROM patients WHERE email = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && $password == $user['password']) {
             // Password is correct, log in the user
             $_SESSION['user_id'] = $user['id'];
             header("Location: dashboard.php");
