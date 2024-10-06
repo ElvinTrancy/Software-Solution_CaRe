@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   background-color: transparent;
-  height: 100%;
+  height: calc(100% - 90px);
   width: 100%;
   flex: 1;
   gap: .5rem;
@@ -13,11 +13,11 @@
   border-radius: 1rem;
   padding: 1rem;
   background-color: #fff;
-  justify-content: center;
   display: flex;
   flex-direction: column;
   min-width: 270px;
   width: 18%;
+  overflow-y: auto;
 }
 
 .calendar-host {
@@ -25,6 +25,7 @@
   border-radius: 1rem;
   background-color: #fff;
   padding: 1rem;
+  margin-right: 1rem;
   position: relative;
 }
 

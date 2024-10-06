@@ -175,11 +175,81 @@ VALUES
 -- Insert mock data into GroupMeetings
 INSERT INTO GroupMeetings (group_id, theme, meeting_date, meeting_time, mode, notification, reminder)
 VALUES
-(1, 'Psychological Counseling', '2024-08-28', '12:20:00', 'Online', 'Reminder for counseling', 'On'),
-(2, 'Stress Management', '2024-09-01', '10:00:00', 'In-Clinic', 'Focus on breathing exercises', 'On'),
-(3, 'Anxiety Management', '2024-09-15', '14:00:00', 'Online', 'Discussion on coping strategies', 'Off'),
-(4, 'Anger Management', '2024-09-21', '11:30:00', 'Online', 'Techniques to handle anger', 'On'),
-(5, 'Grief Counseling', '2024-09-30', '16:00:00', 'In-Clinic', 'Dealing with loss', 'Off');
+(1, 'Psychological Counseling', '2024-11-01', '09:00:00', 'Online', 'Reminder for counseling', 'On'),
+(2, 'Stress Management', '2024-11-02', '10:00:00', 'In-Clinic', 'Focus on breathing exercises', 'On'),
+(3, 'Anxiety Management', '2024-11-03', '11:00:00', 'Online', 'Discussion on coping strategies', 'Off'),
+(4, 'Anger Management', '2024-11-04', '12:30:00', 'Online', 'Techniques to handle anger', 'On'),
+(5, 'Grief Counseling', '2024-11-05', '14:00:00', 'In-Clinic', 'Dealing with loss', 'Off'),
+(1, 'Family Therapy', '2024-11-06', '15:00:00', 'Online', 'Reminder for family support', 'On'),
+(2, 'Depression Recovery', '2024-11-07', '16:00:00', 'In-Clinic', 'Coping with depression', 'On'),
+(3, 'Addiction Support', '2024-11-08', '17:30:00', 'Online', 'Dealing with addiction', 'Off'),
+(4, 'Cognitive Behavioral Therapy', '2024-11-09', '09:30:00', 'Online', 'Behavioral techniques', 'On'),
+(5, 'Post-Traumatic Stress', '2024-11-10', '10:30:00', 'In-Clinic', 'Managing PTSD', 'Off'),
+(1, 'Eating Disorder Support', '2024-11-11', '11:30:00', 'Online', 'Body image recovery', 'On'),
+(2, 'Meditation Techniques', '2024-11-12', '12:00:00', 'In-Clinic', 'Focus on mindfulness', 'On'),
+(3, 'Crisis Counseling', '2024-11-13', '13:00:00', 'Online', 'Dealing with crisis', 'Off'),
+(4, 'Mindfulness Training', '2024-11-14', '14:30:00', 'Online', 'Focus on mindfulness', 'On'),
+(5, 'Trauma Therapy', '2024-11-15', '16:30:00', 'In-Clinic', 'Recovery from trauma', 'Off'),
+(1, 'Stress Relief', '2024-11-16', '09:00:00', 'Online', 'Relaxation techniques', 'On'),
+(2, 'Support Group for Teens', '2024-11-17', '10:00:00', 'In-Clinic', 'Teen support', 'On'),
+(3, 'Support Group for Seniors', '2024-11-18', '11:00:00', 'Online', 'Elder care support', 'Off'),
+(4, 'Anxiety Reduction', '2024-11-19', '12:30:00', 'Online', 'Managing anxiety', 'On'),
+(5, 'Career Counseling', '2024-11-20', '14:00:00', 'In-Clinic', 'Career advice', 'Off'),
+(1, 'Family Dynamics', '2024-11-21', '15:00:00', 'Online', 'Family relationship building', 'On'),
+(2, 'Overcoming Loneliness', '2024-11-22', '16:00:00', 'In-Clinic', 'Social interaction techniques', 'On'),
+(3, 'Public Speaking Anxiety', '2024-11-23', '17:30:00', 'Online', 'Handling speaking anxiety', 'Off'),
+(4, 'Communication Skills', '2024-11-24', '09:30:00', 'Online', 'Improving communication', 'On'),
+(5, 'Positive Thinking', '2024-11-25', '10:30:00', 'In-Clinic', 'Developing a positive mindset', 'Off'),
+(1, 'Motivation Boost', '2024-11-26', '11:30:00', 'Online', 'Inspiration and motivation', 'On'),
+(2, 'Breaking Bad Habits', '2024-11-27', '12:00:00', 'In-Clinic', 'Techniques for habit change', 'On'),
+(3, 'Building Self-Esteem', '2024-11-28', '13:00:00', 'Online', 'Boosting self-esteem', 'Off'),
+(4, 'Conflict Resolution', '2024-11-29', '14:30:00', 'Online', 'Managing conflict', 'On'),
+(5, 'Sleep Hygiene', '2024-11-30', '16:30:00', 'In-Clinic', 'Improving sleep quality', 'Off'),
+(1, 'Work-Life Balance', '2024-12-01', '09:00:00', 'Online', 'Balancing work and life', 'On'),
+(2, 'Support Group for Veterans', '2024-12-02', '10:00:00', 'In-Clinic', 'Veterans support', 'On'),
+(3, 'Bereavement Counseling', '2024-12-03', '11:00:00', 'Online', 'Coping with loss', 'Off'),
+(4, 'Grief Support', '2024-12-04', '12:30:00', 'Online', 'Handling grief', 'On'),
+(5, 'Substance Abuse Recovery', '2024-12-05', '14:00:00', 'In-Clinic', 'Support for addiction', 'Off'),
+(1, 'Postpartum Support', '2024-12-06', '15:00:00', 'Online', 'Support for new mothers', 'On'),
+(2, 'Relationship Counseling', '2024-12-07', '16:00:00', 'In-Clinic', 'Managing relationships', 'On'),
+(3, 'Domestic Violence Support', '2024-12-08', '17:30:00', 'Online', 'Support for abuse victims', 'Off'),
+(4, 'Mental Health Awareness', '2024-12-09', '09:30:00', 'Online', 'Understanding mental health', 'On'),
+(5, 'Financial Stress Counseling', '2024-12-10', '10:30:00', 'In-Clinic', 'Managing financial stress', 'Off');
+
+-- Insert mock data into GroupMeetings with group_id = 1 and dates in this month
+INSERT INTO GroupMeetings (group_id, theme, meeting_date, meeting_time, mode, notification, reminder)
+VALUES
+(1, 'Psychological Counseling', '2024-10-01', '09:00:00', 'Online', 'Reminder for counseling', 'On'),
+(1, 'Stress Management', '2024-10-02', '10:00:00', 'In-Clinic', 'Focus on breathing exercises', 'On'),
+(1, 'Anxiety Management', '2024-10-03', '11:00:00', 'Online', 'Discussion on coping strategies', 'Off'),
+(1, 'Anger Management', '2024-10-04', '12:30:00', 'Online', 'Techniques to handle anger', 'On'),
+(1, 'Grief Counseling', '2024-10-05', '14:00:00', 'In-Clinic', 'Dealing with loss', 'Off'),
+(1, 'Family Therapy', '2024-10-06', '15:00:00', 'Online', 'Reminder for family support', 'On'),
+(1, 'Depression Recovery', '2024-10-07', '16:00:00', 'In-Clinic', 'Coping with depression', 'On'),
+(1, 'Addiction Support', '2024-10-08', '17:30:00', 'Online', 'Dealing with addiction', 'Off'),
+(1, 'Cognitive Behavioral Therapy', '2024-10-09', '09:30:00', 'Online', 'Behavioral techniques', 'On'),
+(1, 'Post-Traumatic Stress', '2024-10-10', '10:30:00', 'In-Clinic', 'Managing PTSD', 'Off'),
+(1, 'Eating Disorder Support', '2024-10-11', '11:30:00', 'Online', 'Body image recovery', 'On'),
+(1, 'Meditation Techniques', '2024-10-12', '12:00:00', 'In-Clinic', 'Focus on mindfulness', 'On'),
+(1, 'Crisis Counseling', '2024-10-13', '13:00:00', 'Online', 'Dealing with crisis', 'Off'),
+(1, 'Mindfulness Training', '2024-10-14', '14:30:00', 'Online', 'Focus on mindfulness', 'On'),
+(1, 'Trauma Therapy', '2024-10-15', '16:30:00', 'In-Clinic', 'Recovery from trauma', 'Off'),
+(1, 'Stress Relief', '2024-10-16', '09:00:00', 'Online', 'Relaxation techniques', 'On'),
+(1, 'Support Group for Teens', '2024-10-17', '10:00:00', 'In-Clinic', 'Teen support', 'On'),
+(1, 'Support Group for Seniors', '2024-10-18', '11:00:00', 'Online', 'Elder care support', 'Off'),
+(1, 'Anxiety Reduction', '2024-10-19', '12:30:00', 'Online', 'Managing anxiety', 'On'),
+(1, 'Career Counseling', '2024-10-20', '14:00:00', 'In-Clinic', 'Career advice', 'Off'),
+(1, 'Family Dynamics', '2024-10-21', '15:00:00', 'Online', 'Family relationship building', 'On'),
+(1, 'Overcoming Loneliness', '2024-10-22', '16:00:00', 'In-Clinic', 'Social interaction techniques', 'On'),
+(1, 'Public Speaking Anxiety', '2024-10-23', '17:30:00', 'Online', 'Handling speaking anxiety', 'Off'),
+(1, 'Communication Skills', '2024-10-24', '09:30:00', 'Online', 'Improving communication', 'On'),
+(1, 'Positive Thinking', '2024-10-25', '10:30:00', 'In-Clinic', 'Developing a positive mindset', 'Off'),
+(1, 'Motivation Boost', '2024-10-26', '11:30:00', 'Online', 'Inspiration and motivation', 'On'),
+(1, 'Breaking Bad Habits', '2024-10-27', '12:00:00', 'In-Clinic', 'Techniques for habit change', 'On'),
+(1, 'Building Self-Esteem', '2024-10-28', '13:00:00', 'Online', 'Boosting self-esteem', 'Off'),
+(1, 'Conflict Resolution', '2024-10-29', '14:30:00', 'Online', 'Managing conflict', 'On'),
+(1, 'Sleep Hygiene', '2024-10-30', '16:30:00', 'In-Clinic', 'Improving sleep quality', 'Off'),
+(1, 'Work-Life Balance', '2024-10-31', '09:00:00', 'Online', 'Balancing work and life', 'On');
 
 
 -- Insert mock data for Therapists
@@ -534,19 +604,48 @@ VALUES
 ('Auditor 4', 'auditor4@care.com', '1231231234', 'auditpass4', JSON_OBJECT('case_types', 'General Medicine', 'consultation_lengths', 'View and Edit')),
 ('Auditor 5', 'auditor5@care.com', '3213214321', 'auditpass5', JSON_OBJECT('case_types', 'Dermatology', 'consultation_lengths', 'View Only'));
 
--- Insert 10 groups
-INSERT INTO Groups (name, leader, number_of_members, assigned_patients, creation_date, status, head_img)
-VALUES 
-('Anxiety Management Group', 'Dr. Smith', 20, 15, '2022-03-31', 'Active', 'anxiety_group.png'),
-('Stress Relief Group', 'Dr. Johnson', 15, 12, '2022-04-15', 'Active', 'stress_group.png'),
-('Mindfulness Workshop', 'Dr. Lee', 10, 8, '2022-05-05', 'Recruiting', 'mindfulness_workshop.png'),
-('Depression Support Group', 'Dr. Anderson', 12, 10, '2022-06-10', 'Active', 'depression_group.png'),
-('Anger Management Workshop', 'Dr. Brown', 18, 16, '2022-07-20', 'Active', 'anger_workshop.png'),
-('Grief Counseling Group', 'Dr. Green', 8, 5, '2022-08-12', 'Inactive', 'grief_group.png'),
-('Self-Esteem Building Group', 'Dr. Wilson', 25, 20, '2022-09-01', 'Active', 'self_esteem_group.png'),
-('Cognitive Behavioral Therapy Group', 'Dr. Miller', 30, 28, '2022-10-05', 'Recruiting', 'cbt_group.png'),
-('Addiction Recovery Group', 'Dr. Davis', 22, 18, '2022-11-11', 'Active', 'addiction_recovery_group.png'),
-('Emotional Regulation Workshop', 'Dr. Thomas', 14, 12, '2022-12-22', 'Active', 'emotional_regulation_workshop.png');
+-- Drop existing table if exists
+DROP TABLE IF EXISTS Groups;
+
+-- Create the Groups table with the new therapist_id column
+CREATE TABLE Groups (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    leader VARCHAR(255) NOT NULL, -- Name of the group's leader (therapist)
+    number_of_members INT NOT NULL,
+    assigned_patients INT, -- Number of patients assigned to this group
+    creation_date DATE NOT NULL, -- When the group was created
+    status ENUM('Active', 'Inactive', 'Disbanded', 'Recruiting') DEFAULT 'Active',
+    head_img VARCHAR(255),
+    therapist_id INT NOT NULL, -- Foreign key for therapist responsible for this group
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) AUTO_INCREMENT = 1;
+
+-- Insert 20 rows of mock data into the Groups table
+INSERT INTO Groups (name, leader, number_of_members, assigned_patients, creation_date, status, head_img, therapist_id) VALUES
+('Anxiety Management', 'Dr. Smith', 20, 18, '2023-01-15', 'Active', 'anxiety.png', 1),
+('Stress Management', 'Dr. Jane', 18, 17, '2023-02-10', 'Active', 'stress.png', 2),
+('Anger Management', 'Dr. White', 25, 22, '2023-03-05', 'Active', 'anger.png', 3),
+('Grief Counseling', 'Dr. Brown', 15, 14, '2023-04-12', 'Active', 'grief.png', 4),
+('Trauma Recovery', 'Dr. Emily', 30, 28, '2023-05-20', 'Recruiting', 'trauma.png', 5),
+('Relationship Issues', 'Dr. Clark', 22, 20, '2023-06-18', 'Active', 'relationship.png', 1),
+('Depression Support', 'Dr. Moore', 28, 27, '2023-07-10', 'Active', 'depression.png', 2),
+('Eating Disorder Recovery', 'Dr. Taylor', 24, 21, '2023-08-05', 'Recruiting', 'eating_disorder.png', 3),
+('Addiction Support', 'Dr. Lee', 26, 23, '2023-09-12', 'Inactive', 'addiction.png', 4),
+('Self-Esteem Building', 'Dr. Walker', 19, 18, '2023-10-15', 'Active', 'self_esteem.png', 5),
+('Family Counseling', 'Dr. Allen', 20, 19, '2023-11-20', 'Active', 'family.png', 1),
+('Workplace Stress', 'Dr. Scott', 18, 17, '2023-12-05', 'Active', 'work_stress.png', 2),
+('PTSD Support', 'Dr. Martinez', 29, 28, '2024-01-15', 'Active', 'ptsd.png', 3),
+('Phobia Treatment', 'Dr. Roberts', 25, 24, '2024-02-18', 'Recruiting', 'phobia.png', 4),
+('Parenting Skills', 'Dr. Evans', 23, 21, '2024-03-10', 'Active', 'parenting.png', 5),
+('Teenage Counseling', 'Dr. Young', 20, 18, '2024-04-05', 'Active', 'teenage.png', 1),
+('Marriage Counseling', 'Dr. Hernandez', 27, 25, '2024-05-15', 'Active', 'marriage.png', 2),
+('Divorce Recovery', 'Dr. King', 21, 20, '2024-06-18', 'Inactive', 'divorce.png', 3),
+('Financial Anxiety', 'Dr. Green', 19, 18, '2024-07-12', 'Recruiting', 'financial.png', 4),
+('Chronic Illness Support', 'Dr. Adams', 22, 21, '2024-08-10', 'Active', 'chronic_illness.png', 5);
+
+
 
 -- Insert notes for each group
 -- Notes for Anxiety Management Group
