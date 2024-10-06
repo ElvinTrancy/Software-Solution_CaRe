@@ -90,6 +90,15 @@ CREATE TABLE Groups (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) AUTO_INCREMENT = 1;
 
+-- Create the GroupNotes table
+CREATE TABLE GroupNotes (
+    note_id INT PRIMARY KEY AUTO_INCREMENT,
+    group_id INT,
+    note_date DATE,
+    note_text TEXT,
+    FOREIGN KEY (group_id) REFERENCES Groups(id) ON DELETE CASCADE
+);
+
 -- Create the Therapist Assigned Patients table
 CREATE TABLE Therapist_Assigned_Patients (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -450,14 +459,23 @@ VALUES
 -- Insert mock data for Patient Daily Records
 INSERT INTO PatientDailyRecords (patient_id, record_date, mood, fitness_level, sleep_hours, diet, notes)
 VALUES
+-- Records for Laura Lewis (Patient 1)
 (1, CURDATE(), 'happy', 'Level 3', 7, 'Balanced diet', 'Feeling good overall today.'),
 (1, DATE_SUB(CURDATE(), INTERVAL 1 DAY), 'neutral', 'Level 2', 6, 'Skipped lunch', 'I haven’t been eating well lately, please help me.'),
+
+-- Records for Sarah Moore (Patient 2)
 (2, CURDATE(), 'sad', 'Level 1', 4, 'Unhealthy snacks', 'I feel really low today. Struggled with energy.'),
 (2, DATE_SUB(CURDATE(), INTERVAL 1 DAY), 'neutral', 'Level 3', 8, 'Balanced meals', 'I had a decent day but felt tired.'),
+
+-- Records for Mia White (Patient 3)
 (3, CURDATE(), 'tired', 'Level 2', 5, 'Light meals', 'I’ve been feeling dizzy recently.'),
 (3, DATE_SUB(CURDATE(), INTERVAL 1 DAY), 'neutral', 'Level 4', 6, 'Healthy diet', 'Felt slightly better today.'),
+
+-- Records for Robert Taylor (Patient 4)
 (4, CURDATE(), 'anxious', 'Level 1', 3, 'Skipped meals', 'I have trouble sleeping. Please advise.'),
 (4, DATE_SUB(CURDATE(), INTERVAL 1 DAY), 'stressed', 'Level 2', 4, 'Minimal food intake', 'Very restless.'),
+
+-- Records for Daniel Jackson (Patient 5)
 (5, CURDATE(), 'neutral', 'Level 3', 7, 'Normal diet', 'Just a regular day, no major issues.'),
 (5, DATE_SUB(CURDATE(), INTERVAL 1 DAY), 'happy', 'Level 4', 8, 'Healthy meals', 'Feeling positive and productive.');
 
@@ -472,14 +490,90 @@ VALUES
 ('Auditor 4', 'auditor4@care.com', '1231231234', 'auditpass4', JSON_OBJECT('case_types', 'General Medicine', 'consultation_lengths', 'View and Edit')),
 ('Auditor 5', 'auditor5@care.com', '3213214321', 'auditpass5', JSON_OBJECT('case_types', 'Dermatology', 'consultation_lengths', 'View Only'));
 
--- Insert mock data into Groups table
+-- Insert 10 groups
 INSERT INTO Groups (name, leader, number_of_members, assigned_patients, creation_date, status, head_img)
-VALUES
-('Group 1', 'Dr. Smith', 15, 50, '2023-01-15', 'Active', '/assets/group01.jpg'),
-('Group 2', 'Dr. Johnson', 10, 30, '2023-02-20', 'Recruiting', '/assets/group02.jpg'),
-('Group 3', 'Dr. Lee', 20, 40, '2023-03-10', 'Active', '/assets/group03.jpg'),
-('Group 4', 'Dr. Martinez', 8, 25, '2023-04-05', 'Disbanded', '/assets/group04.jpg'),
-('Group 5', 'Dr. Adams', 12, 35, '2023-05-01', 'Inactive', '/assets/group05.jpg');
+VALUES 
+('Anxiety Management Group', 'Dr. Smith', 20, 15, '2022-03-31', 'Active', 'anxiety_group.png'),
+('Stress Relief Group', 'Dr. Johnson', 15, 12, '2022-04-15', 'Active', 'stress_group.png'),
+('Mindfulness Workshop', 'Dr. Lee', 10, 8, '2022-05-05', 'Recruiting', 'mindfulness_workshop.png'),
+('Depression Support Group', 'Dr. Anderson', 12, 10, '2022-06-10', 'Active', 'depression_group.png'),
+('Anger Management Workshop', 'Dr. Brown', 18, 16, '2022-07-20', 'Active', 'anger_workshop.png'),
+('Grief Counseling Group', 'Dr. Green', 8, 5, '2022-08-12', 'Inactive', 'grief_group.png'),
+('Self-Esteem Building Group', 'Dr. Wilson', 25, 20, '2022-09-01', 'Active', 'self_esteem_group.png'),
+('Cognitive Behavioral Therapy Group', 'Dr. Miller', 30, 28, '2022-10-05', 'Recruiting', 'cbt_group.png'),
+('Addiction Recovery Group', 'Dr. Davis', 22, 18, '2022-11-11', 'Active', 'addiction_recovery_group.png'),
+('Emotional Regulation Workshop', 'Dr. Thomas', 14, 12, '2022-12-22', 'Active', 'emotional_regulation_workshop.png');
+
+-- Insert notes for each group
+-- Notes for Anxiety Management Group
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(1, '2024-09-09', 'Discussion about managing panic attacks.'),
+(1, '2024-09-10', 'Introduced breathing exercises.'),
+(1, '2024-09-11', 'Shared personal experiences.');
+
+-- Notes for Stress Relief Group
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(2, '2024-09-12', 'Focus on time management techniques.'),
+(2, '2024-09-13', 'Mindfulness meditation session.'),
+(2, '2024-09-14', 'Reviewed stress relief progress.');
+
+-- Notes for Mindfulness Workshop
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(3, '2024-09-15', 'Guided mindfulness session.'),
+(3, '2024-09-16', 'Participants shared relaxation techniques.'),
+(3, '2024-09-17', 'Daily mindfulness practice was encouraged.');
+
+-- Notes for Depression Support Group
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(4, '2024-09-18', 'Focused on improving mood through positive activities.'),
+(4, '2024-09-19', 'Discussed sleep hygiene.'),
+(4, '2024-09-20', 'Provided resources for dealing with depressive episodes.');
+
+-- Notes for Anger Management Workshop
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(5, '2024-09-21', 'Taught participants how to handle triggers.'),
+(5, '2024-09-22', 'Role-playing for managing confrontations.'),
+(5, '2024-09-23', 'Participants practiced calming techniques.');
+
+-- Notes for Grief Counseling Group
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(6, '2024-09-24', 'Shared stories of loss and coping strategies.'),
+(6, '2024-09-25', 'Discussion on dealing with anniversaries of loss.'),
+(6, '2024-09-26', 'Focused on rebuilding life after grief.');
+
+-- Notes for Self-Esteem Building Group
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(7, '2024-09-27', 'Worked on positive affirmations.'),
+(7, '2024-09-28', 'Discussed self-worth and personal achievements.'),
+(7, '2024-09-29', 'Encouraged participants to identify their strengths.');
+
+-- Notes for Cognitive Behavioral Therapy Group
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(8, '2024-09-30', 'Participants practiced thought restructuring techniques.'),
+(8, '2024-10-01', 'Reviewed cognitive distortions.'),
+(8, '2024-10-02', 'Focused on challenging negative thoughts.');
+
+-- Notes for Addiction Recovery Group
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(9, '2024-10-03', 'Group shared experiences with relapse prevention.'),
+(9, '2024-10-04', 'Discussed coping strategies for cravings.'),
+(9, '2024-10-05', 'Provided resources for addiction recovery.');
+
+-- Notes for Emotional Regulation Workshop
+INSERT INTO GroupNotes (group_id, note_date, note_text)
+VALUES 
+(10, '2024-10-06', 'Taught emotional awareness techniques.'),
+(10, '2024-10-07', 'Participants practiced self-regulation strategies.'),
+(10, '2024-10-08', 'Reviewed emotional regulation progress.');
 
 -- Insert mock data into Therapist_Assigned_Patients table
 INSERT INTO Therapist_Assigned_Patients (therapist_id, patient_id, assignment_type, assigned_date, status)

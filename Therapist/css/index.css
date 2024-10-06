@@ -307,10 +307,10 @@ h2 {
 .chart-content {
   height: 100%;
   width: 100%;
-  background-image: url('../assets/patients-chart.png');
+  /* background-image: url('../assets/patients-chart.png');
   background-repeat: no-repeat;
   background-position: start;
-  background-size: cover;
+  background-size: cover; */
 }
 
 .chart-bar {
@@ -1034,7 +1034,3 @@ h2 {
   text-align: center;
 }
 
-canvas {
-  width: 100%;
-  height: 300px;
-}
