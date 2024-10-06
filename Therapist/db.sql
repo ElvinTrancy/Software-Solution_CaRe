@@ -138,6 +138,50 @@ CREATE TABLE PatientDailyRecords (
     FOREIGN KEY (patient_id) REFERENCES Patients(id) ON DELETE CASCADE
 );
 
+-- Create the GroupMeetings table
+CREATE TABLE GroupMeetings (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    group_id INT NOT NULL,
+    theme VARCHAR(255) NOT NULL,
+    meeting_date DATE NOT NULL,
+    meeting_time TIME NOT NULL,
+    mode ENUM('Online', 'In-Clinic') DEFAULT 'Online',
+    notification VARCHAR(255),
+    reminder ENUM('On', 'Off') DEFAULT 'On',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (group_id) REFERENCES Groups(id) ON DELETE CASCADE
+);
+
+-- Create the GroupPatient connection table
+CREATE TABLE GroupPatient (
+    group_id INT NOT NULL,
+    patient_id INT NOT NULL,
+    PRIMARY KEY (group_id, patient_id),
+    FOREIGN KEY (group_id) REFERENCES Groups(id) ON DELETE CASCADE,
+    FOREIGN KEY (patient_id) REFERENCES Patients(id) ON DELETE CASCADE
+);
+
+-- Insert mock data into GroupPatient
+INSERT INTO GroupPatient (group_id, patient_id)
+VALUES
+(1, 101), (1, 102), (1, 103),
+(2, 104), (2, 105), (2, 106),
+(3, 107), (3, 108), (3, 109),
+(4, 110), (4, 111), (4, 112),
+(5, 113), (5, 114), (5, 115);
+
+
+-- Insert mock data into GroupMeetings
+INSERT INTO GroupMeetings (group_id, theme, meeting_date, meeting_time, mode, notification, reminder)
+VALUES
+(1, 'Psychological Counseling', '2024-08-28', '12:20:00', 'Online', 'Reminder for counseling', 'On'),
+(2, 'Stress Management', '2024-09-01', '10:00:00', 'In-Clinic', 'Focus on breathing exercises', 'On'),
+(3, 'Anxiety Management', '2024-09-15', '14:00:00', 'Online', 'Discussion on coping strategies', 'Off'),
+(4, 'Anger Management', '2024-09-21', '11:30:00', 'Online', 'Techniques to handle anger', 'On'),
+(5, 'Grief Counseling', '2024-09-30', '16:00:00', 'In-Clinic', 'Dealing with loss', 'Off');
+
+
 -- Insert mock data for Therapists
 INSERT INTO Therapists (name, email, phone_number, specialty, password, appointment_color, photo)
 VALUES

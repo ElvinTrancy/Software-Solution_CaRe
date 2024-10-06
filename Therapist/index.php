@@ -30,6 +30,12 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                 <?php
                 // Fetch the logged-in therapist's name from the database using session
                 $therapist_id = $_SESSION['therapist_id'] ?? null; // Assuming you set the session during login
+                if ($therapist_id === null) {
+                    // Redirect to the login page if therapist_id is null
+                    header("Location: login.php"); // Replace with the correct path to your login page
+                    exit(); // Ensure the script stops execution after the redirect
+                }
+                
                 $therapist_name = "Therapist"; // Default name
 
                 if ($therapist_id) {
@@ -258,56 +264,49 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                       <div class="group-container">
                         <div class="group-search">
                           <div class="alphabet-pagination" id="alphabet-pagination"></div>
-                          <div class="group-card">
-                            <div class="group-info">
-                                <h3>Group ID: 001<br><span>Anxiety Management Group</span></h3>
-                                <p>Group Study: Anxiety Management<br>Group Member: 20</p>
-                                <div class="group-details">
-                                    <div class="group-date">
-                                        <svg class="icon" aria-hidden="true">
-                                            <use xlink:href="#icon-calendar"></use>
-                                        </svg>
-                                        <span>31st March '22</span>
-                                    </div>
-                                    <div class="group-time">
-                                        <svg class="icon" aria-hidden="true">
-                                            <use xlink:href="#icon-clock"></use>
-                                        </svg>
-                                        <span>7:30 PM - 8:30 PM</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="group-options">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-menu"></use>
-                                </svg>
-                            </div>
-                          </div>
-                          <div class="group-card">
-                            <div class="group-info">
-                                <h3>Group ID: 001<br><span>Anxiety Management Group</span></h3>
-                                <p>Group Study: Anxiety Management<br>Group Member: 20</p>
-                                <div class="group-details">
-                                    <div class="group-date">
-                                        <svg class="icon" aria-hidden="true">
-                                            <use xlink:href="#icon-calendar"></use>
-                                        </svg>
-                                        <span>31st March '22</span>
-                                    </div>
-                                    <div class="group-time">
-                                        <svg class="icon" aria-hidden="true">
-                                            <use xlink:href="#icon-clock"></use>
-                                        </svg>
-                                        <span>7:30 PM - 8:30 PM</span>
+                          <?php
+                                // Fetch top 2 group info with real meeting time from database
+                                $sql = "
+                                SELECT g.name AS group_name, g.leader AS group_leader, g.number_of_members, g.assigned_patients, g.creation_date, g.status, g.head_img, 
+                                    gm.meeting_date, gm.meeting_time, gm.theme, gm.mode
+                                FROM Groups g
+                                LEFT JOIN GroupMeetings gm ON g.id = gm.group_id
+                                WHERE g.status = 'Active'
+                                LIMIT 2";  // Limit to top 2 records
+
+                                $result = $conn->query($sql);
+                                $groupRecords = $result->fetch_all(MYSQLI_ASSOC);
+                            ?>
+                        <?php foreach ($groupRecords as $group): ?>
+                            <div class="group-card">
+                                <div class="group-info">
+                                    <h3>Group: <?php echo htmlspecialchars($group['group_name']); ?><br><span>Leader: <?php echo htmlspecialchars($group['group_leader']); ?></span></h3>
+                                    <p>Group Members: <?php echo htmlspecialchars($group['number_of_members']); ?> / Assigned Patients: <?php echo htmlspecialchars($group['assigned_patients']); ?></p>
+                                    <div class="group-details">
+                                        <div class="group-date">
+                                            <svg class="icon" aria-hidden="true">
+                                                <use xlink:href="#icon-calendar"></use>
+                                            </svg>
+                                            <span><?php echo date('jS F Y', strtotime($group['meeting_date'])); ?></span>
+                                        </div>
+                                        <div class="group-time">
+                                            <svg class="icon" aria-hidden="true">
+                                                <use xlink:href="#icon-clock"></use>
+                                            </svg>
+                                            <span><?php echo date('g:i A', strtotime($group['meeting_time'])); ?></span>
+                                        </div>
+                                        <div class="group-theme">
+                                            <p>Theme: <?php echo htmlspecialchars($group['theme']); ?> (<?php echo htmlspecialchars($group['mode']); ?>)</p>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="group-options">
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-menu"></use>
+                                    </svg>
+                                </div>
                             </div>
-                            <div class="group-options">
-                                <svg class="icon" aria-hidden="true">
-                                    <use xlink:href="#icon-menu"></use>
-                                </svg>
-                            </div>
-                          </div>
+                        <?php endforeach; ?>
                         </div>
                         
                       
@@ -361,8 +360,6 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
 
         // Clear the canvas before each redraw
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        console.log(canvas.width, canvas.height);
 
         const chartHeight = canvas.height - 50;
         const chartWidth = canvas.width - 50;
