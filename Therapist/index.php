@@ -179,7 +179,7 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                         SELECT p.name AS patient_name, p.photo AS patient_photo, r.mood, r.diet, r.notes
                         FROM Patients p
                         JOIN PatientDailyRecords r ON p.id = r.patient_id
-                        WHERE r.record_date = CURDATE()
+                        limit 4
                         ";
                         $result = $conn->query($sql);
                         $patientRecords = $result->fetch_all(MYSQLI_ASSOC);
@@ -193,7 +193,7 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                                 <button class="contact-btn">Contact</button>
                             </div>
                         <?php endforeach; ?>
-                    </div>
+                      </div>
                   </div>
               </div>
 
@@ -239,7 +239,7 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                         $range = $_GET['range'] ?? '1 Week';
                         $patientCount = getPatientCount($range);
                         ?>
-                      <div class="patient-data">
+                      <div class="patient-data" onclick="window.location.href = 'patients-data.php'">
                         <div class="new-patients">
                             <p class="patient-count" id="patient-count"><?php echo $patientCount; ?></p>
                             <p class="card-name">New Patients</p>
@@ -436,46 +436,6 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
         // drawXLabels(); // Add the labels for X-axis
     }
 
-    // Function to draw the line chart using Chart.js
-    function drawLineChart(labels, data) {
-        const ctx = document.getElementById('patientLineChart').getContext('2d');
-
-        // If the chart already exists, destroy it before creating a new one
-        if (window.patientChart) {
-            window.patientChart.destroy();
-        }
-
-        window.patientChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels, // Days
-                datasets: [{
-                    label: 'Patient Registrations',
-                    data: data, // Counts per day
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Patient Count'
-                        }
-                    }
-                }
-            }
-        });
-    }
 
     // Initial load for '1 Day'
     updatePatientCount('1 Week');

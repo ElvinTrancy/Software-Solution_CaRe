@@ -1010,10 +1010,6 @@ h2 {
 }
 
 .act-chart {
-  background-image: url('../assets/ac.png');
-  background-size: cover;    /* Makes sure the image covers the entire container */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  background-position: bottom;  /* Ensures the image is centered */
   flex: 1;
 }
 
