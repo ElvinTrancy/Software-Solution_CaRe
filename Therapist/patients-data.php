@@ -36,9 +36,56 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Therapist Dashboard</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap">
-    <link rel="stylesheet" href="css/index.css"> 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/index.css">
     <script src="components/icon/index.js"></script>
+    <style>
+      /* Unique styles for the custom bar chart */
+      .custom-bar-group {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 0 10px;
+      }
+
+      .custom-bar {
+          width: 10px;
+          margin: 2px;
+      }
+
+      .custom-aerobics {
+          background-color: #e57373;
+      }
+
+      .custom-yoga {
+          background-color: #64b5f6;
+      }
+
+      .custom-meditation {
+          background-color: #ffb74d;
+      }
+
+      .custom-label {
+          margin-top: 5px;
+          font-size: 12px;
+          text-align: center;
+      }
+      
+      .legend {
+          display: flex;
+          justify-content: center;
+          margin-top: 10px;
+      }
+      .legend-item {
+          margin-right: 15px;
+          display: flex;
+          align-items: center;
+      }
+      .legend-color {
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+      }
+    </style>
 </head>
 <body>
     <div class="dashboard">
@@ -68,8 +115,10 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
                 <div class="main-section">
                     <div class="page-scrum">
-                        <h2>DashBoard > Summary of Patient Data</h2>
-                        <button>Export Data</button>
+                    <div style="display: flex;">
+                      <h2 style="cursor: pointer;" onclick="window.location.href = 'index.php'">DashBoard</h2><h2> > Summary of Patient Data</h2>
+                    </div>
+                        <button onclick="window.location.href='requests/export_patient_data.php'">Export Data</button>
                     </div>
 
                     <div class="summary-group data" style="margin-top: 1rem;">
@@ -134,24 +183,28 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         </div>
 
                             <div class="risk-patient-warning data" style="width: 95%;">
-                                <?php
-                                  // Fetch daily records for patients
-                                  $sql = "
-                                  SELECT p.name AS patient_name, p.photo AS patient_photo, r.mood, r.diet, r.notes
-                                  FROM Patients p
-                                  JOIN PatientDailyRecords r ON p.id = r.patient_id
-                                  limit 4
-                                  ";
-                                  $result = $conn->query($sql);
-                                  $patientRecords = $result->fetch_all(MYSQLI_ASSOC);
-                                  ?>
-                                <div class="patient-cards">
+                            <?php
+                              // Fetch daily records for patients
+                              $sql = "
+                              SELECT p.name AS patient_name, p.email AS patient_email, p.photo AS patient_photo, r.mood, r.diet, r.notes
+                              FROM Patients p
+                              JOIN PatientDailyRecords r ON p.id = r.patient_id
+                              LIMIT 4";
+                              $result = $conn->query($sql);
+                              $patientRecords = $result->fetch_all(MYSQLI_ASSOC);
+                              ?>
+                              <div class="patient-cards">
                                   <?php foreach ($patientRecords as $record): ?>
                                       <div class="patient-card">
                                           <img src="./<?php echo htmlspecialchars($record['patient_photo']); ?>" alt="<?php echo htmlspecialchars($record['patient_name']); ?>" class="patient-photo">
                                           <p class="patient-name"><?php echo htmlspecialchars($record['patient_name']); ?></p>
                                           <p class="patient-msg"><?php echo htmlspecialchars($record['notes']); ?></p>
-                                          <button class="contact-btn">Contact</button>
+                                          <?php
+                                              // Prepare the email subject and body
+                                              $subject = urlencode('Response to your message: ' . htmlspecialchars($record['notes']));
+                                              $body = urlencode('Hello ' . htmlspecialchars($record['patient_name']) . ',\n\nThis is a response to your message: ' . htmlspecialchars($record['notes']));
+                                              ?>
+                                          <a href="mailto:<?php echo htmlspecialchars($record['patient_email']); ?>?subject=<?php echo $subject; ?>&body=<?php echo $body; ?>" class="contact-btn">Contact</a>
                                       </div>
                                   <?php endforeach; ?>
                               </div>
@@ -247,11 +300,14 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                               <div class="chart-header">
                                   <h3>Activity Growth</h3>
                                   <select id="date-range">
-                                      <option value="Jan 2021">Jan 2021</option>
-                                      <option value="Feb 2021">Feb 2021</option>
+                                      
                                   </select>
                               </div>
                               <div class="act-chart">
+                                <canvas id="chartCanvas" width="1000" height="350"></canvas>
+                                <div class="legend">
+                                    
+                                </div>
                               </div>
                           </div>
                           </div>
@@ -261,6 +317,229 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         </div>
     </div>
     <script src="js/nav_php.js"></script>
+    <script>
+
+      // Function to get the last three months in number format (1-12)
+      function getLastThreeMonths() {
+          const months = [];
+          const currentDate = new Date();
+          for (let i = 0; i < 3; i++) {
+              const month = currentDate.getMonth() + 1; // getMonth() returns 0 for January, so add 1
+              const year = currentDate.getFullYear();
+              months.push({ month, year });
+              currentDate.setMonth(currentDate.getMonth() - 1); // Move to the previous month
+          }
+          return months;
+      }
+
+      // Populate the select element
+      const dateSelect = document.getElementById('date-range');
+      const lastThreeMonths = getLastThreeMonths();
+
+      lastThreeMonths.forEach(({ month, year }) => {
+          const option = document.createElement('option');
+          option.value = `${month}-${year}`; // Value format: 'MM-YYYY'
+          option.textContent = `${month < 10 ? '0' + month : month} ${year}`; // Display with two digits month
+          dateSelect.appendChild(option);
+      });
+
+      // Add event listener to call updateDiseaseCount when selection changes
+      dateSelect.addEventListener('change', function() {
+          const [month, year] = this.value.split('-'); // Split value into month and year
+          updateDiseaseCount(month, year); // Call updateDiseaseCount with the selected month and year
+      });
+
+
+      function updateDiseaseCount(month, year) {
+          fetch('requests/getdisease.php', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: 'month=' + month + '&year=' + year
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Network response was not ok');
+              }
+              return response.json(); // Make sure to return the parsed JSON here
+          })
+          .then(data => {
+              console.log(data);
+              if (data.error) {
+                  console.error('Error:', data.error);
+              } else {
+                  const transData = transformData(data);
+                  drawPercentageLines();
+                  drawActivityChart(transData); // Pass the data to the chart drawing function
+              }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+
+      function transformData(data) {
+          const transformed = {};
+          data.forEach(entry => {
+              if (!transformed[entry.day]) {
+                  transformed[entry.day] = { day: entry.day, diseases: [] };
+              }
+              transformed[entry.day].diseases.push({
+                  disease: entry.disease,
+                  patient_count: entry.patient_count
+              });
+          });
+
+          // Convert the transformed object back to an array
+          return Object.values(transformed);
+      }
+
+      const canvas = document.getElementById('chartCanvas');
+      const ctx = canvas.getContext('2d');
+
+      const chartWidth = canvas.width;
+        const chartHeight = canvas.height;
+
+      const colors = {
+            "ADHD": '#e57373',
+            "Anxiety": '#64b5f6',
+            "Bipolar Disorder": '#ffb74d',
+            "Depression": '#81c784',
+            "Eating Disorder": '#ba68c8',
+            "Obsessive-Compulsive Disorder": '#f06292',
+            // "Panic Disorder": '#ff8a65',
+            // "Personality Disorder": '#4db6ac',
+            // "Post-Traumatic Stress Disorder": '#7986cb',
+            // "Schizophrenia": '#ffd54f'
+        };
+
+        const legendContainer = document.querySelector('.legend');
+
+        Object.entries(colors).forEach(([key, value]) => {
+          const legendItem = document.createElement('div');
+          legendItem.classList.add('legend-item');
+
+          // Create the color box
+          const colorBox = document.createElement('div');
+          colorBox.classList.add('legend-color');
+          colorBox.style.backgroundColor = value;
+
+          // Create the label
+          const label = document.createTextNode(key);
+
+          // Append the color box and label to the legend item
+          legendItem.appendChild(colorBox);
+          legendItem.appendChild(label);
+
+          // Append the legend item to the legend container
+          legendContainer.appendChild(legendItem);
+        });
+
+
+      function findMaxTotalPatientCount(data) {
+          let maxTotalCount = 0;
+
+          data.forEach(dayData => {
+              const totalCount = dayData.diseases.reduce((sum, diseaseData) => sum + diseaseData.patient_count, 0);
+              if (totalCount > maxTotalCount) {
+                  maxTotalCount = totalCount;
+              }
+          });
+
+          return maxTotalCount;
+      }
+
+      function drawPercentageLines() {
+          const chartHeight = canvas.height;
+          const padding = 50;
+          const percentageLevels = [0, 0.2, 0.4, 0.6, 0.8]; // Represents 20%, 40%, 60%, 80%
+          
+          ctx.strokeStyle = '#ccc'; // Light grey for the percentage lines
+          ctx.fillStyle = '#aaa'; // Grey for the text labels
+          ctx.font = '12px Arial';
+
+          percentageLevels.forEach(level => {
+              const y = chartHeight - padding - (level * (chartHeight - padding * 2)); // Calculate Y position based on level
+              
+              // Draw horizontal line
+              ctx.beginPath();
+              ctx.moveTo(padding, y);
+              ctx.lineTo(chartWidth - padding, y);
+              ctx.stroke();
+
+              // Draw percentage text
+              ctx.fillText((level * 100) + '%', padding - 30, y + 5); // Adjust position for the text
+          });
+      }
+
+      function drawActivityChart(diseaseData) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        const padding = 50;
+        const barWidth = 6; // Width of each bar
+
+        const maxTotalPatientCount = findMaxTotalPatientCount(diseaseData); 
+
+        // Calculate bar spacing
+        const spacing = (chartWidth - padding * 2) / diseaseData.length;
+
+        // Loop through data to draw bars for each day
+        diseaseData.forEach((dayData, index) => {
+            const x = padding + index * spacing;
+            let currentY = chartHeight - padding;
+
+            dayData.diseases.forEach(diseaseData => {
+                const disease = diseaseData.disease;
+                const patientCount = diseaseData.patient_count;
+                const barHeight = (patientCount / maxTotalPatientCount) * (chartHeight - padding * 2);
+
+                // Draw each part of the stacked bar
+                drawStackedBar(x, currentY, barWidth, barHeight, colors[disease]);
+
+                // Adjust the current Y position to stack the next part on top
+                currentY -= barHeight;
+            });
+
+            // Draw the date label
+            ctx.fillStyle = '#000';
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            const dayOnly = dayData.day.split('-')[2]; 
+            ctx.fillText(dayOnly, x + barWidth / 2, chartHeight - 10);
+        });
+      }
+
+      function drawStackedBar(x, y, width, height, color, radius = 5) {
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x, y - height + radius); // Start point at top left with radius offset
+        ctx.arcTo(x, y - height, x + radius, y - height, radius); // Top-left corner
+        ctx.lineTo(x + width - radius, y - height); // Top horizontal line
+        ctx.arcTo(x + width, y - height, x + width, y - height + radius, radius); // Top-right corner
+        ctx.lineTo(x + width, y - radius); // Right vertical line
+        ctx.arcTo(x + width, y, x + width - radius, y, radius); // Bottom-right corner
+        ctx.lineTo(x + radius, y); // Bottom horizontal line
+        ctx.arcTo(x, y, x, y - radius, radius); // Bottom-left corner
+        ctx.closePath();
+        ctx.fill(); // Fill the path with the color
+      }
+
+
+      function drawBar(x, count, color) {
+          const canvas = document.getElementById('chartCanvas');
+          const ctx = canvas.getContext('2d');
+          const chartHeight = canvas.height;
+          const padding = 50;
+          const barWidth = 10;
+
+          const barHeight = (count / 100) * (chartHeight - padding * 2); // Assuming count scaled for max 100
+          const y = chartHeight - padding - barHeight;
+
+          ctx.fillStyle = color;
+          ctx.fillRect(x, y, barWidth, barHeight);
+      }
+
+      updateDiseaseCount(10, 2024);
+    </script>
     <script>
       function updatePatientCount(range) {
         // Fetch the patient data from the server

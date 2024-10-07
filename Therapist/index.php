@@ -176,24 +176,28 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                       <?php
                         // Fetch daily records for patients
                         $sql = "
-                        SELECT p.name AS patient_name, p.photo AS patient_photo, r.mood, r.diet, r.notes
+                        SELECT p.name AS patient_name, p.email AS patient_email, p.photo AS patient_photo, r.mood, r.diet, r.notes
                         FROM Patients p
                         JOIN PatientDailyRecords r ON p.id = r.patient_id
-                        limit 4
-                        ";
+                        LIMIT 4";
                         $result = $conn->query($sql);
                         $patientRecords = $result->fetch_all(MYSQLI_ASSOC);
                         ?>
-                      <div class="patient-cards">
-                        <?php foreach ($patientRecords as $record): ?>
-                            <div class="patient-card">
-                                <img src="./<?php echo htmlspecialchars($record['patient_photo']); ?>" alt="<?php echo htmlspecialchars($record['patient_name']); ?>" class="patient-photo">
-                                <p class="patient-name"><?php echo htmlspecialchars($record['patient_name']); ?></p>
-                                <p class="patient-msg"><?php echo htmlspecialchars($record['notes']); ?></p>
-                                <button class="contact-btn">Contact</button>
-                            </div>
-                        <?php endforeach; ?>
-                      </div>
+                        <div class="patient-cards">
+                            <?php foreach ($patientRecords as $record): ?>
+                                <div class="patient-card">
+                                    <img src="./<?php echo htmlspecialchars($record['patient_photo']); ?>" alt="<?php echo htmlspecialchars($record['patient_name']); ?>" class="patient-photo">
+                                    <p class="patient-name"><?php echo htmlspecialchars($record['patient_name']); ?></p>
+                                    <p class="patient-msg"><?php echo htmlspecialchars($record['notes']); ?></p>
+                                    <?php
+                                        // Prepare the email subject and body
+                                        $subject = urlencode('Response to your message: ' . htmlspecialchars($record['notes']));
+                                        $body = urlencode('Hello ' . htmlspecialchars($record['patient_name']) . ',\n\nThis is a response to your message: ' . htmlspecialchars($record['notes']));
+                                        ?>
+                                    <a href="mailto:<?php echo htmlspecialchars($record['patient_email']); ?>?subject=<?php echo $subject; ?>&body=<?php echo $body; ?>" class="contact-btn">Contact</a>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                   </div>
               </div>
 
