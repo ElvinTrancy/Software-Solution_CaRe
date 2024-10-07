@@ -202,7 +202,7 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
               </div>
 
               <!-- Summary and Patient Group -->
-              <div class="summary-group">
+              <div class="summary-group" onclick="window.location.href = 'group.php'">
                   <div class="patient-summary">
                       <h2>Summary of Patient Data</h2>
                       <?php
