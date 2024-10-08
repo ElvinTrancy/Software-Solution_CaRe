@@ -130,16 +130,16 @@ $patients = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                             // Prepare SQL query based on the time range
                             switch ($range) {
                                 case '1 Day':
-                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
+                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
                                     break;
                                 case '1 Week':
-                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
+                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
                                     break;
                                 case '1 Month':
-                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
+                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
                                     break;
                                 case '1 Year':
-                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)";
+                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)";
                                     break;
                                 case 'All':
                                 default:

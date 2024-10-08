@@ -6,7 +6,7 @@ if (isset($_GET['group_id'])) {
   $groupId = intval($_GET['group_id']);
 
   // Fetch notes from the database for the given group
-  $sql = "SELECT note_text, DATE_FORMAT(note_date, '%d–%b–%Y') AS note_date FROM GroupNotes WHERE group_id = ?";
+  $sql = "SELECT note_text, DATE_FORMAT(note_date, '%d–%b–%Y') AS note_date FROM GroupNotes WHERE group_id = ? ORDER BY note_id desc";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("i", $groupId);
   $stmt->execute();

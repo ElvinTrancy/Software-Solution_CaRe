@@ -202,7 +202,7 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
               </div>
 
               <!-- Summary and Patient Group -->
-              <div class="summary-group" onclick="window.location.href = 'group.php'">
+              <div class="summary-group" >
                   <div class="patient-summary">
                       <h2>Summary of Patient Data</h2>
                       <?php
@@ -212,16 +212,16 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                             // Prepare SQL query based on the time range
                             switch ($range) {
                                 case '1 Day':
-                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
+                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
                                     break;
                                 case '1 Week':
-                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
+                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
                                     break;
                                 case '1 Month':
-                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
+                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
                                     break;
                                 case '1 Year':
-                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)";
+                                    $sql = "SELECT COUNT(*) AS patient_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)";
                                     break;
                                 case 'All':
                                 default:
@@ -243,8 +243,8 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                         $range = $_GET['range'] ?? '1 Week';
                         $patientCount = getPatientCount($range);
                         ?>
-                      <div class="patient-data" onclick="window.location.href = 'patients-data.php'">
-                        <div class="new-patients">
+                      <div class="patient-data" >
+                        <div class="new-patients" onclick="window.location.href = 'patients-data.php'">
                             <p class="patient-count" id="patient-count"><?php echo $patientCount; ?></p>
                             <p class="card-name">New Patients</p>
                             <span class="patient-flag">NORMAL</span>
@@ -263,7 +263,7 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
                         </div>
                         </div>
                   </div>
-                  <div class="patient-group">
+                  <div class="patient-group" onclick="window.location.href = 'group.php'">
                       <h2>Patient Group</h2>
                       <div class="group-container">
                         <div class="group-search">

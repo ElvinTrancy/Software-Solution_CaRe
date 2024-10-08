@@ -104,7 +104,8 @@ session_start();
                                       GROUP BY group_id
                                   ) gm2 ON gm1.group_id = gm2.group_id AND gm1.meeting_date = gm2.latest_meeting_date
                               ) gm ON g.id = gm.group_id
-                              WHERE g.status = 'Active';
+                              WHERE g.status = 'Active'
+                              ;
                                 ";
 
                                 $result = $conn->query($sql);
@@ -154,6 +155,7 @@ session_start();
 
                 <!-- Text Area with character count -->
                 <div class="note-input">
+                    <input type="hidden" id="group-id" value="" />
                     <textarea class="note-textarea" maxlength="250" placeholder="Type your note here..."></textarea>
                     <div class="character-count">
                         <span>0/250</span> <!-- Update dynamically as text is entered -->
@@ -161,7 +163,7 @@ session_start();
                 </div>
             
                 <!-- Confirm Button -->
-                <button class="confirm-btn">
+                <button onclick="addNote()" class="confirm-btn">
                     Confirm <span class="btn-icon"> + </span>
                 </button>
             
@@ -182,31 +184,45 @@ session_start();
       </div>
     </div>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const groups = document.querySelectorAll('.group-card');
-        groups.forEach(card => {
-          card.addEventListener('click', function() {
-            window.location.href = 'detailed-group.php';
-          });
-        });
 
-        var loading1 = document.getElementById('loading');
-        var detail = document.getElementById('detail');
-        document.querySelectorAll('.selectable-icon').forEach(icon => {
-          icon.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const groupId = e.currentTarget.getAttribute('data-group-id');
-            console.log(groupId);
-            document.querySelectorAll('.selectable-icon').forEach(item => {
-              item.classList.remove('selected');
-            });
-            this.classList.add('selected');
-            loading1.style.display = 'none';
-            detail.style.display = 'flex';
-            fetch(`requests/getGroupNotes.php?group_id=${groupId}`)
+
+      function addNote() {
+          const noteTextarea = document.querySelector('.note-textarea');
+          const note = noteTextarea.value.trim();
+          const groupId = document.getElementById('group-id').value;
+
+          if (note === "") {
+              alert("Please enter a note.");
+              return;
+          }
+
+          // Make an AJAX request to add the note
+          fetch('requests/addNote.php', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: 'group_id=' + encodeURIComponent(groupId) + '&note=' + encodeURIComponent(note)
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                getNotes(groupId);
+                  noteTextarea.value = ""; // Clear the textarea after successful addition
+              } else {
+                  alert("Failed to add note.");
+              }
+          })
+          .catch(error => {
+              console.error("Error adding note:", error);
+              alert("An error occurred.");
+          });
+      }
+
+      function getNotes(groupId) {
+        fetch(`requests/getGroupNotes.php?group_id=${groupId}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 const noteList = document.querySelector('.note-list');
                 noteList.innerHTML = ''; // Clear existing notes
 
@@ -231,9 +247,30 @@ session_start();
                 document.getElementById('detail').style.display = 'block';
             })
             .catch(error => console.error('Error fetching notes:', error));
+      }
 
+      document.addEventListener('DOMContentLoaded', function() {
+        const groups = document.querySelectorAll('.group-card');
+        groups.forEach(card => {
+          card.addEventListener('click', function() {
+            window.location.href = 'detailed-group.php';
+          });
+        });
 
-
+        var loading1 = document.getElementById('loading');
+        var detail = document.getElementById('detail');
+        document.querySelectorAll('.selectable-icon').forEach(icon => {
+          icon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const groupId = e.currentTarget.getAttribute('data-group-id');
+            document.getElementById('group-id').value = groupId;
+            document.querySelectorAll('.selectable-icon').forEach(item => {
+              item.classList.remove('selected');
+            });
+            this.classList.add('selected');
+            loading1.style.display = 'none';
+            detail.style.display = 'flex';
+            getNotes(groupId);
           });
         });
 

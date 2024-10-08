@@ -8,40 +8,40 @@ function getPatientCountPerDay($range) {
     // Prepare SQL query for day-wise count and total count based on the time range
     switch ($range) {
         case '1 Day':
-            $sql = "SELECT DATE(register_at) AS day, COUNT(*) AS patient_count 
+            $sql = "SELECT DATE(created_at) AS day, COUNT(*) AS patient_count 
                     FROM Patients 
-                    WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 DAY) 
+                    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 DAY) 
                     GROUP BY day 
                     ORDER BY day";
-            $sql_total = "SELECT COUNT(*) AS total_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
+            $sql_total = "SELECT COUNT(*) AS total_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 DAY)";
             break;
         case '1 Week':
-            $sql = "SELECT DATE(register_at) AS day, COUNT(*) AS patient_count 
+            $sql = "SELECT DATE(created_at) AS day, COUNT(*) AS patient_count 
                     FROM Patients 
-                    WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK) 
+                    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK) 
                     GROUP BY day 
                     ORDER BY day";
-            $sql_total = "SELECT COUNT(*) AS total_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
+            $sql_total = "SELECT COUNT(*) AS total_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 WEEK)";
             break;
         case '1 Month':
-            $sql = "SELECT DATE(register_at) AS day, COUNT(*) AS patient_count 
+            $sql = "SELECT DATE(created_at) AS day, COUNT(*) AS patient_count 
                     FROM Patients 
-                    WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) 
+                    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) 
                     GROUP BY day 
                     ORDER BY day";
-            $sql_total = "SELECT COUNT(*) AS total_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
+            $sql_total = "SELECT COUNT(*) AS total_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
             break;
         case '1 Year':
-            $sql = "SELECT DATE(register_at) AS day, COUNT(*) AS patient_count 
+            $sql = "SELECT DATE(created_at) AS day, COUNT(*) AS patient_count 
                     FROM Patients 
-                    WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR) 
+                    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR) 
                     GROUP BY day 
                     ORDER BY day";
-            $sql_total = "SELECT COUNT(*) AS total_count FROM Patients WHERE register_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)";
+            $sql_total = "SELECT COUNT(*) AS total_count FROM Patients WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 YEAR)";
             break;
         case 'All':
         default:
-            $sql = "SELECT DATE(register_at) AS day, COUNT(*) AS patient_count 
+            $sql = "SELECT DATE(created_at) AS day, COUNT(*) AS patient_count 
                     FROM Patients 
                     GROUP BY day 
                     ORDER BY day";
