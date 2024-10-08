@@ -14,7 +14,6 @@ session_start();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap">
     <link rel="stylesheet" href="css/index.css"> 
     <link rel="stylesheet" href="css/patients.css"> 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="components/icon/index.js"></script>
     <style>
       .patient-group {
@@ -112,7 +111,7 @@ session_start();
                                 $groupRecords = $result->fetch_all(MYSQLI_ASSOC);
                             ?>
                         <?php foreach ($groupRecords as $group): ?>
-                            <div class="group-card">
+                            <div class="group-card" data-group-id="<?php echo htmlspecialchars($group['id']); ?>">
                                 <div class="group-info">
                                     <h3>Group: <?php echo htmlspecialchars($group['group_name']); ?><br><span>Leader: <?php echo htmlspecialchars($group['group_leader']); ?></span></h3>
                                     <p>Group Members: <?php echo htmlspecialchars($group['number_of_members']); ?> / Assigned Patients: <?php echo htmlspecialchars($group['assigned_patients']); ?></p>
@@ -252,8 +251,9 @@ session_start();
       document.addEventListener('DOMContentLoaded', function() {
         const groups = document.querySelectorAll('.group-card');
         groups.forEach(card => {
-          card.addEventListener('click', function() {
-            window.location.href = 'detailed-group.php';
+          card.addEventListener('click', function(e) {
+            const groupId = e.currentTarget.getAttribute('data-group-id');
+            window.location.href = `detailed-group.php?group=${groupId}`;
           });
         });
 

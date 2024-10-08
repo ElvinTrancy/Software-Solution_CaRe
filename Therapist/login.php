@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $login_input = $_POST['login_input']; // Could be either ID or Email
     $password = $_POST['password'];
 
+    $hashed_password = hash('sha256', $password);
+
     // Check if the input is an ID (numeric) or an Email
     if (filter_var($login_input, FILTER_VALIDATE_EMAIL)) {
         // The input is an email
@@ -19,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ss', $login_input, $password);
+    $stmt->bind_param('ss', $login_input, $hashed_password);
     $stmt->execute();
     $result = $stmt->get_result();
 
