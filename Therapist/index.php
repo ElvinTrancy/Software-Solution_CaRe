@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+// Check if therapist is logged in
+if (!isset($_SESSION['therapist_id'])) {
+    header('Location: login.php');
+    exit;
+  }
 require_once 'inc/dbconn.inc.php'; // Include database connection
 ?>
 

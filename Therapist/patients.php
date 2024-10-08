@@ -1,3 +1,36 @@
+<?php
+include 'inc/dbconn.inc.php'; // Include your database connection file
+include 'inc/side.inc.php';   // Include any side components like sidebar
+
+
+session_start();
+
+// Check if therapist is logged in
+if (!isset($_SESSION['therapist_id'])) {
+  header('Location: login.php');
+  exit;
+}
+// Fetch patients from the database
+$patientsSql = "SELECT 
+p.id AS id, 
+p.name AS name, 
+p.photo, 
+MAX(g.name) AS group_name, 
+MAX(d.name) AS disease_name
+FROM Patients p
+-- Join to get group information
+LEFT JOIN grouppatient gp ON gp.patient_id = p.id
+LEFT JOIN Groups g ON g.id = gp.group_id
+
+-- Join to get disease information
+LEFT JOIN patienttherapistdisease ptd ON ptd.patient_id = p.id
+LEFT JOIN mentaldiseases d ON d.id = ptd.disease_id
+
+GROUP BY p.id, p.name, p.photo;
+"; // Modify this query according to your table structure
+$result = $conn->query($patientsSql);
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,44 +46,6 @@
 </head>
 <body>
     <div class="dashboard">
-        <!-- Sidebar -->
-        <div class="sidebar">
-          <div class="add-section">
-            <img class="plus" src="assets/logo.png" alt="icon">
-          </div>
-          <div class="menu-section">
-            <div class="menu-item " data-href="index.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-ana"></use>
-              </svg>
-              <span class="info">8</span>              
-            </div>
-            <div class="menu-item " data-href="calendar.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-calendar"></use>
-              </svg>
-            </div>
-            <div class="menu-item " data-href="patients.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-muser"></use>
-              </svg>          
-            </div>
-            <div class="menu-item active" data-href="group.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-group"></use>
-              </svg>          
-            </div>
-            <div class="menu-item" data-href="setting.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-gear"></use>
-              </svg>          
-            </div>
-          </div>
-          <div class="head-section">
-            <img src="assets/doc0.jpeg">
-            <span class="info">8</span>
-          </div>
-        </div>
         <div class="main-content" style="padding-left: 1rem;">         
           <div class="doc-main">
             <!-- Top bar -->
@@ -82,63 +77,28 @@
                   <div class="alphabet-pagination" id="alphabet-pagination"></div>
                   <div class="list-content">
                     <div class="profile-list">
-                      <div class="profile-card">
-                          <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                          <div class="profile-details">
-                              <p class="profile-id">Patient ID: 001</p>
-                              <p class="profile-name">Olivia Turner, M.D.</p>
-                              <p class="profile-group">Patient Group: Group1</p>
-                          </div>
-                          <button class="menu-button">
-                              <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                          </button>
-                      </div>
-                      <div class="profile-card">
-                        <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                        <div class="profile-details">
-                            <p class="profile-id">Patient ID: 001</p>
-                            <p class="profile-name">Olivia Turner, M.D.</p>
-                            <p class="profile-group">Patient Group: Group1</p>
-                        </div>
-                        <button class="menu-button">
-                            <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                        </button>
-                    </div>
-                    <div class="profile-card">
-                      <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                      <div class="profile-details">
-                          <p class="profile-id">Patient ID: 001</p>
-                          <p class="profile-name">Olivia Turner, M.D.</p>
-                          <p class="profile-group">Patient Group: Group1</p>
-                      </div>
-                      <button class="menu-button">
-                          <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                      </button>
-                  </div>
-                  <div class="profile-card">
-                    <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                    <div class="profile-details">
-                        <p class="profile-id">Patient ID: 001</p>
-                        <p class="profile-name">Olivia Turner, M.D.</p>
-                        <p class="profile-group">Patient Group: Group1</p>
-                    </div>
-                    <button class="menu-button">
-                        <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                    </button>
-                </div>
-                <div class="profile-card">
-                  <img src="assets/doc0.jpeg" alt="Patient" class="profile-avatar">
-                  <div class="profile-details">
-                      <p class="profile-id">Patient ID: 001</p>
-                      <p class="profile-name">Olivia Turner, M.D.</p>
-                      <p class="profile-group">Patient Group: Group1</p>
-                  </div>
-                  <button class="menu-button">
-                      <i class="menu-icon">&#x2630;</i> <!-- Unicode for the menu icon -->
-                  </button>
-              </div>
-              
-              
+                    <?php
+                      // Loop through patients and display them
+                      if ($result->num_rows > 0) {
+                          while($patient = $result->fetch_assoc()) {
+                            echo '
+                            <div class="profile-card" 
+                                 onclick=\'showPatientDetails(' . json_encode($patient, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ')\'>
+                                <img loading="lazy" src="'  . htmlspecialchars($patient["photo"]) . '" alt="Patient" class="profile-avatar">
+                                <div class="profile-details">
+                                    <p class="profile-id">Patient ID: ' . htmlspecialchars($patient["id"]) . '</p>
+                                    <p class="profile-name">' . htmlspecialchars($patient["name"]) . '</p>
+                                    <p class="profile-group">Patient Group: ' . htmlspecialchars($patient["group_name"]) . '</p>
+                                </div>
+                                <button class="menu-button" onclick="showPatientMenu(event, ' . htmlspecialchars($patient["id"]) . ')">
+                                    <i class="menu-icon" data-patient-id="'  . htmlspecialchars($patient["id"]) . '">&#x2630;</i> <!-- Unicode for the menu icon -->
+                                </button>
+                            </div>';
+                          }
+                      } else {
+                          echo '<p>No patients found.</p>';
+                      }
+                      ?>
               
                   </div>
                   
@@ -159,47 +119,13 @@
                 </div>
             
                 <!-- Confirm Button -->
-                <button class="confirm-btn">
+                <button class="confirm-btn" onclick="addNotes()">
                     Confirm <span class="btn-icon">➕</span>
                 </button>
             
                 <!-- Notes list -->
                 <div class="note-list">
-                    <div class="note-item">
-                        <div class="note-date">
-                            <span class="quote-icon">❝</span> 09–Sep–2024
-                        </div>
-                        <div class="note-text">
-                            The therapists need to have the ability to record notes and observations of each patient they oversee, however, these notes should not be visible to the patient.
-                        </div>
-                    </div>
-            
-                    <!-- Repeat the note item for multiple entries -->
-                    <div class="note-item">
-                        <div class="note-date">
-                            <span class="quote-icon">❝</span> 09–Sep–2024
-                        </div>
-                        <div class="note-text">
-                            The therapists need to have the ability to record notes and observations of each patient they oversee, however, these notes should not be visible to the patient.
-                        </div>
-                    </div>
-                    <div class="note-item">
-                      <div class="note-date">
-                          <span class="quote-icon">❝</span> 09–Sep–2024
-                      </div>
-                      <div class="note-text">
-                          The therapists need to have the ability to record notes and observations of each patient they oversee, however, these notes should not be visible to the patient.
-                      </div>
-                    </div>
                     
-                    <div class="note-item">
-                      <div class="note-date">
-                          <span class="quote-icon">❝</span> 09–Sep–2024
-                      </div>
-                      <div class="note-text">
-                          The therapists need to have the ability to record notes and observations of each patient they oversee, however, these notes should not be visible to the patient.
-                      </div>
-                  </div>
                 </div>
               </div>
 
@@ -208,9 +134,9 @@
                 <div class="profile-header">
                   <img src="assets/doc0.jpeg" alt="Patient" class="patient-photo">
                   <div class="profile-details">
-                      <p class="profile-id">Patient ID: 001</p>
-                      <p class="profile-name">Olivia Turner, M.D.</p>
-                      <p class="profile-group">Patient Group: Group1</p>
+                      <p class="profile-id pid">Patient ID: 001</p>
+                      <p class="profile-name pna">Olivia Turner, M.D.</p>
+                      <p class="profile-group png">Patient Group: Group1</p>
                       <p class="diagnostic">
                           Diagnostic:
                           <select>
@@ -235,7 +161,7 @@
                             </svg>
                             <div class="mood-desc">
                                 <span>Optimism</span>
-                                <span>90%</span>
+                                <span class="mood-op">90%</span>
                             </div>
                         </div>
                         <div class="mood-block pessimism">
@@ -244,7 +170,7 @@
                             </svg>
                             <div class="mood-desc">
                                 <span>Pessimism</span>
-                                <span>10%</span>
+                                <span class="mood-pe">10%</span>
                             </div>
                         </div>
                     </div>
@@ -266,7 +192,7 @@
                 <div class="sleep-chart">
                 </div>
                   <div class="sleep-info">
-                      <span>8 hour/Day</span>
+                      <span id="sleep_hours">8 hour/Day</span>
                   </div>
               </div>
           
@@ -274,7 +200,7 @@
               <div class="exercise-record">
                 <div class="exercise-chart"></div>
                   <div class="exercise-info">
-                      <span>8 hour/Day</span>
+                      <span class="fitness-level">0 hour/Day</span>
                   </div>
               </div>
               
@@ -283,6 +209,111 @@
       </div>
     </div>
     <script>
+      let patientId = -1;
+      function errLoad() {
+        this.src='assets/head.jpeg';
+      }
+
+      function showPatientDetails(patient) {
+
+        patientId = patient.id;
+        // Populate the patient details div with selected patient data
+        document.querySelector('.patient-photo').src = patient.photo || 'default_image.png'; // Use default if no photo
+        document.querySelector('.pid').textContent = 'Patient ID: ' + patient.id;
+        document.querySelector('.pna').textContent = patient.name;
+        document.querySelector('.png').textContent = 'Patient Group: ' + (patient.group_name || 'No Group');
+        
+        // Update diagnostic dropdown
+        const diagnosticSelect = document.querySelector('.diagnostic');
+        diagnosticSelect.innerHTML = 'Diagnostic:' + (patient.disease_name || 'No Diagnosis'); 
+
+        fetch('requests/getPatientDetails.php?patient_id=' + patientId)
+        .then(response => response.json())
+        .then(record => {
+            if (record.error) {
+                alert('Error: no record yet');
+
+                document.querySelector('.mood-op').textContent = 'N/A';
+
+              document.querySelector('.mood-pe').textContent = 'N/A';
+              document.querySelector('.fitness-level').textContent = 'N/A';
+              document.getElementById('sleep-hours').textContent = 'N/A';
+              document.querySelector('.diet-status').textContent = 'Diet: ' + ('N/A');
+                return;
+            }
+            // Update the DOM elements with the average data
+            document.querySelector('.mood-op').textContent = record.mood != 0 ? (100 *record.optimism / record.mood).toFixed(0) + '%' : 'N/A';
+            document.querySelector('.mood-pe').textContent = record.mood != 0 ? (100*record.pessimism / record.mood).toFixed(0) + '%' : 'N/A';
+            document.querySelector('.fitness-level').textContent = record.fitness_level ? record.fitness_level.toFixed(1) + ' hour/Day' : 'N/A';
+            document.getElementById('sleep-hours').textContent = record.sleep_hours ? record.sleep_hours + ' hours/day' : 'N/A';
+            document.querySelector('.diet-status').textContent = 'Diet: ' + (record.diet || 'N/A');
+        })
+        .catch(error => console.error('Error fetching patient data:', error));
+
+        // // Optionally update other daily records like mood, fitness level, etc.
+        // document.querySelector('.mood-val').textContent = patient.mood;
+        // document.querySelector('.fitness-level').textContent = patient.fitness_level;
+        // document.querySelector('.sleep-hours').textContent =  patient.sleep_hours;
+        // document.querySelector('.diet-status').textContent = 'Diet: ' + patient.diet;
+    }
+
+      function addNotes () {
+        const noteText = document.querySelector('.note-textarea').value.trim();
+        if (noteText === '') {
+          alert('Please enter a note.');
+          return;
+        }
+
+        if (noteText.length > 250) {
+            alert('Note exceeds the character limit.');
+            return;
+        }
+
+        fetch('requests/insert-note.php', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ patient_id: patientId, note_text: noteText })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+            document.querySelector('.note-textarea').value = '';
+            getNotes(patientId);
+          } else {
+              alert('Error adding note: ' + data.error);
+          }
+      })
+      .catch(error => console.error('Error:', error));
+      }
+
+      function getNotes(patientId) {
+        fetch(`requests/getPatientNotes.php?patient_id=${patientId}`)
+            .then(response => response.json())
+            .then(data => {
+                const noteList = document.querySelector('.note-list');
+                noteList.innerHTML = ''; // Clear existing notes
+
+                data.notes.forEach(note => {
+                    const noteItem = document.createElement('div');
+                    noteItem.classList.add('note-item');
+
+                    const noteDate = document.createElement('div');
+                    noteDate.classList.add('note-date');
+                    noteDate.innerHTML = `<span class="quote-icon">❝</span> ${note.date}`;
+
+                    const noteText = document.createElement('div');
+                    noteText.classList.add('note-text');
+                    noteText.textContent = note.text;
+
+                    noteItem.appendChild(noteDate);
+                    noteItem.appendChild(noteText);
+                    noteList.appendChild(noteItem);
+                });
+            })
+            .catch(error => console.error('Error fetching notes:', error));
+      }
       document.addEventListener('DOMContentLoaded', function() {
 
 
@@ -291,7 +322,7 @@
 
         treatmentRecordBtn.addEventListener('click', function() {
             // Navigate to the 'record.html' page
-            window.location.href = 'patients-record.html';
+            window.location.href = 'patients-record.php?patient_id=' + patientId;
         });
 
 
@@ -317,11 +348,16 @@
 
       
 
+      
+
       menuIcons.forEach(icon => {
           icon.addEventListener('click', function(event) {
               event.stopPropagation();
               // Remove 'selected' class from all other icons
               menuIcons.forEach(i => i.classList.remove('selected'));
+
+              patientId = this.getAttribute("data-patient-id");
+              getNotes(patientId);
 
               // Toggle 'selected' class for the clicked icon
               this.classList.toggle('selected');

@@ -168,6 +168,15 @@ CREATE TABLE PatientTherapistDisease (
     FOREIGN KEY (disease_id) REFERENCES MentalDiseases(id) ON DELETE CASCADE
 );
 
+CREATE TABLE PatientNotes (
+    note_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT NOT NULL,
+    therapist_id INT NOT NULL,
+    note_text TEXT NOT NULL,
+    note_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (patient_id) REFERENCES Patients(id),
+    FOREIGN KEY (therapist_id) REFERENCES Therapists(id)
+);
 
 
 
@@ -1772,6 +1781,39 @@ INSERT INTO PatientTherapistDisease (patient_id, therapist_id, disease_id, diagn
 (19, 8, 7, '2024-09-08'),
 (10, 2, 9, '2024-09-11'),
 (261, 6, 10, '2024-09-16');
+
+INSERT INTO PatientNotes  (note_id, patient_id, note_text, therapist_id, note_date) VALUES
+(1, 1, 'Patient showing signs of improvement', 5, '2024-10-01'),
+(2, 1, 'Discussed new therapy approach', 2, '2024-10-05'),
+(3, 1, 'Patient feels less anxious', 7, '2024-10-10'),
+(4, 1, 'Recommended exercise routine', 3, '2024-10-12'),
+(5, 1, 'Follow-up scheduled', 9, '2024-10-15'),
+
+(6, 2, 'Initial consultation', 2, '2024-10-01'),
+(7, 2, 'Patient feels stressed at work', 8, '2024-10-06'),
+(8, 2, 'Introduced mindfulness exercises', 4, '2024-10-09'),
+(9, 2, 'Patient reported better sleep', 1, '2024-10-11'),
+(10, 2, 'Next session in two weeks', 6, '2024-10-14'),
+
+(11, 3, 'Review of medication', 1, '2024-10-02'),
+(12, 3, 'Patient responding well to treatment', 6, '2024-10-07'),
+(13, 3, 'Discussed coping strategies', 3, '2024-10-09'),
+(14, 3, 'Reduced anxiety reported', 7, '2024-10-13'),
+(15, 3, 'Next appointment confirmed', 10, '2024-10-17'),
+
+(16, 4, 'Initial assessment completed', 3, '2024-10-03'),
+(17, 4, 'Patient hesitant about therapy', 10, '2024-10-08'),
+(18, 4, 'Motivational exercises introduced', 9, '2024-10-09'),
+(19, 4, 'Follow-up on therapy progress', 4, '2024-10-11'),
+(20, 4, 'Patient shows better mood', 2, '2024-10-15'),
+
+(21, 5, 'Discussed patient’s goals', 5, '2024-10-04'),
+(22, 5, 'Scheduled next session', 7, '2024-10-07'),
+(23, 5, 'Exercise routine discussed', 8, '2024-10-10'),
+(24, 5, 'Patient reported improved mood', 9, '2024-10-13'),
+(25, 5, 'Next follow-up in two weeks', 2, '2024-10-16');
+
+
 
 -- Grant permissions to dbadmin
 CREATE USER IF NOT EXISTS dbadmin@localhost IDENTIFIED BY 'adminpassword';

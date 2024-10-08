@@ -6,35 +6,42 @@ include 'inc/side.inc.php';    // Adjust the path if necessary
 // Start the session if needed
 session_start();
 
+// Check if therapist is logged in
+if (!isset($_SESSION['therapist_id'])) {
+  header('Location: login.php');
+  exit;
+}
+
 if (isset($_GET['group'])) {
   $groupId = $_GET['group'];
 
   // Prepare SQL to fetch group details and patients
   $groupSql = "
-      SELECT 
-          g.id AS id, 
-          g.name AS group_name, 
-          g.leader AS group_leader, 
-          g.number_of_members, 
-          g.assigned_patients, 
-          g.creation_date, 
-          g.status, 
-          g.head_img, 
-          gm.meeting_date, 
-          gm.meeting_time, 
-          gm.theme, 
-          gm.mode
-      FROM Groups g
-      LEFT JOIN (
-          SELECT gm1.*
-          FROM GroupMeetings gm1
-          INNER JOIN (
-              SELECT group_id, MAX(meeting_date) AS latest_meeting_date
-              FROM GroupMeetings
-              GROUP BY group_id
-          ) gm2 ON gm1.group_id = gm2.group_id AND gm1.meeting_date = gm2.latest_meeting_date
-      ) gm ON g.id = gm.group_id
-      WHERE g.id = ? AND g.status = 'Active'
+  SELECT 
+  g.id AS id, 
+  g.name AS group_name, 
+  t.name AS group_leader,
+  g.number_of_members, 
+  g.assigned_patients, 
+  g.creation_date, 
+  g.status, 
+  g.head_img, 
+  gm.meeting_date, 
+  gm.meeting_time, 
+  gm.theme, 
+  gm.mode
+FROM Groups g
+LEFT JOIN (
+  SELECT gm1.*
+  FROM GroupMeetings gm1
+  INNER JOIN (
+      SELECT group_id, MAX(meeting_date) AS latest_meeting_date
+      FROM GroupMeetings
+      GROUP BY group_id
+  ) gm2 ON gm1.group_id = gm2.group_id AND gm1.meeting_date = gm2.latest_meeting_date
+) gm ON g.id = gm.group_id
+LEFT JOIN Therapists t ON g.therapist_id  = t.id
+WHERE g.id = ? AND g.status = 'Active';
   ";
 
   $stmt = $conn->prepare($groupSql);
@@ -137,7 +144,7 @@ $conn->close();
                         <div class="add-group-header">
                             <div class="add-group-id">Group ID: <?= htmlspecialchars($group['id']) ?></div>
                             <div class="add-group-actions">
-                                <button class="add-group-confirm-btn" onclick="window.location.href = 'initial-group.php'">Initiating Group Therapy →</button>
+                                <button class="add-group-confirm-btn" id="assignPatient">Initiating Group Therapy →</button>
                             </div>
                         </div>
                         <div class="add-group-form-section">
@@ -163,8 +170,8 @@ $conn->close();
                             // Check if this patient belongs to the group
                             $isSelected = in_array($patient['id'], $assignedPatients) ? 'patient-item-selected' : '';
                             ?>
-                            <div onclick="toggleSelection(this)" data-patient-name = "<?= htmlspecialchars($patient['name']) ?>" class="therapist-info-patient-item <?= $isSelected ?>">
-                                <img src="<?= htmlspecialchars($patient['photo']) ?>" alt="Patient Picture" onerror="this.src='assets/head.jpeg'">
+                            <div onclick="toggleSelection(this)" data-patient-id="<?= htmlspecialchars($patient['id']) ?>" data-patient-name = "<?= htmlspecialchars($patient['name']) ?>" class="therapist-info-patient-item <?= $isSelected ?>">
+                                <img src="<?= htmlspecialchars($patient['photo']) ?>" alt="Patient Picture" onerror="this.src='assets/head.jpeg'" loading="lazy" >
                                 <div class="therapist-info-patient-info">
                                     <h4>Patient ID: <?= htmlspecialchars($patient['id']) ?></h4>
                                     <h4><?= htmlspecialchars($patient['name']) ?></h4>
@@ -210,6 +217,45 @@ $conn->close();
                 parentElement.classList.remove('patient-item-selected');
             }
         }
+
+        var btn = document.getElementById("assignPatient");
+        btn.addEventListener('click', function(event) {
+          event.preventDefault(); // Prevent the default action of redirecting immediately
+
+          // Collect the assigned patients
+          let assignedPatients = [];
+          document.querySelectorAll('.patient-item-selected').forEach(function(patientItem) {
+            assignedPatients.push(patientItem.getAttribute('data-patient-id')); // Get the patient ID from the data-patient-id attribute
+        });
+
+          // Group ID
+          let groupId = <?= json_encode($groupId) ?>; // Embed the PHP groupId into JavaScript
+
+          // Send the assigned patients data to the server to save
+          fetch('requests/save_assigned_patients.php', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  group_id: groupId,
+                  assigned_patients: assignedPatients
+              })
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  // Redirect to the new page after saving successfully
+                  window.location.href = 'initial-group.php?group=' + groupId;
+              } else {
+                  alert('Failed to save the changes.');
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred while saving the changes.');
+          });
+      });
 
       const alphabetContainer = document.getElementById('alphabet-pagination');
       const alphabet = "All,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z".split(',');

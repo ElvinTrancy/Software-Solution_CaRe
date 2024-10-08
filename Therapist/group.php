@@ -4,6 +4,12 @@ include 'inc/dbconn.inc.php';
 include 'inc/side.inc.php';
 
 session_start();
+
+// Check if therapist is logged in
+if (!isset($_SESSION['therapist_id'])) {
+  header('Location: login.php');
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

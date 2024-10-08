@@ -1,3 +1,46 @@
+<?php
+// Start session and include database connection
+session_start();
+include 'inc/dbconn.inc.php';
+include 'inc/side.inc.php';
+
+// Check if 'patient_id' is present in the URL
+if (isset($_GET['patient_id'])) {
+    $patientId = intval($_GET['patient_id']);
+
+    // Fetch patient information from the database
+    $sql = "SELECT 
+                p.id, 
+                p.name, 
+                p.photo, 
+                g.name AS group_name, 
+                d.name AS disease_name
+            FROM Patients p
+            LEFT JOIN grouppatient gp ON gp.patient_id = p.id
+            LEFT JOIN Groups g ON g.id = gp.group_id
+            LEFT JOIN patienttherapistdisease ptd ON ptd.patient_id = p.id
+            LEFT JOIN mentaldiseases d ON d.id = ptd.disease_id
+            WHERE p.id = ?";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $patientId); // Bind patient ID
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $patient = $result->fetch_assoc();
+    } else {
+        echo "No patient found.";
+        exit;
+    }
+
+    $stmt->close();
+} else {
+    echo "Patient ID is required.";
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,44 +137,6 @@
 </head>
 <body>
     <div class="dashboard">
-        <!-- Sidebar -->
-        <div class="sidebar">
-          <div class="add-section">
-            <img class="plus" src="assets/logo.png" alt="icon">
-          </div>
-          <div class="menu-section">
-            <div class="menu-item " data-href="index.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-ana"></use>
-              </svg>
-              <span class="info">8</span>              
-            </div>
-            <div class="menu-item " data-href="calendar.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-calendar"></use>
-              </svg>
-            </div>
-            <div class="menu-item " data-href="patients.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-muser"></use>
-              </svg>          
-            </div>
-            <div class="menu-item active" data-href="group.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-group"></use>
-              </svg>          
-            </div>
-            <div class="menu-item" data-href="setting.html">
-              <svg class="icon menu-item" aria-hidden="true">
-                <use xlink:href="#icon-gear"></use>
-              </svg>          
-            </div>
-          </div>
-          <div class="head-section">
-            <img src="assets/doc0.jpeg">
-            <span class="info">8</span>
-          </div>
-        </div>
         <div class="main-content" style="padding-left: 1rem;">         
           <div class="doc-main">
             <!-- Top bar -->
@@ -163,13 +168,13 @@
               <div class="calendar-container">
                 <div class="event-list" style="justify-content: start;">
                   <div class="profile">
-                    <img src="https://via.placeholder.com/150" alt="Patient Photo" class="profile-img">
-                    <h2>Patient ID: 001<br>Olivia Turner, M.D.</h2>
-                    <p>Patient Group: Group1</p>
+                  <img src="<?= htmlspecialchars($patient['photo']) ?>" alt="Patient Photo" class="profile-img">
+                  <h2>Patient ID: <?= htmlspecialchars($patient['id']) ?><br><?= htmlspecialchars($patient['name']) ?></h2>
+                  <p>Patient Group: <?= htmlspecialchars($patient['group_name']) ?></p>
                 </div>
                 <div class="diagnostic-section">
-                    <label>Diagnostic:</label>
-                    <button class="pill-button">Somnipathy</button>
+                <label>Diagnostic:</label>
+                                <button class="pill-button"><?= htmlspecialchars($patient['disease_name']) ?></button>
                 </div>
                 <div class="goals-section">
                     <label>Goals:</label>
@@ -234,10 +239,10 @@
 
         treatmentRecordBtn.addEventListener('click', function() {
             // Navigate to the 'record.html' page
-            window.location.href = 'patients.html';
+            window.location.href = 'patients.php';
         });
       });
     </script>
-    <script src="js/nav.js"></script>
+    <script src="js/nav_php.js"></script>
 </body>
 </html>
