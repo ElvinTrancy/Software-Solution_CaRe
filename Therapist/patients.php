@@ -255,7 +255,7 @@ $result = $conn->query($patientsSql);
         // document.querySelector('.fitness-level').textContent = patient.fitness_level;
         // document.querySelector('.sleep-hours').textContent =  patient.sleep_hours;
         // document.querySelector('.diet-status').textContent = 'Diet: ' + patient.diet;
-    }
+      }
 
       function addNotes () {
         const noteText = document.querySelector('.note-textarea').value.trim();

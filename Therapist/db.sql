@@ -539,6 +539,17 @@ INSERT INTO Groups (id, name, leader, number_of_members, assigned_patients, crea
 (19, 'Resilient Warriors', 119, 11, 7, '2023-02-01', 'Active', 'img/group19.jpg'),
 (20, 'Serene Spirits', 120, 10, 4, '2023-03-30', 'Active', 'img/group20.jpg');
 
+INSERT INTO `patientdailyrecords` (`patient_id`, `record_date`, `mood`, `fitness_level`, `sleep_hours`, `diet`, `caloric_intake`, `sleep_time`, `exercise_time`, `notes`) VALUES
+(1, '2024-10-03', '3', '3', 7, '1', 2477, '23:27:00', 5, 'Productive and happy today'),
+(1, '2024-10-04', '4', '4', 8, '2', 2500, '22:45:00', 6, 'Feeling a bit tired'),
+(1, '2024-10-05', '6', '5', 7, '3', 2300, '23:13:00', 4, 'Energized after a good workout'),
+(1, '2024-10-06', '5', '3', 6, '4', 2700, '23:00:00', 5, 'Didn\'t sleep well'),
+(1, '2024-10-07', '7', '4', 8, '5', 2477, '23:30:00', 5, 'Mood improved after talking with friends'),
+(1, '2024-10-08', '8', '5', 6, '6', 2500, '22:50:00', 6, 'A bit stressed from work'),
+(1, '2024-10-09', '9', '4', 7, '1', 2300, '22:55:00', 4, 'Feeling accomplished after finishing tasks'),
+(1, '2024-10-10', '4', '3', 8, '2', 2000, '23:22:00', 6, 'Productive and happy today'),
+(1, '2024-10-11', '2', '2', 7, '3', 2500, '23:10:00', 5, 'Didn\'t sleep well'),
+(1, '2024-10-12', '5', '5', 6, '4', 2700, '22:47:00', 4, 'A bit stressed from work');
 
 
 INSERT INTO PatientDailyRecords (id, patient_id, record_date, mood, fitness_level, sleep_hours, diet, caloric_intake, sleep_time, exercise_time, notes) VALUES
