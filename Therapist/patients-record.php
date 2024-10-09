@@ -3,6 +3,11 @@
 session_start();
 include 'inc/dbconn.inc.php';
 include 'inc/side.inc.php';
+if (!isset($_SESSION['therapist_id'])) {
+  header('Location: login.php');
+  exit;
+}
+
 
 // Check if 'patient_id' is present in the URL
 if (isset($_GET['patient_id'])) {
@@ -35,6 +40,29 @@ if (isset($_GET['patient_id'])) {
     }
 
     $stmt->close();
+
+    $notesSql = "SELECT note_id, note_text, therapist_id, DATE_FORMAT(note_date, '%d–%b–%Y') AS note_date FROM PatientNotes WHERE patient_id = ? ORDER BY note_id DESC";
+    $stmtNotes = $conn->prepare($notesSql);
+    $stmtNotes->bind_param("i", $patientId);
+    $stmtNotes->execute();
+    $resultNotes = $stmtNotes->get_result();
+
+    $patientNotes = [];
+    if ($resultNotes->num_rows > 0) {
+        while ($row = $resultNotes->fetch_assoc()) {
+            $patientNotes[] = [
+                'note_id' => $row['note_id'],
+                'note_text' => $row['note_text'],
+                'therapist_id' => $row['therapist_id'],
+                'note_date' => $row['note_date']
+            ];
+        }
+    }
+
+    $patientNotesJson = json_encode($patientNotes);
+
+    $stmtNotes->close();
+
 } else {
     echo "Patient ID is required.";
     exit;
@@ -194,13 +222,13 @@ if (isset($_GET['patient_id'])) {
                 </div>
                 </div>
                 <div class="calendar-host">                  
-                  <div class="calendar-header">
+                  <div class="calendar-header" style="display: none;">
                     <button id="prev-month">&lt;</button>
                     <h2 id="calendar-month-year"></h2>
                     <button id="next-month">&gt;</button> 
                   </div>
               
-                  <div class="view-options">
+                  <div class="view-options" style="display: none;">
                       <button class="toggle-button">Day</button>
                       <button class="toggle-button">Week</button>
                       <button class="toggle-button active">Month</button>
@@ -229,13 +257,93 @@ if (isset($_GET['patient_id'])) {
             </div>
       </div>
     </div>
-    <script src="js/calendar.js"></script>
+    <script src="js/calendar.js"></script> 
+    <script>
+
+      function convertDate(dateString) {
+          // Split the date string into components
+          const dateParts = dateString.split("–");
+          
+          const day = dateParts[0].trim();
+          const month = dateParts[1].trim();
+          const year = dateParts[2].trim();
+
+          // Convert the month name to a two-digit month number
+          const months = {
+              "Jan": "01",
+              "Feb": "02",
+              "Mar": "03",
+              "Apr": "04",
+              "May": "05",
+              "Jun": "06",
+              "Jul": "07",
+              "Aug": "08",
+              "Sep": "09",
+              "Oct": "10",
+              "Nov": "11",
+              "Dec": "12"
+          };
+
+          const monthNumber = months[month];
+
+          // Return the date in the desired format
+          return `${year}-${monthNumber}-${day.padStart(2, '0')}`;
+      }
+      let currentDate = new Date();
+      let patientNotes = <?php echo $patientNotesJson; ?>;
+      let calendarEvents = [];
+      patientNotes.forEach(tr => {
+        calendarEvents.push({
+          group_id: tr.note_id,
+          group_name: tr.note_text,
+          meeting_date: convertDate(tr.note_date),
+          meeting_time: "00:00:00",
+          leader: '0',
+          number_of_members: '0'
+        });
+      });
+
+      console.log(calendarEvents)
+      generateCalendar(currentDate, calendarEvents);
+    </script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
 
+//         group_id
+// : 
+// 1
+// group_name
+// : 
+// "Mindful Masters"
+// leader
+// : 
+// "101"
+// meeting_date
+// : 
+// "0000-00-00"
+// meeting_time
+// : 
+// "00:00:00"
+// number_of_members
+// : 
+// 3
 
 
+// note_date
+// : 
+// "08–Oct–2024"
+// note_id
+// : 
+// 28
+// note_text
+// : 
+// "t"
+// therapist_id
+// : 
+// 1
         const treatmentRecordBtn = document.getElementById('go-back');
+
+        
 
         treatmentRecordBtn.addEventListener('click', function() {
             // Navigate to the 'record.html' page

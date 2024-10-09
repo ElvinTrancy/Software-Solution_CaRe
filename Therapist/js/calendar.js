@@ -42,7 +42,6 @@ function generateRandomEvents(year, month, numEvents = 10) {
   return events;
 }
 function generateCalendar(date, events) {
-    console.log(events)
     // Clear previous dates
     calendarBody.innerHTML = '';
 

@@ -346,7 +346,6 @@ require_once 'inc/dbconn.inc.php'; // Include database connection
             const days = data.day_data.map(entry => entry.day);
             const counts = data.day_data.map(entry => entry.patient_count);
 
-            console.log(days, counts)
             const totalCount = data.total_count;
 
             drawChart(days, counts);

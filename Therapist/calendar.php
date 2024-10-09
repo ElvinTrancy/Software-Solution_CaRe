@@ -54,7 +54,7 @@ $meetingRecordsJson = json_encode($meetingRecords);
 
                 <div class="calendar-container">
                     <div class="event-list">
-                        <button class="add-event-btn" onclick="window.location.href = 'initial-group.html'">+ Add New Event</button>
+                        <button class="add-event-btn" onclick="window.location.href = 'add-calendar.php'">+ Add New Event</button>
 
                         <h2>Upcoming Events</h2>
 
@@ -118,6 +118,7 @@ $meetingRecordsJson = json_encode($meetingRecords);
     <script>
       let currentDate = new Date();
       let meetingRecords = <?php echo $meetingRecordsJson; ?>;
+      console.log(meetingRecords);
       generateCalendar(currentDate, meetingRecords);
     </script>
     <script src="js/nav_php.js"></script>
