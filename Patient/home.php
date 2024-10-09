@@ -5,26 +5,87 @@ session_start();
 // Include the database connection
 include 'inc/dbconn.inc.php';
 
-// Fetch user-specific data (example for mood, diet, sleep, and exercise)
-$user_id = $_SESSION['user_id'];
 
-// Fetch mood distribution
-$mood_sql = "SELECT mood, COUNT(*) AS count FROM mood_tracker WHERE user_id = ? GROUP BY mood";
-$stmt = $conn->prepare($mood_sql);
-$stmt->bind_param('i', $user_id);
+
+// Fetch user-specific data 
+$patientId = $_SESSION['patient_id'] ?? null;
+
+if ($patientId === null) {
+    // Handle the case where the session variable is missing
+    header("Location: login.php"); 
+    exit();
+}
+
+
+$sql = "
+SELECT 
+    SUM(CASE WHEN mood >= 5 THEN 1 ELSE 0 END) AS optimism,
+    SUM(CASE WHEN mood < 5 THEN 1 ELSE 0 END) AS pessimism,
+    COUNT(mood) AS total, 
+    ROUND(AVG(fitness_level), 2) AS avg_fitness_level, 
+    ROUND(AVG(sleep_hours), 2) AS avg_sleep_hours, 
+    ROUND(AVG(caloric_intake), 2) AS avg_caloric_intake, 
+    GROUP_CONCAT(diet ORDER BY record_date ASC) AS diet_history
+FROM 
+    patientdailyrecords 
+WHERE 
+    patient_id = ?
+
+";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $patientId); // Bind the patient ID
 $stmt->execute();
-$mood_data = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$result = $stmt->get_result();
 
-// Fetch diet status, sleep, and exercise records (similar queries can be added)
+$patientData = $result->fetch_assoc();
+
+$dietList = explode(',', $patientData["diet_history"]);
+
+$dietListJson = json_encode($patientId);
+
+
+$therapistSql = "
+    SELECT 
+        t.id AS therapist_id, 
+        t.photo,
+        t.name as name 
+    FROM 
+        patienttherapistdisease ptd
+    JOIN 
+        therapists t ON ptd.therapist_id = t.id
+    WHERE 
+        ptd.patient_id = ?
+";
+
+$stmt = $conn->prepare($therapistSql);
+$stmt->bind_param("i", $patientId);
+$stmt->execute();
+$therapistResult = $stmt->get_result();
+
+$stmt->close();
+$therapistId = "";
+$therapistPhoto = "";
+$therapistName = "";
+
+if ($therapistResult->num_rows > 0) {
+    $therapistData = $therapistResult->fetch_assoc();
+   
+    $therapistId = $therapistData['therapist_id'];
+    $therapistPhoto = $therapistData['photo'];
+    $therapistName = $therapistData['name'];
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="Styles/Basical.css">
     <link rel="stylesheet" href="Styles/NagBar.css">
     <link rel="stylesheet" href="css/index.css">
@@ -36,28 +97,66 @@ $mood_data = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         <h2>Mood Distribution</h2>
         <div class="card mood">
             <div class="icons">
-                <?php foreach ($mood_data as $mood): ?>
                 <div class="icon-item">
                     <div class="icon-content">
-                        <img src="images/emotion-<?php echo strtolower($mood['mood']); ?>.png" alt="<?php echo $mood['mood']; ?> face">
+                        <img src="images/emotion-happy.png" alt="Happy face">
                         <div class="text-content">
-                            <p><?php echo ucfirst($mood['mood']); ?></p>
-                            <p><?php echo round(($mood['count'] / array_sum(array_column($mood_data, 'count'))) * 100); ?>%</p>
+                            <p>Optimism</p>
+                            <p><?php echo $patientData['total'] != 0 ? round(($patientData['optimism'] / $patientData['total']) * 100, 0) . '%' : 'N/A'; ?></p>
+
                         </div>
                     </div>
                 </div>
-                <?php endforeach; ?>
+                <div class="icon-item">
+                    <div class="icon-content">
+                        <img src="images/emotion-neutral.png" alt="Neutral face">
+                        <div class="text-content">
+                            <p>Pessimism</p>
+                            <p><?php echo $patientData['total'] != 0 ? round(($patientData['pessimism'] / $patientData['total']) * 100, 0) . '%' : 'N/A'; ?></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Diet -->
+        <h2>Diet Status</h2>
+        <div class="card diet">            
+            <div class="scroll-container">
+            <?php foreach ($dietList as $diet): ?>
+                <img src="images/diet<?php echo htmlspecialchars($diet); ?>.png" alt="Diet <?php echo htmlspecialchars($diet); ?>">
+            <?php endforeach; ?>
             </div>
         </div>
 
-        <!-- Diet Status, Sleep Mode, and Exercise Record sections here -->
+        <!-- Sleep Mode -->
+        <h2>Sleep Mode</h2>
+        <div class="card sleep">
+            <div class="sleep-chart">
+            </div>
+            <div class="sleep-info">
+                <div class="num"><?php echo round($patientData['avg_sleep_hours'], 2); ?> Hour/</div>
+                <div class="unit">Day</div>
+            </div>
+        </div>
 
-        <!-- My Therapist Section -->
+        <!-- Exercise Record -->
+        <h2>Exercise Record</h2>
+        <div class="card exercise">
+            <div class="exercise-chart">
+            </div>
+            <div class="sleep-info">
+                <div class="num"><?php echo round($patientData['avg_fitness_level'], 2); ?> Hour/</div>
+                <div class="unit">Day</div>
+            </div>
+        </div>
+
+        <!-- My Therapist -->
         <h2>My Therapist</h2>
         <div class="card therapist">
             <div class="section therapist">
                 <div class="therapist-image">
-                    <img src="images/image 1.png" alt="Therapist">
+                <img src="images/<?php echo htmlspecialchars($therapistPhoto); ?>" alt="Therapist" onerror="this.src = 'images/image 1.png'">
                 </div>
                 <div class="session-info">
                     <h2>1 on 1 Sessions</h2>
@@ -68,17 +167,53 @@ $mood_data = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                 </div>
             </div>
         </div>
-
         <!-- Navigation Bar -->
-        <div class="nav-bar">
-            <button><a href="home.php"><img src="images/home-icon.png" alt="Home"></a></button>
-            <button><a href="analytics.php"><img src="images/analytics-icon.png" alt="Analytics"></a></button>
-            <div class="center-btn">
-                <button><a href="add.php"><img src="images/add-icon.png" alt="Add"></a></button>
-            </div>
-            <button><a href="services.php"><img src="images/services-icon.png" alt="Services"></a></button>
-            <button><a href="profile.php"><img src="images/profile-icon.png" alt="Profile"></a></button>
-        </div>
+        <?php include 'inc/nav-bar.php'; ?>
     </div>
+    <script>
+        function showPatientDetails(patient) {
+            patientId = patient.id;
+            // Populate the patient details div with selected patient data
+            document.querySelector('.patient-photo').src = patient.photo || 'default_image.png'; // Use default if no photo
+            document.querySelector('.pid').textContent = 'Patient ID: ' + patient.id;
+            document.querySelector('.pna').textContent = patient.name;
+            document.querySelector('.png').textContent = 'Patient Group: ' + (patient.group_name || 'No Group');
+
+            // Update diagnostic dropdown
+            const diagnosticSelect = document.querySelector('.diagnostic');
+            diagnosticSelect.innerHTML = 'Diagnostic:' + (patient.disease_name || 'No Diagnosis'); 
+
+            fetch('requests/getPatientDetails.php?patient_id=' + patientId)
+            .then(response => response.json())
+            .then(record => {
+                if (record.error) {
+                    alert('Error: no record yet');
+
+                    document.querySelector('.mood-op').textContent = 'N/A';
+
+                document.querySelector('.mood-pe').textContent = 'N/A';
+                document.querySelector('.fitness-level').textContent = 'N/A';
+                document.getElementById('sleep-hours').textContent = 'N/A';
+                document.querySelector('.diet-status').textContent = 'Diet: ' + ('N/A');
+                    return;
+                }
+                // Update the DOM elements with the average data
+                document.querySelector('.mood-op').textContent = record.mood != 0 ? (100 *record.optimism / record.mood).toFixed(0) + '%' : 'N/A';
+                document.querySelector('.mood-pe').textContent = record.mood != 0 ? (100*record.pessimism / record.mood).toFixed(0) + '%' : 'N/A';
+                document.querySelector('.fitness-level').textContent = record.fitness_level ? record.fitness_level.toFixed(1) + ' hour/Day' : 'N/A';
+                document.getElementById('sleep-hours').textContent = record.sleep_hours ? record.sleep_hours + ' hours/day' : 'N/A';
+                document.querySelector('.diet-status').textContent = 'Diet: ' + (record.diet || 'N/A');
+            })
+            .catch(error => console.error('Error fetching patient data:', error));
+
+            // // Optionally update other daily records like mood, fitness level, etc.
+            // document.querySelector('.mood-val').textContent = patient.mood;
+            // document.querySelector('.fitness-level').textContent = patient.fitness_level;
+            // document.querySelector('.sleep-hours').textContent =  patient.sleep_hours;
+            // document.querySelector('.diet-status').textContent = 'Diet: ' + patient.diet;
+            }
+    </script>
 </body>
+
 </html>
+
