@@ -86,31 +86,27 @@ button:hover img {
     margin-top: 80px;
 }
 
+
 .scroll-container {
     display: flex;
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-behavior: smooth;
-    justify-content: center;
     align-items: center;
     gap: 30px;
-    padding: 20px;
-    scroll-behavior: smooth;
+    padding: 0 125px;
     margin: 20px 0;
-
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+    -ms-overflow-style: none;  
 }
 
 .scroll-container::-webkit-scrollbar {
-    display: none; /* Hides the scrollbar in WebKit browsers */
+    display: none;
 }
 
 .scroll-container img {
     width: 150px;
     height: 150px;
     border-radius: 15px;
-    flex-shrink: 0;
 }
 
 #percentage-display {

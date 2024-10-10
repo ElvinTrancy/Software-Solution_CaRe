@@ -5,24 +5,42 @@ session_start();
 // Include the database connection
 include 'inc/dbconn.inc.php';
 
+// Fetch user-specific data 
+$patient_id = $_SESSION['patient_id'] ?? null;
+
+if ($patient_id === null) {
+    // Handle the case where the session variable is missing
+    header("Location: login.php"); 
+    exit();
+}
+
+if (isset($_SESSION['moodValue']) && isset($_SESSION['selectedDate']) && isset($_SESSION['selectedDate'])) {
+    
+} else {
+    header("Location: add.php"); 
+}
+
+
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $sleep_level = $_POST['sleep_level'] ?? '';
+    $sleep_level = $_POST['sleepLevel'] ?? '';
 
-    // Validate input
-    if (empty($sleep_level)) {
-        $error_message = "Please select your sleep level.";
+    $moodValue = $_SESSION['moodValue'];  // Retrieve mood value
+    $selectedDate = $_SESSION['selectedDate'];  // Retrieve selected date
+    
+    // Now you can use $moodValue and $selectedDate as needed
+    echo "Mood: " . $moodValue . "<br>";
+    echo "Selected Date: " . $selectedDate . "<br>";
+    if (isset($_SESSION['moodValue']) && isset($_SESSION['selectedDate']) && isset($_SESSION['fitness_level'])) {
+        
+        $_SESSION['sleep_level'] = $sleep_level;
+
+        // Return a success message to JavaScript
+        echo "Data saved successfully!";
     } else {
-        // Insert sleep level into the database
-        $sql = "INSERT INTO sleep_tracker (user_id, sleep_level, created_at) VALUES (?, ?, NOW())";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('is', $_SESSION['user_id'], $sleep_level);
-        $stmt->execute();
-
-        // Redirect to the next step
-        header("Location: diet-level.php");
-        exit;
+        header("Location: diet-level.php"); 
     }
+    exit(); // End script execution here
 }
 ?>
 
@@ -54,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <!-- Sleep Level Form -->
-        <form method="POST" action="">
+        <div method="POST" action="">
             <div class="centered-image">
                 <img src="images/sleep-level.png" alt="Sleep Level Icon">
             </div>
@@ -70,10 +88,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <button type="submit" class="continue-btn">Continue +</button>
-        </form>
+        </div>
     </div>
 
-    <script src="JS/exercise.js"></script>
-    <script src="JS/moodnote.js"></script>
+    <script src="JS/sleep.js"></script>
+
+    <script>
+        document.querySelector('.continue-btn').addEventListener('click', function() {
+            // Use AJAX to send the data to the server without using a form
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "sleep-level.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            const sleepLevel = document.getElementById('sleep-level-input').value;
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText); // Handle the response if needed
+
+                    // Redirect to the next step after data is saved in session
+                    window.location.href = "diet-level.php";
+                }
+            };
+
+            // Send the data to PHP (encoded as URL parameters)
+            const data = `sleepLevel=${encodeURIComponent(sleepLevel)}`;
+            xhr.send(data);
+        });
+    </script>
 </body>
 </html>

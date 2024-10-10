@@ -41,6 +41,33 @@ $sixtyDayData = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
 $stmt->close();
 
+function calculateMoodPercentage($data) {
+    $totalMood = count($data);
+    $moodGe5 = 0;
+    $moodLt5 = 0;
+
+    foreach ($data as $record) {
+        if ($record['mood'] >= 5) {
+            $moodGe5++;
+        } else {
+            $moodLt5++;
+        }
+    }
+
+    $percentGe5 = $totalMood > 0 ? round(($moodGe5 / $totalMood) * 100, 2) : 0;
+    $percentLt5 = $totalMood > 0 ? round(($moodLt5 / $totalMood) * 100, 2) : 0;
+
+    return [
+        'optimistic' => $percentGe5,
+        'pessimistic' => $percentLt5,
+        'total' => $totalMood
+    ];
+}
+
+$weekMoodData = calculateMoodPercentage($weekData);
+$monthMoodData = calculateMoodPercentage($monthData);
+$sixtyDayMoodData = calculateMoodPercentage($sixtyDayData);
+
 ?>
 
 
@@ -57,6 +84,9 @@ $stmt->close();
     <link rel="stylesheet" href="Styles/NagBar.css">
     <link rel="stylesheet" href="Styles/Select.css">
     <style>
+        #moodChart {
+            width: 100%;
+        }
         #calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -128,7 +158,7 @@ $stmt->close();
                             <img src="images/emotion-happy.png" alt="Happy face">
                             <div class="text-content">
                                 <p>Optimism</p>
-                                <p>90%</p>
+                                <p><?php echo $monthMoodData['optimistic']; ?>%</p>
                             </div>
                         </div>
                     </div>
@@ -137,7 +167,7 @@ $stmt->close();
                             <img src="images/emotion-neutral.png" alt="Neutral face">
                             <div class="text-content">
                                 <p>Pessimism</p>
-                                <p>10%</p>
+                                <p><?php echo $monthMoodData['pessimistic']; ?>%</p>
                             </div>
                         </div>
                     </div>
@@ -148,43 +178,12 @@ $stmt->close();
             <div class="card mood">
                 <h2>Daily Mood Distribution</h2>
                 <div class="card-content">
-                    <img src="images/mood-weekly-distribution.png" alt="Sleep Mode">
+                    <canvas id="moodChart"></canvas>
                 </div>
             </div>
         </div>
         <!-- Navigation Bar -->
-        <div>
-            <div class="nav-bar">
-                <button>
-                    <a href="home.html">
-                        <img src="images/home-icon.png" alt="Home">
-                    </a>
-                </button>
-                <button>
-                    <a href="analytics.html">
-                        <img src="images/analytics-icon.png" alt="Analytics">
-                    </a>
-                </button>
-                <div class="center-btn">
-                    <button>
-                         <a href="add.html">
-                            <img src="images/add-icon.png" alt="Add">
-                        </a>
-                    </button>
-                </div>
-                <button>
-                    <a href="services.html">
-                        <img src="images/services-icon.png" alt="Services">
-                    </a>
-                </button>
-                <button>
-                    <a href="profile.html">
-                        <img src="images/profile-icon.png" alt="Profile">
-                    </a>
-                </button>
-            </div>
-        </div>
-
+        <?php include 'inc/nav-bar.php'; ?>
     <script>
 
         const weekData = <?php echo json_encode($weekData); ?>;
@@ -270,6 +269,65 @@ $stmt->close();
 
                 calendarContainer.appendChild(dayDiv);
             }
+        }
+
+        function processMoodData(data) {
+            const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const optimisticData = [0, 0, 0, 0, 0, 0, 0];
+            const pessimisticData = [0, 0, 0, 0, 0, 0, 0];
+
+            data.forEach(record => {
+            const recordDate = new Date(record.record_date);
+            const dayOfWeek = recordDate.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+
+            // Adjust JavaScript's Sunday index (0) to match with 'Mon' as the start of the week (daysOfWeek[0])
+            const adjustedDayIndex = (dayOfWeek === 0) ? 6 : dayOfWeek - 1;
+
+            // Mood analysis: If mood >= 5 it's optimistic, otherwise pessimistic
+            if (record.mood >= 5) {
+                optimisticData[adjustedDayIndex]++;
+            } else {
+                pessimisticData[adjustedDayIndex]++;
+            }
+            });
+
+            return { optimisticData, pessimisticData };
+        }
+       
+        // Process the week data
+        const { optimisticData, pessimisticData } = processMoodData(weekData);
+
+        // Call the function to draw the chart with the calculated data
+        drawChart(optimisticData, pessimisticData);
+
+        function drawChart(optimisticData, pessimisticData) {
+            const canvas = document.getElementById('moodChart');
+            const ctx = canvas.getContext('2d');
+
+            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const barWidth = 30; 
+            const barSpacing = 20; 
+            const chartHeight = canvas.height - 20;
+
+            const totalMood = optimisticData.map((val, index) => val + pessimisticData[index]);
+            const maxValue = Math.max(...totalMood);
+
+            labels.forEach((label, index) => {
+            const x = (index * (barWidth + barSpacing)) + 40;
+            const totalHeight = (totalMood[index] / maxValue) * chartHeight;
+            const optimisticHeight = (optimisticData[index] / maxValue) * chartHeight;
+            const pessimisticHeight = (pessimisticData[index] / maxValue) * chartHeight;
+
+            ctx.fillStyle = '#0056ff'; 
+            ctx.fillRect(x, chartHeight - optimisticHeight, barWidth, optimisticHeight);
+
+            ctx.fillStyle = '#ffffff'; 
+            ctx.fillRect(x, chartHeight - totalHeight, barWidth, pessimisticHeight);
+
+            ctx.fillStyle = '#000000';
+            ctx.font = '12px Arial';
+            ctx.fillText(label, x + 5, chartHeight + 15); 
+            });
         }
 
         createCalendar(weekData);
