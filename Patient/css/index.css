@@ -7,6 +7,60 @@ body {
   padding: .5rem;
 }
 
+.person {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+}
+
+.person-image {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.person-image img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.person-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.person-info h2 {
+  color: #0F67FE;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.person-info h3,
+.person-info p {
+  margin: 5px 0;
+  color: #666;
+  font-weight: 500;
+}
+
+.patient-id {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.patient-group,
+.diagnostic {
+  font-size: 1em;
+  color: #666;
+}
+
 h2 {
   font-size: .825rem;
   font-weight: bolder;
@@ -147,4 +201,3 @@ h2 {
   width: 20px;
   height: 20px;
 }
-
