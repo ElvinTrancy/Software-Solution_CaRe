@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 // Start session
 session_start();
@@ -79,6 +76,30 @@ if ($therapistResult->num_rows > 0) {
     $therapistPhoto = $therapistData['photo'];
     $therapistName = $therapistData['name'];
 }
+
+
+$patientsSql = "
+    SELECT 
+        p.id AS id, 
+        p.name AS name, 
+        p.photo, 
+        MAX(g.name) AS group_name, 
+        MAX(d.name) AS disease_name
+    FROM Patients p
+    LEFT JOIN grouppatient gp ON gp.patient_id = p.id
+    LEFT JOIN Groups g ON g.id = gp.group_id
+    LEFT JOIN patienttherapistdisease ptd ON ptd.patient_id = p.id
+    LEFT JOIN mentaldiseases d ON d.id = ptd.disease_id
+    WHERE p.id = ?
+    GROUP BY p.id, p.name, p.photo
+";
+
+$stmt = $conn->prepare($patientsSql);
+$stmt->bind_param("i", $patientId);
+$stmt->execute();
+$patientResult = $stmt->get_result();
+$patientDetail = $patientResult->fetch_assoc();
+
 ?>
 
 <!DOCTYPE html>
@@ -90,6 +111,8 @@ if ($therapistResult->num_rows > 0) {
     <title>Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="Styles/DataVis.css">
+    <link rel="stylesheet" href="Styles/profile.css">
     <link rel="stylesheet" href="Styles/Basical.css">
     <link rel="stylesheet" href="Styles/NagBar.css">
     <link rel="stylesheet" href="css/index.css">
@@ -98,6 +121,22 @@ if ($therapistResult->num_rows > 0) {
 <body>
     <!-- Mood Distribution -->
     <div class="container">
+        <div class="card">
+            <div class="section therapist">
+                <!-- <h2>Patient ID: <?php echo htmlspecialchars($patientDetail['id']); ?></h2> -->
+                <div class="therapist-content">
+                    <div class="therapist-image">
+                        <img onerror="this.src = 'images/taozhe.jpeg'" src="<?php echo htmlspecialchars($patientDetail['photo']); ?>" alt="Patient">
+                    </div>
+                    <div class="session-info">
+                        <h2 style="color:#0F67FE;"><?php echo htmlspecialchars($patientDetail['name']); ?></h2>
+                        <h3>Patient Group: </h3>
+                        <h3><?php echo htmlspecialchars($patientDetail['group_name']); ?></h3>
+                        <p style="color:#666;">Diagnostic: <?php echo htmlspecialchars($patientDetail['disease_name']); ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <h2>Mood Distribution</h2>
         <div class="card mood">
             <div class="icons">

@@ -87,8 +87,9 @@ $stmt->close();
         <div class="section therapist">
             <h2>Patient ID: <?php echo htmlspecialchars($patientData['id']); ?></h2>
             <div class="therapist-content">
-                <div class="therapist-image">
-                    <img onerror="this.src = 'images/taozhe.jpeg'" src="images/<?php echo htmlspecialchars($patientData['photo']); ?>" alt="Patient">
+                <div class="therapist-image" onclick="triggerFileUpload()">
+                    <img id="patient-photo" onerror="this.src = 'images/taozhe.jpeg'" src="<?php echo htmlspecialchars($patientData['photo']); ?>" alt="Patient">
+                    <input type="file" id="camera-upload" name="camera" style="display: none;" accept="image/*">
                 </div>
                 <div class="session-info">
                     <h2 style="color:#0F67FE;"><?php echo htmlspecialchars($patientData['name']); ?></h2>
@@ -128,7 +129,7 @@ $stmt->close();
                         <span><?php echo $record['sleep_hours']; ?> hour</span>
                     </div>
                 </div>
-                <div class="additional-entry">
+                <!-- <div class="additional-entry">
                     <div class="additional-entry-header">
                         <img src="images/Subtract.png" alt="Mood Icon" class="mood-icon">
                         <span class="time-text"><?php echo date('H:i', strtotime($record['sleep_time'])); ?></span>
@@ -154,12 +155,70 @@ $stmt->close();
                         <img src="images/91 sleep zzz.png" alt="Sleep Icon" class="icon">
                         <span><?php echo $record['sleep_hours']; ?> hour</span>
                     </div>
-                </div>
+                </div> -->
             </div>
         <?php
         }
         ?>
         <?php include 'inc/nav-bar.php'; ?>
     </div>
+    <script>
+
+        document.getElementById('camera-upload').addEventListener('change', function() {
+            uploadFile('camera-upload');
+        });
+        function triggerFileUpload() {
+            // Trigger the file input dialog
+            document.getElementById('camera-upload').click();
+        }
+
+        function uploadFile(fileInputId) {
+            const fileInput = document.getElementById(fileInputId);
+            const formData = new FormData();
+            formData.append(fileInput.name, fileInput.files[0]);
+
+            // Perform the AJAX request to upload.php
+            fetch('requests/upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    
+                    // Update the image src to the new path
+                    document.getElementById('patient-photo').src = data.filePath;
+
+                    // After successful upload, send another request to update the patient's photo field
+                    updatePatientPhoto(data.filePath);
+                } else {
+                    alert('Error uploading file: ' + data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updatePatientPhoto(filePath) {
+            const patientId = <?php echo json_encode($patientData['id']); ?>; // Assuming patient ID is available in PHP
+            
+            // Send the updated photo path to the server to update the patient's photo in the database
+            fetch('requests/updatePatientPhoto.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ patient_id: patientId, photo: filePath })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Patient photo updated successfully.');
+                } else {
+                    alert('Error updating patient photo: ' + data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>

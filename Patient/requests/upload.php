@@ -36,7 +36,7 @@ if (isset($_FILES['camera']) && $_FILES['camera']['error'] === UPLOAD_ERR_OK) {
     // Move the uploaded file to the specified directory
     if (move_uploaded_file($imageFile['tmp_name'], $imageFilePath)) {
         $response['success'] = true;
-        $response['filePath'] = $imageFilePath; // Return the file path
+        $response['filePath'] = str_replace("../", "", $imageFilePath); // Return the file path
     } else {
         $response['error'] = 'Error uploading image file.';
     }
