@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Start session
 session_start();
 
@@ -217,3 +221,80 @@ if ($therapistResult->num_rows > 0) {
 
 </html>
 
+<?php
+// db.php - Database connection file
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "patient_data";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch patient data from the database
+$patient_id = 1; // Assuming we want to fetch the details for Patient ID: 001
+$sql = "SELECT * FROM patients WHERE patient_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $patient_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $patient_name = $row['patient_name'];
+    $patient_group = $row['patient_group'];
+    $diagnostic = $row['diagnostic'];
+} else {
+    echo "No patient found.";
+    $conn->close();
+    exit;
+}
+
+$stmt->close();
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Styles/NagBar.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="Styles/Basical.css">
+    <link rel="stylesheet" href="Styles/DataVis.css">
+    <link rel="stylesheet" href="Styles/profile.css">
+</head>
+
+<body>
+    <!-- Mood Distribution -->
+    <div class="container">
+        <div class="card" >
+            <div class="section therapist">
+                <div class="therapist-content">
+                    <div class="therapist-image">
+                        <img src="images/TaoZhe.jpeg" alt="Patient">
+                    </div>
+                    <div class="session-info">
+                        <h2>Patient ID: 001</h2>
+                        <h2 style="color:#0F67FE;"><?php echo htmlspecialchars($patient_name); ?></h2>
+                        <h3>Patient Group: <?php echo htmlspecialchars($patient_group); ?></h3>
+                        <p style="color:#666;">Diagnostic: <?php echo htmlspecialchars($diagnostic); ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other content here... -->
+    </div>
+</body>
+
+</html>

@@ -4,12 +4,10 @@ session_start();
 
 // Check if user is already logged in
 if (isset($_SESSION['user_id'])) {
-    // Redirect to the dashboard if logged in
     header('Location: dashboard.php');
     exit;
 }
 
-// You can include any additional logic here, such as checking cookies for "Remember Me"
 ?>
 
 <!DOCTYPE html>

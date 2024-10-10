@@ -23,7 +23,7 @@
             <hr />
         </div>
         <div class="extra-link">
-            <a href="therapist-login.php">Therapist Log in</a>
+            <a href="analytics.php">Therapist Log in</a>
         </div>
     </div>
 </body>
