@@ -4,18 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const spinner = document.getElementById('loading-spinner');
   const paginationBar = document.getElementById('pagination-container');
 
-  const doctorNames = [
-    'Dr. Smith',
-    'Dr. Johnson',
-    'Dr. Lee',
-    'Dr. Martinez',
-    'Dr. Brown',
-    'Dr. Garcia',
-    'Dr. Miller',
-    'Dr. Davis',
-    'Dr. Wilson',
-    'Dr. Taylor'
-  ];
+
   
   function createDoctorDropdownOptions() {
     const dropdownContainer = document.getElementById('doctor-dropdown');
@@ -70,7 +59,7 @@ document.addEventListener('click', function(event) {
     }
 });
 
-const mockData = [];
+
 
 
 
@@ -78,11 +67,11 @@ const mockData = [];
 
 
 const patientImages = [
-    '/assets/patient0.jpeg',
-    '/assets/patient1.jpeg',
-    '/assets/patient2.jpeg',
-    '/assets/patient3.jpeg',
-    '/assets/patient4.jpeg'
+    'assets/patient0.jpeg',
+    'assets/patient1.jpeg',
+    'assets/patient2.jpeg',
+    'assets/patient3.jpeg',
+    'assets/patient4.jpeg'
 ];
 
 
@@ -149,9 +138,6 @@ resetFilter.addEventListener('click', function() {
   }
 });
 
-// Generate approximately 150 patients
-generatePatients(150);
-
 function isWithinRegistrationPeriod(registrationDate, selectedPeriod) {
   const registrationDateObj = new Date(registrationDate);
   const today = new Date();
@@ -174,7 +160,6 @@ function isWithinRegistrationPeriod(registrationDate, selectedPeriod) {
   const dateDifference = Math.floor((today - registrationDateObj) / (1000 * 60 * 60 * 24));
   return dateDifference <= daysDifference;
 }
-
 
 function reloadTable(page = 1, rowsPerPage = 10) {
   showLoading(); // Show loading spinner
@@ -208,27 +193,41 @@ function reloadTable(page = 1, rowsPerPage = 10) {
       currentPageData.forEach(data => {
           const row = document.createElement('tr');
           let statusClass = '';
+          let possibleStatuses = ['Active', 'On hold', 'Discharged'];
+
+            // Check if the status is undefined, null, or empty, then assign a random status
+            if (!data.status || data.status === '') {
+                // Get a random status from the possibleStatuses array
+                data.status = possibleStatuses[Math.floor(Math.random() * possibleStatuses.length)];
+            }
 
           // Determine the CSS class based on status
-          if (data.status === 'Active') {
+          if (data.status === 'Online') {
               statusClass = 'status-active';
-          } else if (data.status === 'On hold') {
+          } else if (data.status === 'Rest') {
               statusClass = 'status-onhold';
-          } else if (data.status === 'Discharged') {
+          } else if (data.status === 'Quit') {
               statusClass = 'status-discharged';
           }
+          const randomImageIndex = Math.floor(Math.random() * patientImages.length);
+          const err = patientImages[randomImageIndex];
 
+          const randomDoctorIndex = Math.floor(Math.random() * doctorNames.length);
+          const rd = doctorNames[randomDoctorIndex];
+          if (!data.therapist) {
+            data.therapist = rd;
+          }
           row.innerHTML = `
               <td>
                   <div class="patient-info">
-                      <img src="${data.headImg}" alt="Head Image" class="patient-img" />
+                      <img  onerror="this.src='${err}'" src="${data.headImg}" alt="Head Image" class="patient-img" />
                       <div class="patient-details">
                           <span class="patient-name">${data.name}</span>
                           <span class="patient-id">ID: ${data.id}</span>
                       </div>
                   </div>
               </td>
-              <td>${data.registrationDate}</td>
+              <td>${data.created_at}</td>
               <td>${data.therapist}</td>
               <td><span class="status ${statusClass}">${data.status}</span></td>
               <td style="min-width: 250px">${data.notes}</td>

@@ -1,147 +1,105 @@
 <?php
+
+session_start();
+
+include 'inc/side.inc.php';
+include 'inc/nav.inc.php';
+include 'inc/dbconn.inc.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+$therapistsSql = "
+SELECT 
+t.id AS therapist_id, 
+t.name AS therapist_name, 
+t.email, 
+t.field, 
+MIN(g.name) AS group_name
+FROM 
+therapists t
+LEFT JOIN 
+groups g ON t.id = g.therapist_id
+GROUP BY 
+t.id;
+";
+$result = $conn->query($therapistsSql);
+
+$therapists = [];
+$fields = [];
+
+$statuses = ['Online', 'Rest', 'Quit'];
+
+// Store each therapist and their group in the array
+while ($row = $result->fetch_assoc()) {
+  $therapistId = $row['therapist_id'];
+  $randomKey = array_rand($statuses);
+  // Add therapist to the list
+  $therapists[$therapistId] = [
+      'id' => $therapistId,
+      'name' => $row['therapist_name'],
+      'email' => $row['email'],
+      'field' => $row['field'],
+      'group' => $row['group_name'], // Comma-separated group names,
+      'status' => $statuses[$randomKey]
+  ];
+
+  $fields[] = $row['field']; // Store fields for later use
+}
+
+// Remove duplicate fields to get a list of unique fields
+$fields = array_unique($fields);
+
+$groupSql = "SELECT name FROM groups";
+$result = $conn->query($groupSql);
+
+$groupNames = [];
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $groupNames[] = $row['name'];
+    }
+}
+
+$patientsSql = "SELECT * FROM patients";
+$result = $conn->query($patientsSql);
+
+// Initialize an empty array to hold patient data
+$patientsData = [];
+
+if ($result->num_rows > 0) {
+    // Fetch each row of data and add it to the patientsData array
+    while ($row = $result->fetch_assoc()) {
+        $patientsData[] = $row;
+    }
+} else {
+    echo "No patients found.";
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Therapist Management</title>
-    <link rel="stylesheet" href="/components/modal/index.css">
+    <link rel="stylesheet" href="components/modal/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="/components/pagination/index.css">
-    <link rel="stylesheet" href="/components/filter/index.css">
-    <link href="/components/loading/index.css" rel="stylesheet">
-    <script src="/components/icon/index.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="pages/therapist/index.css">
+    <link rel="stylesheet" href="components/pagination/index.css">
+    <link rel="stylesheet" href="components/filter/index.css">   
+    <link href="components/loading/index.css" rel="stylesheet">
+    <script src="components/icon/index.js"></script>
 </head>
 <body>
-  <?php
-    // PHP variables or database queries to replace static data
-    $therapists = [
-      [
-        'id' => '001',
-        'name' => 'Dr. Olivia Turner',
-        'email' => 'olivia.turner@example.com',
-        'group' => 'Group 1',
-        'field' => 'Psychologist',
-        'status' => 'Online'
-      ],
-      [
-        'id' => '002',
-        'name' => 'Dr. John Smith',
-        'email' => 'john.smith@example.com',
-        'group' => 'Group 2',
-        'field' => 'Psychiatrist',
-        'status' => 'Rest'
-      ]
-    ];
-  ?>
-
-  <header class="nav-bar">
-    <div class="nav-logo">
-        <img src="/assets/Component 2.png" alt="Website Logo" class="logo">
-    </div>
-    <div class="nav-items">
-        <span class="icon notification-icon"><img src="/assets/Notification.png" alt="Notifications"></span>
-        <span class="icon message-icon"><img src="/assets/Message.png" alt="Messages"></span>
-        <div class="user-info">
-            <img src="/assets/doc0.jpeg" alt="User Avatar" class="user-avatar">
-            <div class="user-details">
-                <span class="user-name">Austin Robertson</span>
-                <span class="user-role">Marketing Administrator</span>
-            </div>
-        </div>
-    </div>
-  </header>
-
-  <aside class="side-menu">
-    <nav>
-        <ul>
-            <!-- Home Button -->
-            <li class="menu-item">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-home"></use>
-                </svg>
-                <span class="menu-text">Home</span>
-            </li>
-            <!-- Group 1: Pages -->
-            <span class="menu-group-title">Pages</span>
-            <li class="menu-item active">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-game"></use>
-                </svg>
-                <span class="menu-text">Therapist</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            <li class="menu-item">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-patient"></use>
-                </svg>
-                <span class="menu-text">Patient</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            <li class="menu-item">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-group"></use>
-                </svg>
-                <span class="menu-text">Group</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            <li class="menu-item">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-schedule"></use>
-                </svg>
-                <span class="menu-text">Appointment</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            <li class="menu-item">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-authentication"></use>
-                </svg>
-                <span class="menu-text">Authentication</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            <li class="menu-item">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-setting"></use>
-                </svg>
-                <span class="menu-text">Setting</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            <!-- Other items... -->
-            <hr class="menu-divider">
-            <!-- Group 2: Elements -->
-            <span class="menu-group-title">Elements</span>
-            <li class="menu-item">
-                <img src="/assets/components-icon.svg" alt="Components Icon" class="menu-icon">
-                <span class="menu-text">Components</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            <li class="menu-item">
-                <img src="/assets/form-icon.svg" alt="Form Icon" class="menu-icon">
-                <span class="menu-text">Form</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            <!-- Other items... -->
-        </ul>
-    </nav>
-  </aside>
 
   <div class="content">
     <div class="bread-bar">
@@ -187,7 +145,7 @@
     <div class="filter-section">
       <div class="search-container">
         <input type="text" class="search-input" placeholder="Search ID or Name">
-        <button class="operation-btn add-bt">Add +</button>
+        <button class="operation-btn add-bt" id="addPatient">Add +</button>
     </div>
       <div class="filter-bar">
         <div class="filter-item">
@@ -198,10 +156,9 @@
           <div class="dropdown">
             <div class="dropdown-selected" data-default="Group">Group</div>
             <div class="dropdown-options">
-                <div class="dropdown-option" data-value="Group 1">Group 1</div>
-                <div class="dropdown-option" data-value="Group 2">Group 2</div>
-                <div class="dropdown-option" data-value="Group 3">Group 3</div>
-                <div class="dropdown-option" data-value="Group 4">Group 4</div>
+                <?php foreach($groupNames as $group): ?>
+                  <div class="dropdown-option" data-value="<?= htmlspecialchars($group) ?>"><?= htmlspecialchars($group) ?></div>
+                <?php endforeach; ?>
             </div>
           </div>
         </div>
@@ -209,13 +166,9 @@
           <div class="dropdown">
               <div class="dropdown-selected" data-default="Field">Field</div>
               <div class="dropdown-options">
-                  <div class="dropdown-option" data-value="Field 1">Field 1</div>
-                  <div class="dropdown-option" data-value="Field 2">Field 2</div>
-                  <div class="dropdown-option" data-value="Field 3">Field 3</div>
-                  <div class="dropdown-option" data-value="Field 4">Field 4</div>
-                  <div class="dropdown-option" data-value="Field 5">Field 5</div>
-                  <div class="dropdown-option" data-value="Field 6">Field 6</div>
-                  <!-- Other options -->
+                <?php foreach($fields as $field): ?>
+                  <div class="dropdown-option" data-value="<?= htmlspecialchars($field) ?>"><?= htmlspecialchars($field) ?></div>
+                <?php endforeach; ?>
               </div>
           </div>
         </div>
@@ -253,21 +206,12 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($therapists as $therapist): ?>
-                  <tr>
-                      <td><?php echo htmlspecialchars($therapist['id']); ?></td>
-                      <td><?php echo htmlspecialchars($therapist['name']); ?></td>
-                      <td><?php echo htmlspecialchars($therapist['email']); ?></td>
-                      <td><?php echo htmlspecialchars($therapist['group']); ?></td>
-                      <td><?php echo htmlspecialchars($therapist['field']); ?></td>
-                      <td><?php echo htmlspecialchars($therapist['status']); ?></td>
-                      <td><button class="btn btn-primary">View</button></td>
-                  </tr>
-                <?php endforeach; ?>
+                
             </tbody>
         </table>
         <div id="pagination-container" class="pagination"></div>
     </div>
+    
   </div>
 
   <div class="bottom-info">
@@ -287,7 +231,7 @@
                     <div class="therapist-info-left-section">
                         <div class="therapist-info-card">
                             <div class="therapist-info-image">
-                                <img src="/assets/doc2.jpeg" alt="Therapist Picture">
+                                <img src="assets/doc2.jpeg" alt="Therapist Picture">
                             </div>
                             <div class="therapist-info-content">
                                 <div class="info-row">
@@ -319,7 +263,47 @@
                             <div class="therapist-info-patient-list care-scroll">
                                 <!-- Example Patient Items -->
                                 <div class="therapist-info-patient-item">
-                                    <img src="/assets/head.jpeg" alt="Patient Picture">
+                                    <img src="assets/head.jpeg" alt="Patient Picture">
+                                    <div class="therapist-info-patient-info">
+                                        <h4>Patient ID: 001</h4>
+                                        <h4>Olivia Turner, M.D.</h4>
+                                    </div>
+                                    <input type="checkbox" class="therapist-info-patient-checkbox">
+                                </div>
+                                <div class="therapist-info-patient-item">
+                                    <img src="assets/head.jpeg" alt="Patient Picture">
+                                    <div class="therapist-info-patient-info">
+                                        <h4>Patient ID: 001</h4>
+                                        <h4>Olivia Turner, M.D.</h4>
+                                    </div>
+                                    <input type="checkbox" class="therapist-info-patient-checkbox">
+                                </div>
+                                <div class="therapist-info-patient-item">
+                                    <img src="assets/head.jpeg" alt="Patient Picture">
+                                    <div class="therapist-info-patient-info">
+                                        <h4>Patient ID: 001</h4>
+                                        <h4>Olivia Turner, M.D.</h4>
+                                    </div>
+                                    <input type="checkbox" class="therapist-info-patient-checkbox">
+                                </div>
+                                <div class="therapist-info-patient-item">
+                                    <img src="assets/head.jpeg" alt="Patient Picture">
+                                    <div class="therapist-info-patient-info">
+                                        <h4>Patient ID: 001</h4>
+                                        <h4>Olivia Turner, M.D.</h4>
+                                    </div>
+                                    <input type="checkbox" class="therapist-info-patient-checkbox">
+                                </div>
+                                <div class="therapist-info-patient-item">
+                                    <img src="assets/head.jpeg" alt="Patient Picture">
+                                    <div class="therapist-info-patient-info">
+                                        <h4>Patient ID: 001</h4>
+                                        <h4>Olivia Turner, M.D.</h4>
+                                    </div>
+                                    <input type="checkbox" class="therapist-info-patient-checkbox">
+                                </div>
+                                <div class="therapist-info-patient-item">
+                                    <img src="assets/head.jpeg" alt="Patient Picture">
                                     <div class="therapist-info-patient-info">
                                         <h4>Patient ID: 001</h4>
                                         <h4>Olivia Turner, M.D.</h4>
@@ -337,11 +321,11 @@
                         <div class="therapist-info-certificates">
                             <h4>Certificate (02)</h4>
                             <div class="therapist-info-certificate-item">
-                                <img src="/assets/certification2.png" alt="Certificate Image">
+                                <img src="assets/certification2.png" alt="Certificate Image">
                                 <p>The Psychiatrist's Guide to Population Management of Diabetes</p>
                             </div>
                             <div class="therapist-info-certificate-item">
-                                <img src="/assets/certification1.png" alt="Certificate Image">
+                                <img src="assets/certification1.png" alt="Certificate Image">
                                 <p>DOCTORATE OF PSYCHIATRY</p>
                             </div>
                         </div>
@@ -360,7 +344,7 @@
                                         </div>
                                         <!-- Move group icon here -->
                                         <div class="group-icon">
-                                            <img src="/assets/patient_male.png" alt="Group Icon">
+                                            <img src="assets/patient_male.png" alt="Group Icon">
                                         </div>
                                     </div>
                                     <div class="group-authority">
@@ -379,7 +363,7 @@
                                         </div>
                                         <!-- Move group icon here -->
                                         <div class="group-icon">
-                                            <img src="/assets/patient_male.png" alt="Group Icon">
+                                            <img src="assets/patient_male.png" alt="Group Icon">
                                         </div>
                                     </div>
                                     <div class="group-authority">
@@ -398,11 +382,76 @@
         </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-  <script src="/components/modal/confirm.js"></script>
-  <script src="/components/pagination/index.js"></script>
-  <script src="index.js"></script>  
+  <script>
+    const mockData = Object.values(<?php echo json_encode($therapists); ?>);
+    const groups = ['Group 1', 'Group 2', 'Group 3', 'Group 4'];
+    const allPatients = Object.values(<?php echo json_encode($patientsData); ?>) ;
+    const fields = Object.values(<?php echo json_encode($fields); ?>) ;
+    const statuses = ['Online', 'Rest', 'Quit'];
+  </script>
+
   
-  <script src="/components/siderBar/index.js"></script>
+  <script src="components/modal/confirm.js"></script>
+  <script src="components/pagination/index.js"></script>
+  <script src="pages/therapist/index.js"></script>
+
+  <script>
+    document.getElementById('addPatient').addEventListener('click', () => {
+      showModal();
+    });
+
+    document.querySelector('.therapist-info-delete-btn').addEventListener('click', function () {
+    // Get the data from the form
+    const name = document.querySelector('#name-input').value;
+    const email = document.querySelector('#email-input').value;
+    const field = document.querySelector('#field-select').value;
+    const brief = document.querySelector('#brief-textarea').value;
+    const certificates = []; // You can populate this array with file paths of the certificates.
+    const patients = []; // Get the list of selected/unselected patients.
+    
+    const assignedPatients = document.querySelectorAll('.therapist-info-patient-item input[type="checkbox"]:checked');
+    assignedPatients.forEach(patient => {
+        patients.push({
+            id: patient.closest('.therapist-info-patient-item').querySelector('h4').textContent.split(' ')[2],
+            selected: true
+        });
+    });
+
+    const groups = []; // Add logic to retrieve selected groups if necessary
+
+    // Prepare data to be sent to the server
+    const therapistData = {
+        name: name,
+        email: email,
+        field: field,
+        brief: brief,
+        certificates: certificates,
+        patients: patients,
+        groups: groups
+    };
+
+
+    console.log(therapistData);
+    // Send the data using fetch
+    fetch('requests/saveTherapist.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(therapistData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Therapist saved successfully');
+            // Optionally reload or navigate to another page
+        } else {
+            alert('Error saving therapist: ' + data.error);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+  </script>
 </body>
 </html>

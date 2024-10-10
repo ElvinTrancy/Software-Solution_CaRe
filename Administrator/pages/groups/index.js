@@ -4,10 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const spinner = document.getElementById('loading-spinner');
   const paginationBar = document.getElementById('pagination-container');
 
-  const doctorNames = [
-    'Smith', 'Johnson', 'Lee', 'Martinez', 'Brown', 'Garcia', 
-    'Miller', 'Davis', 'Wilson', 'Taylor'
-  ];
+  
   
   function createLeaderDropdownOptions() {
     const dropdownContainer = document.getElementById('leader-dropdown');
@@ -74,7 +71,7 @@ resetFilter.addEventListener('click', function() {
   }
 });
 
-const mockGroupData = [];
+
 const groupImages = [
   '/assets/group00.jpg',
   '/assets/group01.jpg',
@@ -230,7 +227,7 @@ function reloadGroupTable(page = 1, rowsPerPage = 10) {
 }
 
 // Generate approximately 100 groups
-generateGroups(100);
+
 reloadGroupTable(1);
 
 // Initialize Pagination

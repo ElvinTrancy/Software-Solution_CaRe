@@ -4,30 +4,44 @@ session_start();
 
 require_once 'inc/dbconn.inc.php';
 
+// Sample password (this would typically come from a form or another input)
+// $password = 'yourPassword123';
+
+// // Hash the password using SHA-256
+// $hashed_password = hash('sha256', $password);
+
+// // Display the hashed password on the page
+// echo "Hashed Password: " . htmlspecialchars($hashed_password);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $inputUsername = $_POST['username'];
     $inputPassword = $_POST['password'];
+
+    echo "Username: " . htmlspecialchars($inputUsername);
+    echo "Password: " . htmlspecialchars($inputPassword);
 
     // Check if fields are not empty
     if (!empty($inputUsername) && !empty($inputPassword)) {
 
         // Prepare the SQL statement
-        $stmt = $conn->prepare("SELECT * FROM Therapists WHERE email = ?");
+        $stmt = $conn->prepare("SELECT * FROM auditors WHERE email = ?");
         $stmt->bind_param("s", $inputUsername);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $user = $result->fetch_assoc();
-
+            $hashed_password = hash('sha256', $inputPassword);
             // Verify the password (password is hashed in DB)
-            if (password_verify($inputPassword, $user['password'])) {
+            if ($hashed_password == $user['password']) {
                 // Set session variables
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['name'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['head'] = $user['photo'];
 
                 // Redirect to the dashboard or another page
-                header("Location: dashboard.php");
+                header("Location: index.php");
                 exit();
             } else {
                 $error = "Invalid password.";
@@ -185,8 +199,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p style="color: red;"><?= $error ?></p>
         <?php endif; ?>
 
-        <form method="POST" action="">
-            <input type="text" name="username" id="username" placeholder="ID" required>
+        <form method="POST" action="login.php">
+            <input type="text" name="username" id="username" placeholder="Email" required>
             <span class="error-message" id="username-error">Please input your username!</span>
 
             <div class="password-container">

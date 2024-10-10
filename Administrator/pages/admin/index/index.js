@@ -293,44 +293,7 @@ const tasks = [
         "David Wilson"
     ];
 
-    
 
-    // Function to generate random tasks
-    function generateRandomTasks() {
-        // Clear existing tasks
-        const todoList = document.getElementById('todoList');
-        todoList.innerHTML = '';
-       
-        // Generate 5 random tasks
-        for (let i = 0; i < 10; i++) {
-            const task = tasks[Math.floor(Math.random() * tasks.length)];
-            const randomStaff = staff[Math.floor(Math.random() * tasks.length)];
-            const hoursLeft = Math.floor(Math.random() * 8 + 1); // Random hours left
-            let urgencyClass = 'green';
-
-            if (hoursLeft <= 2) {
-                urgencyClass = 'red';
-            } else if (hoursLeft < 4) {
-                urgencyClass = 'yellow';
-            }
-
-            const todoItem = document.createElement('div');
-            todoItem.className = `todo-item ${urgencyClass}`;
-            todoItem.innerHTML = `
-                <div class="todo-task">${task}</div>
-                <div class="todo-info">Due in: ${hoursLeft} hour(s) | Assigned to: ${randomStaff}</div>
-            `;
-            todoList.appendChild(todoItem);
-        }
-    }
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-    
-
-    // Generate tasks on page load
-    generateRandomTasks();
-});
 
 
  // Function to initialize the activity chart with dynamic data

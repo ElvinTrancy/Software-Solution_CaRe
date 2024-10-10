@@ -4,8 +4,8 @@ const calendarBody = document.getElementById("calendar-body");
 const monthYear = document.getElementById("calendar-month-year");
 let currentDate = new Date();
 
-document.getElementById('prev-month').addEventListener('click', () => changeMonth(-1));
-document.getElementById('next-month').addEventListener('click', () => changeMonth(1));
+// document.getElementById('prev-month').addEventListener('click', () => changeMonth(-1));
+// document.getElementById('next-month').addEventListener('click', () => changeMonth(1));
 
 
 const eventTypes = [
@@ -48,7 +48,7 @@ calendarBody.innerHTML = '';
 
 const year = date.getFullYear();
 const month = date.getMonth();
-const randomEvents = generateRandomEvents(year, month); // Get random events for the month
+const randomEvents = []; // Get random events for the month
 
 monthYear.textContent = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 

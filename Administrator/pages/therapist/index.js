@@ -88,21 +88,19 @@ resetFilter.addEventListener('click', function() {
 
   
   // Generate mock data with 150 entries
-  const mockData = [];
-  const groups = ['Group 1', 'Group 2', 'Group 3', 'Group 4'];
-  const fields = ['Field 1', 'Field 2', 'Field 3', 'Field 4', 'Field 5', 'Field 6'];
-  const statuses = ['Online', 'Rest', 'Quit'];
+  
+ 
 
-  for (let i = 1; i <= 150; i++) {
-      mockData.push({
-          id: `000${i.toString().padStart(2, '0')}`,
-          name: `Person ${i}`,
-          email: `person${i}@care.com`,
-          group: groups[i % groups.length],
-          field: fields[i % fields.length],
-          status: statuses[i % statuses.length]
-      });
-  }
+//   for (let i = 1; i <= 150; i++) {
+//       mockData.push({
+//           id: `000${i.toString().padStart(2, '0')}`,
+//           name: `Person ${i}`,
+//           email: `person${i}@care.com`,
+//           group: groups[i % groups.length],
+//           field: fields[i % fields.length],
+//           status: statuses[i % statuses.length]
+//       });
+//   }
 
   const pagination = new Pagination({
     totalPages: 15,
@@ -192,51 +190,27 @@ resetFilter.addEventListener('click', function() {
 
 
     const therapistData = {
-        id: '001',
-        name: 'Olivia Turner, M.D.',
-        email: 'oliviaturner@care.com',
-        field: 'Early Intervention records',
-        brief: 'Specializes in early intervention for children with developmental delays.',
-        image: '/assets/doc2.jpeg',
+        name: '',
+        email: '',
+        field: '',
+        brief: '',
+        image: 'assets/doc2.jpeg',
         certificates: [
             {
                 id: 0,
-                image: '/assets/certification2.png',
+                image: 'assets/certification2.png',
                 description: "The Psychiatrist's Guide to Population Management of Diabetes"
             },
             {
                 id: 1,
-                image: '/assets/certification1.png',
+                image: 'assets/certification1.png',
                 description: 'DOCTORATE OF PSYCHIATRY'
             }
         ],
         assignedPatients: [
-            { id: '101', name: 'John Doe', image: '/assets/head.jpeg', selected: true },
-            { id: '102', name: 'Jane Smith', image: '/assets/head.jpeg', selected: true },
-            // Add more assigned patients if needed
+            
         ],
-        unassignedPatients: [
-            { id: '103', name: 'Alice Johnson', image: '/assets/head.jpeg', selected: false },
-            { id: '104', name: 'Robert Brown', image: '/assets/head.jpeg', selected: false },
-            { id: '105', name: 'Emily Davis', image: '/assets/head.jpeg', selected: false },
-            { id: '106', name: 'Michael White', image: '/assets/head.jpeg', selected: false },
-            { id: '107', name: 'Sarah Wilson', image: '/assets/head.jpeg', selected: false },
-            { id: '108', name: 'David Lee', image: '/assets/head.jpeg', selected: false },
-            { id: '109', name: 'Sophia Taylor', image: '/assets/head.jpeg', selected: false },
-            { id: '110', name: 'Chris Harris', image: '/assets/head.jpeg', selected: false },
-            { id: '111', name: 'Megan Clark', image: '/assets/head.jpeg', selected: false },
-            { id: '112', name: 'James Hall', image: '/assets/head.jpeg', selected: false },
-            { id: '113', name: 'Natalie Allen', image: '/assets/head.jpeg', selected: false },
-            { id: '114', name: 'Ryan King', image: '/assets/head.jpeg', selected: false },
-            { id: '115', name: 'Laura Scott', image: '/assets/head.jpeg', selected: false },
-            { id: '116', name: 'Joshua Young', image: '/assets/head.jpeg', selected: false },
-            { id: '117', name: 'Zoe Walker', image: '/assets/head.jpeg', selected: false },
-            { id: '118', name: 'Anthony Green', image: '/assets/head.jpeg', selected: false },
-            { id: '119', name: 'Jessica Adams', image: '/assets/head.jpeg', selected: false },
-            { id: '120', name: 'Jacob Baker', image: '/assets/head.jpeg', selected: false },
-            { id: '121', name: 'Abigail Turner', image: '/assets/head.jpeg', selected: false },
-            { id: '122', name: 'Daniel Martinez', image: '/assets/head.jpeg', selected: false }
-        ],
+        unassignedPatients: allPatients,
         groups: [
             {
                 name: 'Expert group',
@@ -263,19 +237,13 @@ resetFilter.addEventListener('click', function() {
     function populateTherapistForm(data) {
         // Update the Modal Title with Therapist's Name
         const modalTitle = document.querySelector('.modal-title');
-        modalTitle.textContent = `Therapist Details - ${data.name}`;
+        modalTitle.textContent = `New Therapist`;
     
         // Clear and Populate Therapist Info
         const therapistInfoContainer = document.querySelector('.therapist-info-content');
         therapistInfoContainer.innerHTML = ''; // Clear existing content
 
-        const fieldOptions = [
-            'Early Intervention records',
-            'Pediatrics',
-            'Psychiatry',
-            'Neurology',
-            'Counseling'
-        ];
+        const fieldOptions = fields;
         
 
         const fieldOptionsHTML = fieldOptions.map(option => {
@@ -284,12 +252,18 @@ resetFilter.addEventListener('click', function() {
         }).join('');
     
         const therapistInfoContent = `
-            <h4 class="therapist-info-name">Therapist ID: ${data.id}<br>${data.name}</h4>
+            <h4 class="therapist-info-name">${data.name}</h4>
+            <div class="info-row">
+                <p class="info-title">Name:</p>
+                <p class="info-value">
+                    <input type="text" id="name-input" onblur="confirmChanges('email')" class="editable-input">
+                </p>
+            </div>
             <div class="info-row">
                 <p class="info-title">Email:</p>
                 <p class="info-value">
-                    <a href="mailto:${data.email}" id="email-text">${data.email}</a>
-                    <span class="edit-icon" onclick="toggleEdit('email')">✏️</span>
+                    <input type="email" id="email-input" onblur="confirmChanges('email')" class="editable-input">
+                    
                 </p>
             </div>
             <div class="info-row">
@@ -303,12 +277,12 @@ resetFilter.addEventListener('click', function() {
             <div class="info-row">
                 <p class="info-title">Brief:</p>
                 <div class="info-value">
-                    <p id="brief-text" style="width: 100%">${data.brief}</p>
-                    <span class="edit-icon" onclick="toggleEdit('brief')">✏️</span>
+                <textarea id="brief-textarea" class="editable-textarea" onblur="confirmChanges('brief')"></textarea>
+                    
                 </div>
             </div>
             <div class="therapist-info-buttons">
-                <button class="therapist-info-delete-btn" onclick="deleteTherapist()">Delete</button>
+                <button class="therapist-info-delete-btn" onclick="deleteTherapist()">Save</button>
             </div>
         `;
 
@@ -363,7 +337,7 @@ resetFilter.addEventListener('click', function() {
                             <p>Num of Member: ${group.numMembers}</p>
                         </div>
                         <div class="group-icon">
-                            <img src="/assets/patient_male.png" alt="Group Icon">
+                            <img src="assets/patient_male.png" alt="Group Icon">
                         </div>
                     </div>
                     <div class="group-authority">
@@ -383,90 +357,90 @@ resetFilter.addEventListener('click', function() {
 let originalBriefText = ""; // To store the original brief text
 
 function toggleEdit(field) {
-    if (field === 'email') {
-        const emailValue = document.getElementById('email-text');
-        const emailContainer = emailValue.parentNode;
+    // if (field === 'email') {
+    //     const emailValue = document.getElementById('email-text');
+    //     const emailContainer = emailValue.parentNode;
 
-        if (emailValue.tagName === 'A') {
-            // Save the original email
-            originalEmail = emailValue.textContent.trim();
+    //     if (emailValue.tagName === 'A') {
+    //         // Save the original email
+    //         originalEmail = emailValue.textContent.trim();
             
-            // Switch to input mode for email
-            emailContainer.innerHTML = `<input type="email" id="email-input" value="${originalEmail}" onblur="confirmChanges('email')" class="editable-input">`;
-        } else {
-            // Switch back to text mode for email
-            emailContainer.innerHTML = `<a href="mailto:${originalEmail}" id="email-text">${originalEmail}</a> <span class="edit-icon" onclick="toggleEdit('email')">✏️</span>`;
-        }
-    } else if (field === 'brief') {
-        const briefText = document.getElementById('brief-text');
-        const briefValue = briefText.textContent.trim();
+    //         // Switch to input mode for email
+    //         emailContainer.innerHTML = `<input type="email" id="email-input" value="${originalEmail}" onblur="confirmChanges('email')" class="editable-input">`;
+    //     } else {
+    //         // Switch back to text mode for email
+    //         emailContainer.innerHTML = `<a href="mailto:${originalEmail}" id="email-text">${originalEmail}</a> <span class="edit-icon" onclick="toggleEdit('email')">✏️</span>`;
+    //     }
+    // } else if (field === 'brief') {
+    //     const briefText = document.getElementById('brief-text');
+    //     const briefValue = briefText.textContent.trim();
 
-        if (!briefText.querySelector('textarea')) {
-            // Save the original brief text
-            originalBriefText = briefValue;
+    //     if (!briefText.querySelector('textarea')) {
+    //         // Save the original brief text
+    //         originalBriefText = briefValue;
             
-            // Switch to textarea mode for brief
-            briefText.innerHTML = `<textarea id="brief-textarea" class="editable-textarea" onblur="confirmChanges('brief')">${originalBriefText}</textarea>`;
-        } else {
-            // Switch back to text mode for brief
-            briefText.innerHTML = `${originalBriefText}`;
-        }
-    }
+    //         // Switch to textarea mode for brief
+    //         briefText.innerHTML = `<textarea id="brief-textarea" class="editable-textarea" onblur="confirmChanges('brief')">${originalBriefText}</textarea>`;
+    //     } else {
+    //         // Switch back to text mode for brief
+    //         briefText.innerHTML = `${originalBriefText}`;
+    //     }
+    // }
 }
 
 
 function confirmChanges(field) {
-    if (field === 'email') {
-        const emailInput = document.getElementById('email-input');
-        const newEmail = emailInput.value.trim();
+    // if (field === 'email') {
+    //     const emailInput = document.getElementById('email-input');
+    //     const newEmail = emailInput.value.trim();
 
-        if (newEmail !== originalEmail) {
-            confirmModal.show(
-                "Save the changes?",
-                "After saving the brief would be changed permenantly.",
-                () => {
-                    originalEmail = newEmail;
+    //     if (newEmail !== originalEmail) {
+    //         confirmModal.show(
+    //             "Save the changes?",
+    //             "After saving the brief would be changed permenantly.",
+    //             () => {
+    //                 originalEmail = newEmail;
                     
-                    confirmModal.hide();
-                },
-                () => {
+    //                 confirmModal.hide();
+    //             },
+    //             () => {
                    
-                },
-                "Ok",
-                "Cancel"
-            );
-        }
+    //             },
+    //             "Ok",
+    //             "Cancel"
+    //         );
+    //     }
 
-        document.getElementById('email-input').parentNode.innerHTML = `<a href="mailto:${originalEmail}" id="email-text">${originalEmail}</a> <span class="edit-icon" onclick="toggleEdit('email')">✏️</span>`;
+    //     document.getElementById('email-input').parentNode.innerHTML = `<a href="mailto:${originalEmail}" id="email-text">${originalEmail}</a> <span class="edit-icon" onclick="toggleEdit('email')">✏️</span>`;
 
-        // Revert to text mode for email
+    //     // Revert to text mode for email
         
-    } else if (field === 'brief') {
-        const briefInput = document.getElementById('brief-textarea');
-        const newBrief = briefInput.value.trim();
+    // } else if (field === 'brief') {
+    //     const briefInput = document.getElementById('brief-textarea');
+    //     const newBrief = briefInput.value.trim();
 
-        if (newBrief !== originalBriefText) {
-            confirmModal.show(
-                "Save the changes?",
-                "After saving the brief would be changed permenantly.",
-                () => {
-                    originalBriefText = newBrief;
-                    confirmModal.hide();
-                },
-                () => {
+    //     if (newBrief !== originalBriefText) {
+    //         confirmModal.show(
+    //             "Save the changes?",
+    //             "After saving the brief would be changed permenantly.",
+    //             () => {
+    //                 originalBriefText = newBrief;
+    //                 confirmModal.hide();
+    //             },
+    //             () => {
                    
-                },
-                "Ok",
-                "Cancel"
-            );
-        }
+    //             },
+    //             "Ok",
+    //             "Cancel"
+    //         );
+    //     }
 
-        document.getElementById('brief-text').innerHTML = `${originalBriefText}`;
+    //     document.getElementById('brief-text').innerHTML = `${originalBriefText}`;
         
 
-        // // Revert to text mode for brief
-        // document.getElementById('brief-text').innerHTML = `${originalBriefText}`;
-    }
+    //     // // Revert to text mode for brief
+    //     // document.getElementById('brief-text').innerHTML = `${originalBriefText}`;
+    // }
 }
 
 let currentImgId = '';
