@@ -151,7 +151,6 @@ $therapistsDataJson = json_encode($therapistsData);
     const doctorNames = doctors.map(t => `${t.name}`);
     const mockGroupData = Object.values(<?php echo json_encode($groups); ?>);
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
   <script src="components/modal/confirm.js"></script>
   <script src="components/pagination/index.js"></script>
   <script src="pages/groups/index.js"></script>

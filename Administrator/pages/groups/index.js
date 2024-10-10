@@ -73,11 +73,11 @@ resetFilter.addEventListener('click', function() {
 
 
 const groupImages = [
-  '/assets/group00.jpg',
-  '/assets/group01.jpg',
-  '/assets/group02.jpg',
-  '/assets/group03.jpg',
-  '/assets/group04.jpg'
+  'assets/group00.jpg',
+  'assets/group01.jpg',
+  'assets/group02.jpg',
+  'assets/group03.jpg',
+  'assets/group04.jpg'
 ];
 
 // Mock Group Data Generation
@@ -200,20 +200,23 @@ function reloadGroupTable(page = 1, rowsPerPage = 10) {
               statusClass = 'status-recruiting';
           }
 
+          const randomLeaderIndex = Math.floor(Math.random() * doctorNames.length);
+          const randomImageIndex = Math.floor(Math.random() * groupImages.length);
+
           row.innerHTML = `
               <td>
                   <div class="group-info">
-                      <img src="${data.headImg}" alt="Group Image" class="group-img" />
+                      <img onerror='this.src="${groupImages[randomImageIndex]}"'  src="${data.headImg}" alt="Group Image" class="group-img" />
                       <div class="group-details">
-                          <span class="group-name">${data.groupName}</span>
+                          <span class="group-name">${data.name}</span>
                           <span class="group-id">ID: ${data.id}</span>
                       </div>
                   </div>
               </td>
-              <td>${data.numberOfMembers}</td>
-              <td>${data.leader}</td>
-              <td>${data.assignedPatients}</td>
-              <td>${data.creationDate}</td>
+              <td>${data.number_of_members}</td>
+              <td>${data.therapist_id}</td>
+              <td>${data.assigned_patients}</td>
+              <td>${data.created_at}</td>
               <td><span class="status ${statusClass}">${data.status}</span></td>
               <td>
                   <button class="operation-btn" onClick="showModal(${data.id})">Edit</button>

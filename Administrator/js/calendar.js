@@ -48,7 +48,6 @@ calendarBody.innerHTML = '';
 
 const year = date.getFullYear();
 const month = date.getMonth();
-const randomEvents = []; // Get random events for the month
 
 monthYear.textContent = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 
@@ -82,15 +81,13 @@ while (dateCount <= daysInMonth) {
         cell.textContent = dateCount;
 
         const eventDate = new Date(year, month, dateCount).toISOString().slice(0, 10);
-        const eventForDate = randomEvents.find(event => event.date === eventDate);
+        const eventForDate = randomEvents.find(event => event.appointment_date.substring(0, 10) === eventDate);
 
         if (eventForDate) {
-            eventForDate.multipleEvents.forEach(eventForDay => {
-                const eventSpan = document.createElement('span');
-                eventSpan.classList.add('event', eventForDay.className);
-                eventSpan.textContent = eventForDay.name;
-                cell.appendChild(eventSpan);
-            });
+            const eventSpan = document.createElement('span');
+            eventSpan.classList.add('event', 'purple');
+            eventSpan.textContent = eventForDate.notes;
+            cell.appendChild(eventSpan);
         }
 
         row.appendChild(cell);
