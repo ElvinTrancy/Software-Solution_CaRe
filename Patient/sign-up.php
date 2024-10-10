@@ -42,13 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param('sss', $name, $email, $hashed_password);
 
             if ($stmt->execute()) {
-                // Start a session for the user
-                $_SESSION['patient_id'] = $stmt->insert_id;
-                $_SESSION['patient_name'] = $name;
-                $_SESSION['patient_email'] = $email;
-
-                // Redirect to the dashboard or home page
-                header("Location: home.php");
+               
+                header("Location: login.php");
                 exit();
             } else {
                 $errorMessage = "Error signing up. Please try again later.";
