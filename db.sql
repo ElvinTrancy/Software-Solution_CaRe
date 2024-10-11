@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1
--- 生成日期： 2024-10-11 03:27:41
+-- 生成日期： 2024-10-11 04:52:14
 -- 服务器版本： 10.4.32-MariaDB
 -- PHP 版本： 8.2.12
 
@@ -49,7 +49,7 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `therapist_id`, `patient_id`, `appointment_date`, `duration_minutes`, `appointment_type`, `location`, `status`, `notes`) VALUES
-(1, 1, 1, '2024-10-09 10:00:00', 60, 'Consultation', 'Room 101', 'Scheduled', 'Initial consultation.'),
+(1, 1, 1, '2024-10-11 10:00:00', 60, 'Consultation', 'Room 101', 'Scheduled', 'Initial consultation.'),
 (2, 2, 2, '2023-08-20 14:00:00', 45, 'Therapy Session', 'Room 202', 'Completed', 'Follow-up therapy session.'),
 (3, 3, 3, '2023-09-25 09:30:00', 30, 'Consultation', 'Room 303', 'Scheduled', 'Neurological assessment.'),
 (4, 4, 4, '2023-10-01 11:00:00', 60, 'Follow-up', 'Room 404', 'Cancelled', 'Appointment cancelled by patient.'),
@@ -79,7 +79,7 @@ CREATE TABLE `auditors` (
 
 INSERT INTO `auditors` (`id`, `name`, `email`, `phone_number`, `password`, `audit_privileges`, `created_at`, `updated_at`, `photo`) VALUES
 (1, 'Auditor 1', 'auditor1@care.com', '1112223333', '29618d60acd075fc93cac898b8e4a1231e97aaabcb851566756b171448f92ef5', '{\"case_types\": \"All\", \"consultation_lengths\": \"View Only\"}', '2024-10-04 22:45:24', '2024-10-11 01:26:51', NULL),
-(2, 'Auditor 2', 'auditor2@care.com', '4445556666', '897dab869ad1e41e0e1edf518e1a6c5aba0aa5487af0f8e9e3fe490c3914fcea', '{\"case_types\": \"Pediatrics\", \"consultation_lengths\": \"View and Edit\"}', '2024-10-04 22:45:24', '2024-10-07 19:38:25', NULL),
+(2, 'Auditor 2', 'auditor2@care.com', '4445556666', '29618d60acd075fc93cac898b8e4a1231e97aaabcb851566756b171448f92ef5', '{\"case_types\": \"Pediatrics\", \"consultation_lengths\": \"View and Edit\"}', '2024-10-04 22:45:24', '2024-10-11 02:49:55', NULL),
 (3, 'Auditor 3', 'auditor3@care.com', '7778889999', '3de7d8db5f60e954a1b833556da9e8d91c9d6a8bd661cb2628f85683dcf5cf46', '{\"case_types\": \"Neurology\", \"consultation_lengths\": \"View Only\"}', '2024-10-04 22:45:24', '2024-10-07 19:38:25', NULL),
 (4, 'Auditor 4', 'auditor4@care.com', '1231231234', 'cd3a8236cf30b7037474f1e66a0eaf9d2e6d6f4528023acd0be8cd067d36ffca', '{\"case_types\": \"General Medicine\", \"consultation_lengths\": \"View and Edit\"}', '2024-10-04 22:45:24', '2024-10-07 19:38:25', NULL),
 (5, 'Auditor 5', 'auditor5@care.com', '3213214321', '229ba5afdba30ae51ae61019a40a1750a463de0b727dfe42cc0124d0d33b0975', '{\"case_types\": \"Dermatology\", \"consultation_lengths\": \"View Only\"}', '2024-10-04 22:45:24', '2024-10-07 19:38:25', NULL);
@@ -543,8 +543,8 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`id`, `name`, `email`, `phone_number`, `group_name`, `field`, `status`, `date_of_birth`, `password`, `emergency_contact_name`, `emergency_contact_phone`, `insurance_policy_number`, `address`, `photo`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 'Laura Lewis', 'patient1@care.com', '1119096577', 'Group 2', 'Orthopedics', 'Online', '1983-11-07', '29618d60acd075fc93cac898b8e4a1231e97aaabcb851566756b171448f92ef5', 'Emergency Contact 1', '1103862043', 'POL86577', '560 Elm St', 'assets/patient1.jpg', 'Asthma patient', '2024-09-07 02:31:23', '2024-10-11 01:26:22'),
-(2, 'Sarah Moore', 'patient2@care.com', '1316780152', 'Group 4', 'Orthopedics', 'Quit', '1995-10-15', 'cd4e790a5f73201c2022ec0c326ae03e0003fb6218dcc6f270bd32dbebee42e8', 'Emergency Contact 2', '1550945404', 'POL52622', '767 Elm St', 'assets/patient2.jpg', 'Diabetic', '2024-09-20 02:31:23', '2024-10-08 06:30:47'),
+(1, 'Laura Lewis', 'patient1@care.com', '1119096577', 'Group 2', 'Orthopedics', 'Online', '1983-11-07', '29618d60acd075fc93cac898b8e4a1231e97aaabcb851566756b171448f92ef5', 'Emergency Contact 1', '1103862043', 'POL86577', '560 Elm St', 'uploads/head.png', 'Asthma patient', '2024-09-07 02:31:23', '2024-10-11 01:48:46'),
+(2, 'Sarah Moore', 'patient2@care.com', '1316780152', 'Group 4', 'Orthopedics', 'Quit', '1995-10-15', '29618d60acd075fc93cac898b8e4a1231e97aaabcb851566756b171448f92ef5', 'Emergency Contact 2', '1550945404', 'POL52622', '767 Elm St', 'assets/patient2.jpg', 'Diabetic', '2024-09-20 02:31:23', '2024-10-11 02:50:36'),
 (3, 'Laura Davis', 'patient3@care.com', '1511101871', 'Group 3', 'Dermatology', 'Rest', '2009-01-04', '5888e0023c8316005d9fd0d5b23b7cbcd2e521b76cabc0a9016cb8aaf4f2d86f', 'Emergency Contact 3', '1955603860', 'POL25367', '683 Elm St', 'assets/patient3.jpg', 'Asthma patient', '2024-09-12 02:31:23', '2024-10-08 06:30:47'),
 (4, 'Mia White', 'patient4@care.com', '1709807803', 'Group 5', 'Orthopedics', 'Online', '1986-05-13', '4208f235050bf48bd263fede72d15cc87823f1161f52794d96468060639f2609', 'Emergency Contact 4', '1657723691', 'POL48382', '486 Elm St', 'assets/patient4.jpg', 'Asthma patient', '2024-09-15 02:31:23', '2024-10-08 06:30:47'),
 (5, 'David Taylor', 'patient5@care.com', '1685921426', 'Group 4', 'Orthopedics', 'Online', '2011-02-06', '246ecb6ebf8a42e7e7e9b43afc27432f970561d51985499af4634839982c6c3c', 'Emergency Contact 5', '1883571918', 'POL52306', '459 Elm St', 'assets/patient5.jpg', 'No known allergies', '2024-09-28 02:31:23', '2024-10-08 06:30:47'),
@@ -1893,7 +1893,7 @@ CREATE TABLE `therapists` (
 
 INSERT INTO `therapists` (`id`, `name`, `email`, `field`, `phone_number`, `specialty`, `password`, `appointment_color`, `photo`, `created_at`, `updated_at`, `brief`) VALUES
 (1, 'Dr. John Smith', 'johnsmith@care.com', 'Psychodynamic Therapy', '1111111111', 'Psychiatry', '29618d60acd075fc93cac898b8e4a1231e97aaabcb851566756b171448f92ef5', '#ff5733', 'assets/therapist1.jpg', '2024-10-05 02:08:33', '2024-10-11 01:26:38', NULL),
-(2, 'Dr. Alice Johnson', 'alicejohnson@care.com', 'Personality Disorders Therapy', '2222222222', 'Pediatrics', '6cf615d5bcaac778352a8f1f3360d23f02f34ec182e259897fd6ce485d7870d4', '#33ff57', 'assets/therapist2.jpg', '2024-10-05 02:08:33', '2024-10-10 08:16:51', NULL),
+(2, 'Dr. Alice Johnson', 'alicejohnson@care.com', 'Personality Disorders Therapy', '2222222222', 'Pediatrics', '29618d60acd075fc93cac898b8e4a1231e97aaabcb851566756b171448f92ef5', '#33ff57', 'assets/therapist2.jpg', '2024-10-05 02:08:33', '2024-10-11 02:51:11', NULL),
 (3, 'Dr. Robert Brown', 'robertbrown@care.com', 'Eating Disorders Counseling', '3333333333', 'Neurology', '5906ac361a137e2d286465cd6588ebb5ac3f5ae955001100bc41577c3d751764', '#3357ff', 'assets/therapist3.jpg', '2024-10-05 02:08:33', '2024-10-10 08:16:51', NULL),
 (4, 'Dr. Maria Lee', 'marialee@care.com', 'Personality Disorders Therapy', '4444444444', 'Dermatology', 'b97873a40f73abedd8d685a7cd5e5f85e4a9cfb83eac26886640a0813850122b', '#ff33a1', 'assets/therapist4.jpg', '2024-10-05 02:08:33', '2024-10-10 08:16:51', NULL),
 (5, 'Dr. David Garcia', 'davidgarcia@care.com', 'Personality Disorders Therapy', '5555555555', 'General Medicine', '8b2c86ea9cf2ea4eb517fd1e06b74f399e7fec0fef92e3b482a6cf2e2b092023', '#a133ff', 'assets/therapist5.jpg', '2024-10-05 02:08:33', '2024-10-10 08:16:51', NULL),
@@ -1905,7 +1905,8 @@ INSERT INTO `therapists` (`id`, `name`, `email`, `field`, `phone_number`, `speci
 (11, '', '', 'Psychodynamic Therapy', NULL, NULL, '', '', NULL, '2024-10-10 09:28:00', '2024-10-10 09:28:00', ''),
 (14, '1', '2@care.com', 'Personality Disorders Therapy', NULL, NULL, '', '', NULL, '2024-10-10 09:37:17', '2024-10-10 09:37:17', '1111'),
 (15, '1', '23@care.com', 'Personality Disorders Therapy', NULL, NULL, '', '', NULL, '2024-10-10 09:38:24', '2024-10-10 09:38:24', '111'),
-(16, '123', '123@care.com', 'Personality Disorders Therapy', NULL, NULL, '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', NULL, '2024-10-10 09:41:59', '2024-10-10 09:41:59', 'ddddd');
+(16, '123', '123@care.com', 'Personality Disorders Therapy', NULL, NULL, '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', NULL, '2024-10-10 09:41:59', '2024-10-10 09:41:59', 'ddddd'),
+(17, '1233311', 'wen0093@flinders.edu.au', 'Personality Disorders Therapy', NULL, NULL, '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', NULL, '2024-10-11 01:34:57', '2024-10-11 01:34:57', '13dadad');
 
 -- --------------------------------------------------------
 
@@ -1934,7 +1935,9 @@ INSERT INTO `therapist_assigned_patients` (`id`, `therapist_id`, `patient_id`, `
 (5, 4, 5, 'Primary', '2023-04-10', 'On hold'),
 (6, 5, 1, 'Consultant', '2023-05-12', 'Completed'),
 (7, 14, 2, 'Primary', '2024-10-10', 'Active'),
-(8, 14, 3, 'Primary', '2024-10-10', 'Active');
+(8, 14, 3, 'Primary', '2024-10-10', 'Active'),
+(9, 17, 1, 'Primary', '2024-10-11', 'Active'),
+(10, 17, 19, 'Primary', '2024-10-11', 'Active');
 
 --
 -- 转储表的索引
@@ -2107,13 +2110,13 @@ ALTER TABLE `patients`
 -- 使用表AUTO_INCREMENT `therapists`
 --
 ALTER TABLE `therapists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- 使用表AUTO_INCREMENT `therapist_assigned_patients`
 --
 ALTER TABLE `therapist_assigned_patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- 限制导出的表
