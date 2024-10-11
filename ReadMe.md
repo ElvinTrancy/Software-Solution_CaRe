@@ -24,7 +24,6 @@ Before running the PHP application, make sure your environment meets the followi
 |               | auditor2@care.com        | YourPassword1  |
 | **Therapist** | johnsmith@care.com       | YourPassword1  |
 |               | alicejohnson@care.com    | YourPassword1  |
-|---------------|--------------------------|----------------|
 
 ## Setup Instructions
 
