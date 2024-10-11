@@ -17,9 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $inputUsername = $_POST['username'];
     $inputPassword = $_POST['password'];
 
-    echo "Username: " . htmlspecialchars($inputUsername);
-    echo "Password: " . htmlspecialchars($inputPassword);
-
     // Check if fields are not empty
     if (!empty($inputUsername) && !empty($inputPassword)) {
 
