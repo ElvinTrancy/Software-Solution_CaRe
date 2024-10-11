@@ -21,6 +21,11 @@ SET time_zone = "+00:00";
 -- 数据库： `care`
 --
 
+Drop DATABASE IF EXISTS care;
+Create DATABASE care;
+
+use care;
+
 -- --------------------------------------------------------
 
 --

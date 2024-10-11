@@ -158,7 +158,6 @@ $therapistsDataJson = json_encode($therapistsData);
     <span style="margin-left: 3rem;">Terms of Use</span>
   </div>
  
-  <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
   <script src="components/modal/confirm.js"></script>
   <script src="components/pagination/index.js"></script>
   <script>

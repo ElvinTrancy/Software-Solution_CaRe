@@ -78,26 +78,6 @@ function isActiveMenu($menuText, $currentPath, $currentDir, $currentFile) {
                     <use xlink:href="#icon-arrow"></use>
                 </svg>
             </li>
-            
-            <li class="menu-item <?php echo isActiveMenu('authentication', $currentPath, $currentDir, $currentFile); ?>" onclick="window.location.href='authentication.php'">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-authentication"></use>
-                </svg>
-                <span class="menu-text">Authentication</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
-            
-            <li class="menu-item <?php echo isActiveMenu('setting', $currentPath, $currentDir, $currentFile); ?>" onclick="window.location.href='setting.php'">
-                <svg class="icon menu-icon" aria-hidden="true">
-                    <use xlink:href="#icon-setting"></use>
-                </svg>
-                <span class="menu-text">Setting</span>
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-arrow"></use>
-                </svg>
-            </li>
         </ul>
     </nav>
 </aside>
