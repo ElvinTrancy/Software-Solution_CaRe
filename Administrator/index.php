@@ -2,14 +2,16 @@
 
 session_start();
 
-include 'inc/side.inc.php';
-include 'inc/nav.inc.php';
-include 'inc/dbconn.inc.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+
+include 'inc/side.inc.php';
+include 'inc/nav.inc.php';
+include 'inc/dbconn.inc.php';
+
 
 
 $user_name = $_SESSION['username'];
